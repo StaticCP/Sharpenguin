@@ -1,0 +1,86 @@
+\hypertarget{classSharpenguin_1_1Xt_1_1HandlerTable}{\section{\-Sharpenguin.\-Xt.\-Handler\-Table \-Class \-Reference}
+\label{classSharpenguin_1_1Xt_1_1HandlerTable}\index{\-Sharpenguin.\-Xt.\-Handler\-Table@{\-Sharpenguin.\-Xt.\-Handler\-Table}}
+}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSharpenguin_1_1Xt_1_1HandlerTable_a3c993cb30c4f89943232f4416406bdd8}{\-Handler\-Table} ()
+\item 
+void \hyperlink{classSharpenguin_1_1Xt_1_1HandlerTable_abcd2e0f9a4786685a4a03faf7d6372b5}{\-Add} (string str\-Command, \-Packet\-Handler to\-Add)
+\item 
+void \hyperlink{classSharpenguin_1_1Xt_1_1HandlerTable_aab2d7871bbf5578b69994bc060a5a376}{\-Execute} (string str\-Command, \hyperlink{classSharpenguin_1_1Data_1_1PenguinPacket}{\-Data.\-Penguin\-Packet} received\-Packet)
+\item 
+void \hyperlink{classSharpenguin_1_1Xt_1_1HandlerTable_a6255cdc09decb3f492906d391def4de7}{\-Remove} (string str\-Command, \-Packet\-Handler to\-Remove)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Class to handle \hyperlink{namespaceSharpenguin_1_1Xt}{\-Xt} packets. 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classSharpenguin_1_1Xt_1_1HandlerTable_a3c993cb30c4f89943232f4416406bdd8}{\index{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table@{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table}!\-Handler\-Table@{\-Handler\-Table}}
+\index{\-Handler\-Table@{\-Handler\-Table}!Sharpenguin::Xt::HandlerTable@{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table}}
+\subsubsection[{\-Handler\-Table}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Sharpenguin.\-Xt.\-Handler\-Table.\-Handler\-Table} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classSharpenguin_1_1Xt_1_1HandlerTable_a3c993cb30c4f89943232f4416406bdd8}
+\-Handler table constructor. \-Creates the dictionary needed for storing handler delegates. 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classSharpenguin_1_1Xt_1_1HandlerTable_abcd2e0f9a4786685a4a03faf7d6372b5}{\index{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table@{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table}!\-Add@{\-Add}}
+\index{\-Add@{\-Add}!Sharpenguin::Xt::HandlerTable@{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table}}
+\subsubsection[{\-Add}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Sharpenguin.\-Xt.\-Handler\-Table.\-Add} (
+\begin{DoxyParamCaption}
+\item[{string}]{str\-Command, }
+\item[{\-Packet\-Handler}]{to\-Add}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classSharpenguin_1_1Xt_1_1HandlerTable_abcd2e0f9a4786685a4a03faf7d6372b5}
+\-Adds a new handler.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em str\-Command} & \-The xt command that this handler should be registered to.\\
+\hline
+{\em to\-Add} & \-The delegate that the handler uses. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSharpenguin_1_1Xt_1_1HandlerTable_aab2d7871bbf5578b69994bc060a5a376}{\index{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table@{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table}!\-Execute@{\-Execute}}
+\index{\-Execute@{\-Execute}!Sharpenguin::Xt::HandlerTable@{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table}}
+\subsubsection[{\-Execute}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Sharpenguin.\-Xt.\-Handler\-Table.\-Execute} (
+\begin{DoxyParamCaption}
+\item[{string}]{str\-Command, }
+\item[{{\bf \-Data.\-Penguin\-Packet}}]{received\-Packet}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classSharpenguin_1_1Xt_1_1HandlerTable_aab2d7871bbf5578b69994bc060a5a376}
+\-Executes a handler by the command.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em str\-Command} & \-The xt command of the received packet. \\
+\hline
+{\em received\-Packet} & \-The packet that was received. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSharpenguin_1_1Xt_1_1HandlerTable_a6255cdc09decb3f492906d391def4de7}{\index{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table@{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table}!\-Remove@{\-Remove}}
+\index{\-Remove@{\-Remove}!Sharpenguin::Xt::HandlerTable@{\-Sharpenguin\-::\-Xt\-::\-Handler\-Table}}
+\subsubsection[{\-Remove}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Sharpenguin.\-Xt.\-Handler\-Table.\-Remove} (
+\begin{DoxyParamCaption}
+\item[{string}]{str\-Command, }
+\item[{\-Packet\-Handler}]{to\-Remove}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classSharpenguin_1_1Xt_1_1HandlerTable_a6255cdc09decb3f492906d391def4de7}
+\-Removes a handler by the command.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em str\-Command} & \-The xt command that the handler is registered to. \\
+\hline
+{\em to\-Remove} & \-The delegate to remove. \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\-Handler\-Table.\-cs\end{DoxyCompactItemize}
