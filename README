@@ -40,8 +40,8 @@ license specified above. (Copy of the license can be found in the "LICENSE" file
 
 Requirements:
     * .NET 4.0+ compiler and run time.
-    * An internet connection which allows access to the game's servers, nor the main website of
-      this project.
+    * An internet connection which allows access to the game's servers and the main website of this
+      project.
       
 Please read the documentation (located in the "docs" directory) to become familiar with this
 library and how to work with it. You can also look at the "Example.cs" file to see an example of
