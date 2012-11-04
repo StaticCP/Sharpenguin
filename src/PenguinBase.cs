@@ -41,47 +41,66 @@ namespace Sharpenguin {
         private event ConnectionFailHandler connectFail; //< Event for handling connection failure.
 
         // Properties
+        //! Get's your ID.
         public int ID {
             get { return intPlayerID; }
         }
-        public int intRoom {
+        //! Gets your internal room ID.
+        public int IntRoom {
             get { return intRoomID; }
         }
-        public int extRoom {
+        //! Gets your external room ID.
+        public int ExtRoom {
             get { return extRoomID; }
         }
+        //! Gets your username.
         public string Username {
             get { return strUsername; }
         }
+        //! Event called after login success.
         public LoginHandler onLogin {
             set { loginSuccess = value; }
+            get { return loginSuccess; }
         }
+        //! Event called when the penguin has joined the game server.
         public JoinHandler onJoin {
             set { joinSuccess = value; }
+            get { return joinSuccess; }
         }
+        //! Event called when we have received a packet from the server.
         public PacketHandler onReceive {
             set { packetReceived = value; }
+            get { return packetReceived; }
         }
+        //! Event called when we have disconnected from the server.
         public DisconnectHandler onDisconnect {
             set { disconnectEvent = value; }
+            get { return disconnectEvent; }
         }
+        //! Event called when connecting to a server fails
         public ConnectionFailHandler onConnectFail {
             set { connectFail = value; }
+            get { return connectFail; }
         }
+        // Event called when an error occurs.
+        public ErrorHandler onError {
+            set { penguinErrorEvent = value; }
+        }
+        //! Gets the current room object.
         public Data.PenguinRoom Room {
             get { return currentRoom; }
         }
+        //! Gets the crumbs loaded from the crumb XML files.
         public Data.CPCrumbs Crumbs {
             get { return penguinCrumbs; }
         }
+        //! Gets the socket which we connect to the server through.
         public Net.PenguinSocket Sock {
             get { return psSock; }
         }
+        //! Gets the handler table.
         public Xt.HandlerTable Handler {
             get { return penguinHandlers; }
-        }
-        public ErrorHandler onError {
-            set { penguinErrorEvent = value; }
         }
 
         /**

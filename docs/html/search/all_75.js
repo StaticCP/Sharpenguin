@@ -8,5 +8,6 @@ var searchData=
   ['updatehand',['updateHand',['../classSharpenguin_1_1Tasks.html#a1e2a3bcb87966bebde0202356174962c',1,'Sharpenguin::Tasks']]],
   ['updatehead',['updateHead',['../classSharpenguin_1_1Tasks.html#a039222d09a2ed544a40947a3fd11d129',1,'Sharpenguin::Tasks']]],
   ['updateneck',['updateNeck',['../classSharpenguin_1_1Tasks.html#a9fee874da71ae90e0c0f56a37d522fe8',1,'Sharpenguin::Tasks']]],
-  ['updatephoto',['updatePhoto',['../classSharpenguin_1_1Tasks.html#a28834ede17e7850508025bbed190a641',1,'Sharpenguin::Tasks']]]
+  ['updatephoto',['updatePhoto',['../classSharpenguin_1_1Tasks.html#a28834ede17e7850508025bbed190a641',1,'Sharpenguin::Tasks']]],
+  ['username',['Username',['../classSharpenguin_1_1PenguinBase.html#af52eaa01201024b8c065f53e85120d12',1,'Sharpenguin.PenguinBase.Username()'],['../classSharpenguin_1_1Data_1_1Player.html#affeb3814ed1eb1e1649fc7001ef0a001',1,'Sharpenguin.Data.Player.Username()']]]
 ];

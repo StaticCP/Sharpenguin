@@ -19,29 +19,40 @@ namespace Sharpenguin.Net {
      */
     public class PenguinSocket {
         private Sockets.Socket penguinSocks; //< Socket connection.
-        private PenguinReceiveCallback receiveCall;
-        private PenguinDisconnectCallback disconnectCall;
+        private PenguinReceiveCallback receiveCall; //< Event called when the socket receives data.
+        private PenguinDisconnectCallback disconnectCall; //< Event called when the socket disconnects.
 
+        //! Gets whether or not the socket is connected.
         public bool Connected {
             get { return penguinSocks.Connected; }
         }
 
+        /**
+         * Buffer state object which stores data received from the socket until it is ready to be handled (i.e. we reach \0)
+         */
         public class BufferState {
-            private const int intBuffer = 1024;
-            private byte[] arrBuffer = new byte[intBuffer];
-            private string strBuffer = "";
+            private const int intBuffer = 1024; //< Buffer length to attempt to read from the socket.
+            private byte[] arrBuffer = new byte[intBuffer]; //< Byte array of data.
+            private string strBuffer = ""; //< String representation of the received bytes.
 
+            //! Gets the length to attempt to read from the socket.
             public int BufferSize {
                 get { return intBuffer; }
             }
+            //! Gets or sets the byte array of data.
             public byte[] Buffer {
                 get { return arrBuffer; }
                 set { arrBuffer = value; }
             }
+            //! Gets or sets the string representation of the byte array of data.
             public string BufferString {
                 get { return strBuffer; }
                 set { strBuffer = value; }
             }
+            
+            /**
+             * Clears the byte array to start fresh for the next receive.
+             */
             public void ClearBuffer() {
                 Buffer = new byte[BufferSize];
             }
@@ -92,6 +103,12 @@ namespace Sharpenguin.Net {
             penguinSocks.BeginReceive(receiveState.Buffer, 0, receiveState.BufferSize, 0, new System.AsyncCallback(ReceiveCallback), receiveState);
         }
 
+        /**
+         * Ends asynchronous receiving.
+         *
+         * @param asyncResult
+         *   The IAsyncResult returned from the asynchronous reading.
+         */
         private int EndReceive(System.IAsyncResult asyncResult) {
             try {
                 return penguinSocks.EndReceive(asyncResult);
@@ -101,6 +118,12 @@ namespace Sharpenguin.Net {
             }
         }
 
+        /**
+         * Reads data that is available on the socket.
+         *
+         * @param asyncResult
+         *   The IAsyncResult returned from the asynchronous reading.
+         */
         private void ReceiveCallback(System.IAsyncResult asyncResult) {
             BufferState receiveState = (BufferState) asyncResult.AsyncState;
             int bytesRead = 0;
@@ -120,6 +143,12 @@ namespace Sharpenguin.Net {
             }
         }
 
+        /**
+         * Handles data received from the socket recursively.
+         *
+         * @param receiveState
+         *  The BufferState object containing the received data.
+         */
         private void HandleData(BufferState receiveState) {
             int splitPos = receiveState.BufferString.IndexOf("\0");
             if(splitPos != -1) {
@@ -146,6 +175,12 @@ namespace Sharpenguin.Net {
             }
         }
 
+        /**
+         * Ends asynchronous sending.
+         *
+         * @param asyncResult
+         *   The IAsyncResult returned from the asynchronous sending.
+         */
         public void SendCallback(System.IAsyncResult asyncResult) {
             try {
                 if(penguinSocks.Connected) penguinSocks.EndSend(asyncResult);

@@ -22,12 +22,15 @@ namespace Sharpenguin.Xt {
         private string strCommand; //< Packet's command, which is used to determine the handler.
         private string[] arrArguments; //< Packet's arguments.
 
+        //! Gets the ID of the room this Xt string came from (Internal Room).
         public int Room {
             get { return intRoom; }
         }
+        //! Gets the command of the Xt string.
         public string Command {
             get { return strCommand; }
         }
+        //! Gets the arguments of the Xt string.
         public string[] Arguments {
             get { return arrArguments; }
         }

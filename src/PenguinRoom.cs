@@ -18,18 +18,27 @@ namespace Sharpenguin.Data {
         private int intExtID   = 0; //< Room external id.
         private Dictionary<int, Player> dicPlayers; //< Dictionary of players.
 
+        //! Gets the name of the room.
         public string Name {
             get { return strName; }
         }
+        //! Gets the internal ID of the room.
         public int IntID {
             get { return intRoomID; }
         }
+        //! Gets the external ID of the room.
         public int ExtID {
             get { return intExtID; }
         }
-        public Dictionary<int, Player> Players {
-            get { return dicPlayers; }
+        //! Gets the dictionary of players.
+        public Player[] Players {
+            get {
+                Player[] roomPlayers = new Player[dicPlayers.Count];
+                dicPlayers.Values.CopyTo(roomPlayers, 0);
+                return roomPlayers;
+            }
         }
+        //! Gets your own player.
         public MyPlayer Self {
             get { return myPlayer; }
         }
@@ -103,7 +112,7 @@ namespace Sharpenguin.Data {
          * @param intId
          *   The player's id.
          * @param gotPlayer
-         *   The out value of the player.
+         *   The found player (if it exists).
          *
          * @return
          *   TRUE if the player is found, FALSE if it is not.
@@ -113,8 +122,32 @@ namespace Sharpenguin.Data {
                 gotPlayer = (Player) myPlayer;
                 return true;
             }
+            gotPlayer = null;
             return dicPlayers.TryGetValue(intId, out gotPlayer);
         }
+        
+        /**
+         * Tries to get a player from the room via their name.
+         *
+         * @param penuinName
+         *  The username of the penguin.
+         *
+         * @param gotPlayer
+         *  The found player (if it exists).
+         *
+         * @return
+         *   TRUE if the player is found, FALSE if it is not.
+         */
+         public bool TryGetPlayerByName(string penguinName, out Player gotPlayer) {
+            foreach(Player checkPenguin in dicPlayers.Values) {
+                if(checkPenguin.Username == penguinName) {
+                    gotPlayer = checkPenguin;
+                    return true;
+                }
+            }
+            gotPlayer = null;
+            return false;
+         }
 
         /**
          * Removes a player from the room via their ID.
@@ -132,6 +165,25 @@ namespace Sharpenguin.Data {
             }
             return false;
         }
+        
+        /**
+         * Removes a player from the room via their name.
+         *
+         * @param penguinName
+         *  The the name of the player to remove.
+         *
+         * @return
+         *   TRUE on success, FALSE on failure.
+         */
+         public bool RemovePlayerByName(string penguinName) {
+            foreach(int penguinIndex in dicPlayers.Keys) {
+                if(dicPlayers[penguinIndex].Username == penguinName) {
+                    dicPlayers.Remove(penguinIndex);
+                    return true;
+                }
+            }
+            return false;
+         }
 
         /**
          * Determines whether the player is in the room or not.

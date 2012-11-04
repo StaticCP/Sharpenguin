@@ -10,6 +10,8 @@
  */
 namespace Sharpenguin.Phrase {
     using System.Collections;
+    
+    //! Delegate for asynchronous phrase chat callbacks.
     public delegate void PhraseReceiveCallback(string strData, Data.PenguinPacket receivedPacket, int intStatusCode, string strError);
 
     /**
@@ -35,12 +37,28 @@ namespace Sharpenguin.Phrase {
             }
         }
 
+        /**
+         * Starts getting a phrase by it's ID asynchronously.
+         *
+         * @param phraseLoaded
+         *   Callback function for when the phrase has loaded.
+         * @param receivedPacket
+         *  The received packet containning the received phrase chat message.
+         */
         public static void BeginPhraseById(PhraseReceiveCallback phraseLoaded, Data.PenguinPacket receivedPacket) {
             System.Threading.Thread asyncPhrase = new System.Threading.Thread(new System.Threading.ThreadStart(delegate { AsyncPhrase(phraseLoaded, receivedPacket); }));
             asyncPhrase.IsBackground = true;
             asyncPhrase.Start();
         }
 
+        /**
+         * Gets a phrase by it's ID asynchronously.
+         *
+         * @param phraseLoaded
+         *   Callback function for when the phrase has loaded.
+         * @param receivedPacket
+         *  The received packet containning the received phrase chat message.
+         */
         private static void AsyncPhrase(PhraseReceiveCallback phraseLoaded, Data.PenguinPacket receivedPacket) {
             try {
                 string strJson = Utils.DownloadString("http://phrasechat.disney.go.com/phrasechatsvc/api/1.1/pen/en/phrase/" + receivedPacket.Xt.Arguments[1]);

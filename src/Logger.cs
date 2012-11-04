@@ -17,7 +17,7 @@ namespace Sharpenguin.Out {
      */
     public static class Logger {
         /**
-        * Enum of log levels for the writeOutput method.
+        * Enumeration of log levels for the WriteOutput method.
         */
         public enum LogLevel {
             Trace,

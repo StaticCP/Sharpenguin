@@ -14,26 +14,22 @@ namespace Sharpenguin {
      *
      * Designed for .NET Framework version 4.0.
      *
-     * COPYRIGHT (C) 2012 LEWIS (STATIC).
+     * Copyright (C) 2012 Lewis (Static).
      *
-     * SPECIAL THANKS TO:
-     * TIM (TEST)
+     * Special thanks to:
+     * Tim (Test)
      * -------------------
-     * SAM (STANLEY)
+     * Sam (Stanley)
      * -------------------
      *
-     * LICENSED UNDER THE GNU LESSER GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/lesser.html
-     * YOU MAY NOT REMOVE THIS LICENSE, OR THE CREDITS INSIDE THIS LIBRARY WITHOUT EXPLICIT WRITTEN
-     * PERMISSION FROM THE AUTHORS.
+     * Licensed under the GNU Lesser General Public License - http://www.gnu.org/copyleft/lesser.html
+     * You may not remove this license, or the credits indife this library without explicit written
+     * permission from the authors.
      *
-     * IF YOU ARE AFFILIATED WITH DISNEY, CLUB PENGUIN ENTERTAINMENT INC OR NEW HORIZON INTERACTIVE
-     * IN ANY WAY, YOU MAY NOT USE THIS SOFTWARE, VIEW THE SOURCE CODE OF THIS SOFTWARE OTHER THAN THIS
-     * LICENSE. BY USING THIS SOFTWARE, YOU ARE STATING THAT YOU AGREE TO THESE TERMS.
-     * IF YOU DO NOT AGREE TO THESE TERMS, DELETE ALL FOLDERS/FILES/SOFTWARE RELATED TO SHARPENGUIN
-     * FROM YOUR COMPUTER(S).
+     * The creators of this library are in no way responsible for misuse of this library.
+     * This library is in no way illegal and should never be used for illegal purposes.
      *
-     * THE CREATORS OF THIS LIBRARY ARE IN NO WAY RESPONSIBLE FOR MISUSE OF THIS LIBRARY.
-     * THIS LIBRARY IS IN NO WAY ILLEGAL AND SHOULD NEVER BE USED FOR ILLEGAL PURPOSES.
+     * Abade abade, that's all folks!
      */
 
     using Convert = System.Convert;

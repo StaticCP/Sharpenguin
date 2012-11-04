@@ -19,30 +19,38 @@ namespace Sharpenguin.Data {
      */
     public class CPCrumbs {
         private Dictionary<string, CrumbCollection> penguinCrumbs; //< Dictionary of all of the crumb collections.
-        private const string crumbsPath = "sp_config/";
-        private const string crumbsUrl  = "http://sphen.clubpenguinphp.info/configs/";
+        private const string crumbsPath = "sp_config/"; //< Location of crumbs.
+        private const string crumbsUrl  = "http://sphen.clubpenguinphp.info/configs/"; //< Web location of crumbs.
 
+        //! Gets the room crumbs.
         public CrumbCollection Rooms {
             get { return penguinCrumbs["rooms"]; }
         }
+        //! Gets the server crumbs.
         public CrumbCollection Servers {
             get { return penguinCrumbs["servers"]; }
         }
+        //! Gets the item crumbs.
         public CrumbCollection Items {
             get { return penguinCrumbs["items"]; }
         }
+        //! Gets the error crumbs.
         public CrumbCollection Errors {
             get { return penguinCrumbs["errors"]; }
         }
+        //! Gets the joke crumbs.
         public CrumbCollection Jokes {
             get { return penguinCrumbs["jokes"]; }
         }
+        //! Gets the emoticon crumbs.
         public CrumbCollection Emoticons {
             get { return penguinCrumbs["emoticons"]; }
         }
+        //! Gets the safechat crumbs.
         public CrumbCollection SafeMessages {
             get { return penguinCrumbs["safechat"]; }
         }
+        //! Gets the login server crumbs.
         public CrumbCollection LoginServers {
             get { return penguinCrumbs["loginservers"]; }
         }

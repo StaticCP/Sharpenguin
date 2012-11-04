@@ -17,18 +17,23 @@ namespace Sharpenguin.Data {
         private string strData; //< String of data in the packet.
         private System.Xml.XmlElement objXml; //< Parsed Xml (If Packet is an Xml Packet)
 
+        //! Gets the type of packet (Xt, Xml, Unknown)
         public PacketType Type {
             get { return ptType; }
         }
+        //! Gets the string of data received in the packet.
         public string Data {
             get { return strData; }
         }
+        //! Gets the parsed Xt string object (if the packet is Xt).
         public Xt.XtParser Xt {
             get { return xpParser; }
         }
+        //! Gets the parsed Xml string object (if the packet is Xml).
         public System.Xml.XmlElement Xml {
             get { return objXml; }
         }
+        //! Gets the length of the packet.
         public int Length {
             get { return intLength; }
         }

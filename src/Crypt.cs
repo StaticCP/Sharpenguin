@@ -15,7 +15,7 @@ namespace Sharpenguin.Security {
      * Crypt class for managing password and login key hashing.
      */
     static class Crypt {
-        private const string strSalt = "Y(02.>'H}t\":E1";
+        private const string strSalt = "Y(02.>'H}t\":E1"; //< Password salt.
 
         /**
          * Hashes password with the random key provided by the server.

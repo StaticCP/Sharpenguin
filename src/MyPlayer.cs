@@ -18,18 +18,23 @@ namespace Sharpenguin.Data {
         private int intMinutesPlayed   = 0; //< The minutes the player has spent playing the game.
         private GCollections.List<int> inventoryList = new GCollections.List<int>(); //< The list of inventory items.
 
+        //! Gets the player's age.
         public int Age {
             get { return intAge; }
         }
+        //! Gets the amount of coins that the player has.
         public int Coins {
             get { return totalCoins; }
         }
+        //! Gets the amount membership days remaining for the player.
         public int MemberRemaining {
             get { return intMemberRemaining; }
         }
+        //! Gets the amount of minutes played by the player.
         public int MinutesPlayed {
             get { return intMinutesPlayed; }
         }
+        //! Gets an array of the player's inventory.
         public int[] Inventory {
             get { return inventoryList.ToArray(); }
         }
