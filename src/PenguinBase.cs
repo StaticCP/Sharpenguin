@@ -26,10 +26,12 @@ namespace Sharpenguin {
         protected int intRoomID         = -1; //< Internal room id.
         protected bool blnIsLogin       = false; //< If we are contacting the login servers, this is true.
         protected bool blnIsJoin        = false; //< If we are authenticating with the game servers, this is true.
+        protected bool blnAuthenticated = false; //< If we are authenticated with a game server, this is true.
         protected string strUsername    = ""; //< Your username.
         protected string strPassword    = ""; //< Your password.
         protected string strLoginKey    = ""; //< Login key from the login server.
         protected string strRndK        = ""; //< Random key from login or game.
+        private string serverName       = ""; //< The name of the server we are connecting, or have connected, to.
         private Data.CPCrumbs penguinCrumbs; // Crumbs object.
         private const int intAPIVersion = 152; // Smart fox server API version.
         private Net.PenguinSocket psSock; //< Penguin socket wrapper.
@@ -102,6 +104,14 @@ namespace Sharpenguin {
         public Xt.HandlerTable Handler {
             get { return penguinHandlers; }
         }
+        //! Gets whether we have authenticated or not.
+        public bool IsAuthenticated {
+            get { return blnAuthenticated; }
+        }
+        //! Gets the name of the server we are connecting, or have connected, to.
+        public string ServerName {
+            get { return serverName; }
+        }
 
         /**
          * PenguinBase constuctor. Creates the crumbs object and handler table.
@@ -138,6 +148,7 @@ namespace Sharpenguin {
          */
         public void Login(string strUsername, string strPassword) {
             if(CheckCredentials(strUsername, strPassword) == false) return;
+            blnAuthenticated = false;
             int intLoginServer = Crumbs.LoginServers.GetRandom();
             string strIp = Crumbs.LoginServers.GetAttributeById(intLoginServer, "ip");
             if(InitialiseConnection(strIp, LoginPort(strUsername, intLoginServer))) {
@@ -185,8 +196,10 @@ namespace Sharpenguin {
         public void Join(object objServer) {
             if(strLoginKey == "") throw new Exceptions.EarlyJoinException("You must login before you can join a game server!");
             blnIsJoin = true;
-            string strIp = (objServer is int) ? Crumbs.Servers.GetById((int) objServer)["ip"] : Crumbs.Servers.GetByAttribute("name", objServer as string)["ip"];
-            int intPort = System.Convert.ToInt32((objServer is int) ? Crumbs.Servers.GetById((int) objServer)["port"] : Crumbs.Servers.GetByAttribute("name", objServer as string)["port"]);
+            System.Collections.Generic.Dictionary<string, string> serverCrumbs = (objServer is int) ? Crumbs.Servers.GetById((int) objServer) : Crumbs.Servers.GetByAttribute("name", objServer as string);
+            string strIp = serverCrumbs["ip"];
+            int intPort = int.Parse(serverCrumbs["port"]);
+            serverName = serverCrumbs["name"];
             if(InitialiseConnection(strIp, intPort)) {
                 StartAuth(strUsername, strLoginKey);
             }else{
@@ -219,7 +232,7 @@ namespace Sharpenguin {
          *   The port to login with.
          */
         private int LoginPort(string strUsername, int intLoginServer) {
-            return System.Convert.ToInt32(Crumbs.LoginServers.GetAttributeById(intLoginServer, (Utils.ord(strUsername.ToUpper()) % 2 == 1) ? "odd" : "even"));
+            return int.Parse(Crumbs.LoginServers.GetAttributeById(intLoginServer, (Utils.ord(strUsername.ToUpper()) % 2 == 1) ? "odd" : "even"));
         }
 
         /**
@@ -282,6 +295,7 @@ namespace Sharpenguin {
          */
         protected void JoinFinished() {
             blnIsJoin = false;
+            blnAuthenticated = true;
             if(joinSuccess != null) joinSuccess();
         }
 

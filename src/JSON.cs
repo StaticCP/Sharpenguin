@@ -463,7 +463,7 @@ namespace Procurios.Public
 				} else if (c == '\t') {
 					builder.Append("\\t");
 				} else {
-					int codepoint = Convert.ToInt32(c);
+					int codepoint = System.Convert.ToInt32(c);
 					if ((codepoint >= 32) && (codepoint <= 126)) {
 						builder.Append(c);
 					} else {

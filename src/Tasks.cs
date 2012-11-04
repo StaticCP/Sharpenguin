@@ -48,7 +48,7 @@ namespace Sharpenguin {
                 intEmoteId = (int) objEmoteId;
             }else if(objEmoteId is string) {
                 if(Crumbs.Emoticons.ExistsByAttribute("value", objEmoteId as string) == false) return false;
-                intEmoteId = System.Convert.ToInt32(Crumbs.Emoticons.GetByAttribute("value", objEmoteId as string)["id"]);
+                intEmoteId = int.Parse(Crumbs.Emoticons.GetByAttribute("value", objEmoteId as string)["id"]);
             }else{
                 return false;
             }
@@ -421,16 +421,12 @@ namespace Sharpenguin {
          */
         public bool joinRoom(object objRoom, int intX = 0, int intY = 0) {
             int targetRoom;
-            if(objRoom is int) {
-                if(Crumbs.Rooms.ExistsById((int) objRoom) == false) return false;
-                targetRoom = (int) objRoom;
-            }else if(objRoom is string) {
-                if(Crumbs.Rooms.ExistsByAttribute("name", objRoom as string) == false) return false;
-                targetRoom = System.Convert.ToInt32(Crumbs.Rooms.GetByAttribute("name", objRoom as string)["id"]);
+            if((objRoom is int || objRoom is string) && ((objRoom is int) ? Crumbs.Rooms.ExistsById((int) objRoom) : Crumbs.Rooms.ExistsByAttribute("name", objRoom as string))) {
+                targetRoom = (objRoom is int) ? (int) objRoom : int.Parse(Crumbs.Rooms.GetByAttribute("name", objRoom as string)["id"]);
             }else{
                 return false;
             }
-            if(targetRoom != extRoomID && (currentRoom.Self.IsMember || System.Convert.ToInt32(Crumbs.Rooms.GetAttributeById(targetRoom, "is_member")) == 0 )) {
+            if(targetRoom != extRoomID && (currentRoom.Self.IsMember || int.Parse(Crumbs.Rooms.GetAttributeById(targetRoom, "is_member")) == 0 )) {
                 SendData("%xt%s%j#jr%" + IntRoom.ToString() + "%" + targetRoom.ToString() + "%" + intX.ToString() + "%" + intY.ToString() + "%");
                 return true;
             }else{

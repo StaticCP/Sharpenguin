@@ -108,7 +108,7 @@ namespace Sharpenguin.Xt {
             if(strData.IndexOf("%") != -1) {
                 string[] arrData = strData.Split("%".ToCharArray());
                 if(arrData.Length >= 4) {
-                    return System.Convert.ToInt32(arrData[3]);
+                    return int.Parse(arrData[3]);
                 }else{
                     throw new Exceptions.InvalidXtException("Could not load Xt Room.");
                 }

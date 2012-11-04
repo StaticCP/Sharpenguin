@@ -1,0 +1,78 @@
+.oOOOo.  o                                                                       a8888b.
+o     o  O                                                   o                  d888888b.
+O.       o                                                                      8P"YP"Y88
+ `OOoo.  O                                                                      8|o||o|88
+      `O OoOo. .oOoO' `OoOo. .oOo. .oOo. 'OoOo. .oOoO O   o  O  'OoOo.          8'    .88
+       o o   o O   o   o     O   o OooO'  o   O o   O o   O  o   o   O          8`._.' Y8.
+O.    .O o   O o   O   O     o   O O      O   o O   o O   o  O   O   o         d/      `8b.
+ `oooO'  O   o `OoO'o  o     oOoO' `OoO'  o   O `OoOo `OoO'o o'  o   O       .dP   .     Y8b
+                             O                      O                       d8:'   "   `::88b.
+                             o'                  OoO'                      d8"           `Y88b
+                                                                          :8P     '       :888
+     Founder: Lewis (Static)                                               8a.    :      _a88P
+Contributors: Sam (Stanley), Tim (Test)                                  ._/"Yaa_ :    .| 88P|
+     Website: http://clubpenguinphp.info/                                \    YP"      `| 8P  `.
+     License: LGPLv3 (http://www.gnu.org/copyleft/lesser.html)           /     \._____.d|    .'
+     Version: 1.0.1                                                      `--..__)888888P`._.'
+
+
+                                            == About ==                                     
+Welcome to Sharpenguin, the C# Club Penguin client.
+
+Sharpenguin is designed to run under the .NET 4.0 framework, please install this on your 
+computer if you have not done so.
+
+A few notes about the sections above:
+    * "Founder" is the name of the original creator of this project, which must not 
+      (and ultimately cannot) be changed.
+    * "Contributors" is a comma delimitered list of first names, followed by online alias, of 
+       people who helped with this project.
+    * "Website" is the current main website of this project, which may be changed in the future.
+    * "License" is the license that this library is under. This must not be changed unless explicit
+       written permission is received from the founder, or lead developer of this library.
+    * "Version" is the current version of this library.
+    
+NOTE: The position of "lead developer" is appointed by, and only by, the founder of this library.
+
+                                           == Usage ==
+When using this library and it's files, please take into consideration that you are bound by the 
+license specified above. (Copy of the license can be found in the "LICENSE" file.)
+
+Requirements:
+    * .NET 4.0+ compiler and run time.
+    * An internet connection which allows access to the game's servers, nor the main website of
+      this project.
+      
+Please read the documentation (located in the "docs" directory) to become familiar with this
+library and how to work with it. You can also look at the "Example.cs" file to see an example of
+a project using this library.
+
+                                         == Change Log ==
+1.0.0:
+    * Library released to the public.
+    * Documentation created.
+    
+1.0.1:
+    * Added IsAuthenticated property.
+    * Added server name property.
+    * Changed Convert.ToInt32 to int.Parse (less verbose and less namespaces used).
+    * Stopped triggering the onDisconnect event when the Disconnect() method is called
+      (stops onDisconnect being called twice).
+      
+                                       == A Brief Markdown ==
+Fetures:
+    * Uses asynchronous sockets.
+    * Event-based system.
+    * Allows, and eases, the ability to connect to Disney's Club Penguin with C#.
+    * Easy to use, and implement, framework.
+    * Fast as poop sliding of a shiny shovel.
+    
+                                           == Contact ==
+Lewis (Static):
+    E-mail: static@clubpenguinphp.info
+       AIM: cpstaticabc
+     Skype: staticabc
+       IRC: Lewis (irc://i.r.cx)
+       
+       
+Abade abade, that's all folks!

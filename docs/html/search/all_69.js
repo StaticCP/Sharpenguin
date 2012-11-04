@@ -7,6 +7,7 @@ var searchData=
   ['invalidconfigexception',['InvalidConfigException',['../classSharpenguin_1_1Exceptions_1_1InvalidConfigException.html',1,'Sharpenguin::Exceptions']]],
   ['invalidxtexception',['InvalidXtException',['../classSharpenguin_1_1Exceptions_1_1InvalidXtException.html',1,'Sharpenguin::Exceptions']]],
   ['inventory',['Inventory',['../classSharpenguin_1_1Data_1_1MyPlayer.html#ae25dc7ef58b29f12bceb53e1706141fe',1,'Sharpenguin::Data::MyPlayer']]],
+  ['isauthenticated',['IsAuthenticated',['../classSharpenguin_1_1PenguinBase.html#a05a3c65909cf70390941e1c0400639e0',1,'Sharpenguin::PenguinBase']]],
   ['ismember',['IsMember',['../classSharpenguin_1_1Data_1_1Player.html#a8f5b48dcbddaafad975c0b3f50bda2ba',1,'Sharpenguin::Data::Player']]],
   ['item',['Item',['../classSharpenguin_1_1Data_1_1Player.html#afa90c904ed3d3619adf416cebba87e8d',1,'Sharpenguin::Data::Player']]],
   ['items',['Items',['../classSharpenguin_1_1Data_1_1CPCrumbs.html#a5cb27be64b1237adf74d0ea42dc55345',1,'Sharpenguin::Data::CPCrumbs']]]

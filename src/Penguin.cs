@@ -9,30 +9,6 @@
  * The main namespace for Sharpenguin.
  */
 namespace Sharpenguin {
-    /*
-     * Sharpenguin 1.0.0 - The C# Club Penguin Client.
-     *
-     * Designed for .NET Framework version 4.0.
-     *
-     * Copyright (C) 2012 Lewis (Static).
-     *
-     * Special thanks to:
-     * Tim (Test)
-     * -------------------
-     * Sam (Stanley)
-     * -------------------
-     *
-     * Licensed under the GNU Lesser General Public License - http://www.gnu.org/copyleft/lesser.html
-     * You may not remove this license, or the credits indife this library without explicit written
-     * permission from the authors.
-     *
-     * The creators of this library are in no way responsible for misuse of this library.
-     * This library is in no way illegal and should never be used for illegal purposes.
-     *
-     * Abade abade, that's all folks!
-     */
-
-    using Convert = System.Convert;
 
     public class Penguin : Tasks {
 
@@ -81,7 +57,7 @@ namespace Sharpenguin {
          */
         private void HandleLogin(Data.PenguinPacket receivedPacket) {
             if(blnIsLogin) {
-                intPlayerID = Convert.ToInt32(receivedPacket.Xt.Arguments[0]);
+                intPlayerID = int.Parse(receivedPacket.Xt.Arguments[0]);
                 strLoginKey = receivedPacket.Xt.Arguments[2];
                 LoginFinished();
             }else if(blnIsJoin) {
@@ -96,7 +72,7 @@ namespace Sharpenguin {
          *   The packet to handle.
          */
         private void HandleError(Data.PenguinPacket receivedPacket) {
-            if(penguinErrorEvent != null) penguinErrorEvent(Convert.ToInt32(receivedPacket.Xt.Arguments[0]));
+            if(penguinErrorEvent != null) penguinErrorEvent(int.Parse(receivedPacket.Xt.Arguments[0]));
         }
 
 
@@ -121,9 +97,9 @@ namespace Sharpenguin {
         private void HandlePlayerMove(Data.PenguinPacket receivedPacket) {
             while(currentRoom == null) {} // Wait until the room object is set.
             Data.Player updatePlayer;
-            if(currentRoom.TryGetPlayer(Convert.ToInt32(receivedPacket.Xt.Arguments[0]), out updatePlayer)) {
-                updatePlayer.Position.SetX(Convert.ToInt32(receivedPacket.Xt.Arguments[1]));
-                updatePlayer.Position.SetY(Convert.ToInt32(receivedPacket.Xt.Arguments[2]));
+            if(currentRoom.TryGetPlayer(int.Parse(receivedPacket.Xt.Arguments[0]), out updatePlayer)) {
+                updatePlayer.Position.SetX(int.Parse(receivedPacket.Xt.Arguments[1]));
+                updatePlayer.Position.SetY(int.Parse(receivedPacket.Xt.Arguments[2]));
             }
         }
 
@@ -135,9 +111,9 @@ namespace Sharpenguin {
          */
         private void HandleLoadPlayer(Data.PenguinPacket receivedPacket) {
             currentRoom.Self.LoadData(receivedPacket.Xt.Arguments[0]);
-            currentRoom.Self.SetCoins(Convert.ToInt32(receivedPacket.Xt.Arguments[1]));
-            currentRoom.Self.SetAge(Convert.ToInt32(receivedPacket.Xt.Arguments[5]));
-            currentRoom.Self.SetMinutesPlayed(Convert.ToInt32(receivedPacket.Xt.Arguments[7]));
+            currentRoom.Self.SetCoins(int.Parse(receivedPacket.Xt.Arguments[1]));
+            currentRoom.Self.SetAge(int.Parse(receivedPacket.Xt.Arguments[5]));
+            currentRoom.Self.SetMinutesPlayed(int.Parse(receivedPacket.Xt.Arguments[7]));
         }
 
         /**
@@ -147,7 +123,7 @@ namespace Sharpenguin {
          *   The packet to handle.
          */
         private void HandleJoinRoom(Data.PenguinPacket receivedPacket) {
-            extRoomID = Convert.ToInt32(receivedPacket.Xt.Arguments[0]);
+            extRoomID = int.Parse(receivedPacket.Xt.Arguments[0]);
             intRoomID =  receivedPacket.Xt.Room;
             string strName = (extRoomID < 999) ? Crumbs.Rooms.GetById(extRoomID)["name"] : "Igloo";
             currentRoom.ChangeRoom(strName, intRoomID, extRoomID);
@@ -179,7 +155,7 @@ namespace Sharpenguin {
          *   The packet to handle.
          */
         private void HandleRemovePlayer(Data.PenguinPacket receivedPacket) {
-            int toRemove = Convert.ToInt32(receivedPacket.Xt.Arguments[0]);
+            int toRemove = int.Parse(receivedPacket.Xt.Arguments[0]);
             currentRoom.RemovePlayer(toRemove);
         }
 
@@ -190,10 +166,10 @@ namespace Sharpenguin {
          *   The packet to handle.
          */
         private void HandleSendFrame(Data.PenguinPacket receivedPacket) {
-            int intId = Convert.ToInt32(receivedPacket.Xt.Arguments[0]);
+            int intId = int.Parse(receivedPacket.Xt.Arguments[0]);
             Data.Player updatePlayer;
             if(currentRoom.TryGetPlayer(intId, out updatePlayer)) {
-                updatePlayer.Position.SetFrame(Convert.ToInt32(receivedPacket.Xt.Arguments[1]));
+                updatePlayer.Position.SetFrame(int.Parse(receivedPacket.Xt.Arguments[1]));
             }
         }
 
@@ -205,7 +181,7 @@ namespace Sharpenguin {
          */
         private void HandleJoinGame(Data.PenguinPacket receivedPacket) {
             intRoomID = receivedPacket.Xt.Room;
-            extRoomID = Convert.ToInt32(receivedPacket.Xt.Arguments[0]);
+            extRoomID = int.Parse(receivedPacket.Xt.Arguments[0]);
         }
 
         /**
@@ -215,7 +191,7 @@ namespace Sharpenguin {
          *   The packet to handle.
          */
         private void HandleGameOver(Data.PenguinPacket receivedPacket) {
-            currentRoom.Self.SetCoins(Convert.ToInt32(receivedPacket.Xt.Arguments[0]));
+            currentRoom.Self.SetCoins(int.Parse(receivedPacket.Xt.Arguments[0]));
         }
 
         /**
@@ -226,11 +202,11 @@ namespace Sharpenguin {
          */
         private void HandleUpdateItem(Data.PenguinPacket receivedPacket) {
             Data.Player updatePlayer;
-            int intItem = Convert.ToInt32(receivedPacket.Xt.Arguments[1]);
-            if(Convert.ToInt32(receivedPacket.Xt.Arguments[1]) == ID) {
+            int intItem = int.Parse(receivedPacket.Xt.Arguments[1]);
+            if(int.Parse(receivedPacket.Xt.Arguments[1]) == ID) {
                 updatePlayer = currentRoom.Self;
             }else{
-                if(currentRoom.TryGetPlayer(Convert.ToInt32(receivedPacket.Xt.Arguments[0]), out updatePlayer) == false) return;
+                if(currentRoom.TryGetPlayer(int.Parse(receivedPacket.Xt.Arguments[0]), out updatePlayer) == false) return;
             }
             updatePlayer.Item.SetByCode(receivedPacket.Xt.Command, intItem);
         }
@@ -241,7 +217,7 @@ namespace Sharpenguin {
          *   The packet to handle.
          */
         public void HandleInventoryList(Data.PenguinPacket receivedPacket) {
-            foreach(string itemId in receivedPacket.Xt.Arguments) currentRoom.Self.AddInventoryItem(Convert.ToInt32(itemId)); 
+            foreach(string itemId in receivedPacket.Xt.Arguments) currentRoom.Self.AddInventoryItem(int.Parse(itemId)); 
         }
     }
 }

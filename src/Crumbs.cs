@@ -136,7 +136,7 @@ namespace Sharpenguin.Data {
         private void parseXml(XmlElement xeXml) {
             int intId;
             for(int intIndex = 0; xeXml.ChildNodes.Count > intIndex; intIndex++) {
-                intId = System.Convert.ToInt32(xeXml.ChildNodes[intIndex].Attributes["id"].Value);
+                intId = int.Parse(xeXml.ChildNodes[intIndex].Attributes["id"].Value);
                 dicCrumbs.Add(intId, new Dictionary<string, string>());
                 foreach(XmlAttribute objAttr in xeXml.ChildNodes[intIndex].Attributes) {
                     dicCrumbs[intId].Add((string) objAttr.Name, (string) objAttr.Value);
@@ -198,7 +198,7 @@ namespace Sharpenguin.Data {
          */
         public int GetIdByAttribute(string strAttribute, string strValue) {
             foreach(Dictionary<string, string> dicCrumb in dicCrumbs.Values) {
-                if(dicCrumb[strAttribute].ToLower() == strValue.ToLower()) return System.Convert.ToInt32(dicCrumb["id"]);
+                if(dicCrumb[strAttribute].ToLower() == strValue.ToLower()) return int.Parse(dicCrumb["id"]);
             }
             throw new Exceptions.NonExistantCrumbException(strSingular + " with " + strAttribute + " \"" + strValue + "\" does not exist!");
         }

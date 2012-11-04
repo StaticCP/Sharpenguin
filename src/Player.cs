@@ -6,7 +6,6 @@
  */
 
 namespace Sharpenguin.Data {
-    using Convert = System.Convert;
 
     /**
      * The player class. Information about players in the room are stored here.
@@ -54,32 +53,32 @@ namespace Sharpenguin.Data {
          */
         public void LoadData(string strData) {
             string[] arrData = strData.Split("|".ToCharArray());
-            intId = Convert.ToInt32(arrData[0]);
+            intId = int.Parse(arrData[0]);
             strName = arrData[1];
-            blnIsMember = (Convert.ToInt32(arrData[15]) != 0);
-            intMemberDays = Convert.ToInt32(arrData[16]);
+            blnIsMember = (int.Parse(arrData[15]) != 0);
+            intMemberDays = int.Parse(arrData[16]);
             LoadItems(arrData);
             LoadPosition(arrData);
         }
 
         private void LoadItems(string[] arrData) {
             playerItems = new PlayerItem();
-            playerItems.SetColour(Convert.ToInt32(arrData[3]));
-            playerItems.SetHead(Convert.ToInt32(arrData[4]));
-            playerItems.SetFace(Convert.ToInt32(arrData[5]));
-            playerItems.SetNeck(Convert.ToInt32(arrData[6]));
-            playerItems.SetBody(Convert.ToInt32(arrData[7]));
-            playerItems.SetHand(Convert.ToInt32(arrData[8]));
-            playerItems.SetFeet(Convert.ToInt32(arrData[9]));
-            playerItems.SetFlag(Convert.ToInt32(arrData[10]));
-            playerItems.SetPhoto(Convert.ToInt32(arrData[11]));
+            playerItems.SetColour(int.Parse(arrData[3]));
+            playerItems.SetHead(int.Parse(arrData[4]));
+            playerItems.SetFace(int.Parse(arrData[5]));
+            playerItems.SetNeck(int.Parse(arrData[6]));
+            playerItems.SetBody(int.Parse(arrData[7]));
+            playerItems.SetHand(int.Parse(arrData[8]));
+            playerItems.SetFeet(int.Parse(arrData[9]));
+            playerItems.SetFlag(int.Parse(arrData[10]));
+            playerItems.SetPhoto(int.Parse(arrData[11]));
         }
 
         private void LoadPosition(string[] arrData) {
             playerPosition = new PlayerPosition();
-            playerPosition.SetX(Convert.ToInt32(arrData[12]));
-            playerPosition.SetY(Convert.ToInt32(arrData[13]));
-            playerPosition.SetFrame(Convert.ToInt32(arrData[14]));
+            playerPosition.SetX(int.Parse(arrData[12]));
+            playerPosition.SetY(int.Parse(arrData[13]));
+            playerPosition.SetFrame(int.Parse(arrData[14]));
         }
     }
 

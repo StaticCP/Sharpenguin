@@ -83,7 +83,6 @@ namespace Sharpenguin.Net {
         public void Disconnect() {
             penguinSocks.Shutdown(Sockets.SocketShutdown.Both);
             penguinSocks.Disconnect(true);
-            disconnectCall();
         }
 
         /**

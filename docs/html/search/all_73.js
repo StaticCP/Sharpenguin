@@ -22,6 +22,7 @@ var searchData=
   ['sendphrasemessage',['SendPhraseMessage',['../classSharpenguin_1_1Tasks.html#a9ceb3ef96c8a645127c4353afbcc4560',1,'Sharpenguin::Tasks']]],
   ['sendposition',['SendPosition',['../classSharpenguin_1_1Tasks.html#a42de1c57af7ccf4d72a4a0acef7f35fb',1,'Sharpenguin::Tasks']]],
   ['sendsafe',['SendSafe',['../classSharpenguin_1_1Tasks.html#a1226e45b3561d9a0ab01575ad70a3622',1,'Sharpenguin::Tasks']]],
+  ['servername',['ServerName',['../classSharpenguin_1_1PenguinBase.html#af17f47cb999e0a4a033397cdbd397049',1,'Sharpenguin::PenguinBase']]],
   ['servers',['Servers',['../classSharpenguin_1_1Data_1_1CPCrumbs.html#a30f80b6ee13b61db5cba552990878440',1,'Sharpenguin::Data::CPCrumbs']]],
   ['setage',['SetAge',['../classSharpenguin_1_1Data_1_1MyPlayer.html#a4896f30067506d8fa77f61293bed7444',1,'Sharpenguin::Data::MyPlayer']]],
   ['setbody',['SetBody',['../classSharpenguin_1_1Data_1_1PlayerItem.html#a6722340ee606ee2882b1d0911e6a7076',1,'Sharpenguin::Data::PlayerItem']]],
