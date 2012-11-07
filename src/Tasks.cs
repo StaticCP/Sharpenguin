@@ -132,7 +132,7 @@ namespace Sharpenguin {
          * @param intY
          *   The y position to throw the snowball.
          */
-        public void snowBall(int intX, int intY){
+        public void SnowBall(int intX, int intY){
             SendData("%xt%s%u#sb%" + IntRoom.ToString() + "%" + intX.ToString() + "%" + intY.ToString() + "%");
         }
 
@@ -195,7 +195,7 @@ namespace Sharpenguin {
          * @param intPenguinID
          *   The id of the penguin to find
          */
-        public void findBuddy(int intPenguinID){
+        public void FindBuddy(int intPenguinID){
             SendData("%xt%s%u#bf%" + IntRoom.ToString() + "%" + intPenguinID.ToString() + "%");
         }
 
@@ -205,7 +205,7 @@ namespace Sharpenguin {
          * @param intPenguinID
          *   The id of the penguin to ignore.
          */
-        public void addIgnore(int intPenguinID){
+        public void AddIgnore(int intPenguinID){
             SendData("%xt%s%n#an%" + IntRoom.ToString() + "%" + intPenguinID.ToString() + "%");
         }
 
@@ -215,7 +215,7 @@ namespace Sharpenguin {
          * @param intPenguinID
          *   The id of the penguin to ignore.
          */
-        public void removeIgnore(int intPenguinID){
+        public void RemoveIgnore(int intPenguinID){
             SendData("%xt%s%n#rn%" + IntRoom.ToString() + "%" + intPenguinID.ToString() + "%");
         }
 
@@ -225,7 +225,7 @@ namespace Sharpenguin {
          * @param intItemId
          *   Id of the item to add.
          */
-        public void addItem(int intItemId){
+        public void AddItem(int intItemId){
             SendData("%xt%s%i#ai%" + IntRoom.ToString() + "%" + intItemId.ToString() + "%");
         }
 
@@ -235,7 +235,7 @@ namespace Sharpenguin {
          * @param intId
          *   Id of the stamp to add.
          */
-        public void addStamp(int intId){
+        public void AddStamp(int intId){
             SendData("%xt%s%st#sse%" + IntRoom.ToString() + "%" + intId.ToString() + "%");
         }
 
@@ -245,7 +245,7 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the colour to change to.
          */
-        public void updateColour(int intItemID){
+        public void UpdateColour(int intItemID){
             SendData("%xt%s%s#upc%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -255,7 +255,7 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the head item to wear.
          */
-        public void updateHead(int intItemID){
+        public void UpdateHead(int intItemID){
             SendData("%xt%s%s#uph%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -265,7 +265,7 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the face item to wear.
          */
-        public void updateFace(int intItemID){
+        public void UpdateFace(int intItemID){
             SendData("%xt%s%s#upf%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -275,7 +275,7 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the neck item to wear.
          */
-        public void updateNeck(int intItemID){
+        public void UpdateNeck(int intItemID){
             SendData("%xt%s%s#upn%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -285,7 +285,7 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the body item to wear.
          */
-        public void updateBody(int intItemID){
+        public void UpdateBody(int intItemID){
             SendData("%xt%s%s#upb%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -295,7 +295,7 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the hand item to wear.
          */
-        public void updateHand(int intItemID){
+        public void UpdateHand(int intItemID){
             SendData("%xt%s%s#upa%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -305,7 +305,7 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the feet item to wear.
          */
-        public void updateFeet(int intItemID){
+        public void UpdateFeet(int intItemID){
             SendData("%xt%s%s#upe%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -315,7 +315,7 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the flag item to wear.
          */
-        public void updateFlag(int intItemID){
+        public void UpdateFlag(int intItemID){
             SendData("%xt%s%s#upl%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -325,11 +325,11 @@ namespace Sharpenguin {
          * @param intItemID
          *   The id of the photo item to wear.
          */
-        public void updatePhoto(int intItemID){
+        public void UpdatePhoto(int intItemID){
             SendData("%xt%s%s#upp%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
         
-        public void updateRemove(int intItemID){
+        public void UpdateRemove(int intItemID){
             SendData("%xt%s%s#upr%" + IntRoom.ToString() + "%" + intItemID.ToString() + "%");
         }
 
@@ -339,7 +339,7 @@ namespace Sharpenguin {
          * @param intPenguinID
          *   The id of the penguin who's igloo you wish to go to.
          */
-        public void joinIgloo(int intPenguinID){
+        public void JoinIgloo(int intPenguinID){
             if(ExtRoom == intPenguinID) return;
             SendData("%xt%s%g#gm%" + IntRoom.ToString() + "%" + intPenguinID.ToString() + "%");
             SendData("%xt%s%p#pg%" + IntRoom.ToString() + "%" + intPenguinID.ToString() + "%");
@@ -349,14 +349,14 @@ namespace Sharpenguin {
         /**
          * Opens the newspaper.
          */
-        public void openNewspaper(){
+        public void OpenNewspaper(){
             SendData("%xt%s%t#at%" + IntRoom.ToString() + "%1%1%");
         }
 
         /**
          * Closes the newspaper.
          */
-        public void closeNewspaper(){
+        public void CloseNewspaper(){
             SendData("%xt%s%t#rt%" + IntRoom.ToString() + "%1%");
         }
 
@@ -366,11 +366,11 @@ namespace Sharpenguin {
          * @param intAmount
          *   Amount of coins to receive.
          */
-        public void getCoins(int intAmount){
+        public void GetCoins(int intAmount){
             SendData("%xt%z%zo%" + IntRoom.ToString() + "%" + intAmount.ToString() + "%");
         }
 
-        public void getPlayer(int intPenguinID){
+        public void GetPlayer(int intPenguinID){
             SendData("%xt%s%u#gp%" + IntRoom.ToString() + "%" + intPenguinID.ToString() + "%");
         }
 
@@ -382,18 +382,18 @@ namespace Sharpenguin {
          * @param strName
          *   The name of your puffle.
          */
-        public void buyPuffle(int intPuffleID, string strName){
+        public void BuyPuffle(int intPuffleID, string strName){
             SendData("%xt%s%p#pn%" + IntRoom.ToString() + "%" + intPuffleID + "%" + strName + "%");
         }
 
         /**
          * Alias of join room, since the two are the same.
          *
-         * @param intGameRoom
+         * @param gameRoom
          *   The id of the game's room.
          */
-        public void joinGame(object objGameRoom) {
-            joinRoom(objGameRoom);
+        public void JoinGame(object gameRoom) {
+            JoinRoom(gameRoom);
         }
 
         /**
@@ -401,7 +401,7 @@ namespace Sharpenguin {
          *
          * Requests EPF messages, which are usually displayed on the EPF phone.
          */
-        public void requestEpfMessages() {
+        public void RequestEpfMessages() {
             SendData("%xt%s%f#epfgm%" + IntRoom.ToString() + "%");
         }
 
@@ -419,7 +419,7 @@ namespace Sharpenguin {
          * @return
          *   TRUE if room exists, FALSE if it does not.
          */
-        public bool joinRoom(object objRoom, int intX = 0, int intY = 0) {
+        public bool JoinRoom(object objRoom, int intX = 0, int intY = 0) {
             int targetRoom;
             if((objRoom is int || objRoom is string) && ((objRoom is int) ? Crumbs.Rooms.ExistsById((int) objRoom) : Crumbs.Rooms.ExistsByAttribute("name", objRoom as string))) {
                 targetRoom = (objRoom is int) ? (int) objRoom : int.Parse(Crumbs.Rooms.GetByAttribute("name", objRoom as string)["id"]);
@@ -441,7 +441,7 @@ namespace Sharpenguin {
          *   ID of the phrase.
          */
         public void SendPhraseMessage(string strId) {
-            SendData("%xt%s%m#sc%" + IntRoom.ToString() + "%" + intPlayerID.ToString() + "%" + strId + "%");
+            SendData("%xt%s%m#sc%" + IntRoom.ToString() + "%" + playerID.ToString() + "%" + strId + "%");
         }
 
         /**
@@ -450,8 +450,8 @@ namespace Sharpenguin {
          * @param strLoginKey
          *   The login key we were given by the login server.
          */
-        public void SendJoin(string strLoginKey) {
-            SendData("%xt%s%j#js%" + intRoomID.ToString() + "%" + intPlayerID.ToString() + "%" + strLoginKey + "%en%");
+        public void SendJoin(string loginKey) {
+            SendData("%xt%s%j#js%" + intRoomID.ToString() + "%" + playerID.ToString() + "%" + loginKey + "%en%");
         }
 
         /**

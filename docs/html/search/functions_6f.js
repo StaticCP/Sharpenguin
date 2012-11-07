@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['opennewspaper',['openNewspaper',['../classSharpenguin_1_1Tasks.html#aca9013fed2c6e6cf5e19771aae98531d',1,'Sharpenguin::Tasks']]]
+  ['opennewspaper',['OpenNewspaper',['../classSharpenguin_1_1Tasks.html#ae0fe7cd8870c286b9c99501dfdcd6320',1,'Sharpenguin::Tasks']]]
 ];

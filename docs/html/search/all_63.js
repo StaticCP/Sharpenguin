@@ -2,7 +2,7 @@ var searchData=
 [
   ['changeroom',['ChangeRoom',['../classSharpenguin_1_1Data_1_1PenguinRoom.html#a6eb23989f397ce69a2365aff0ee42adb',1,'Sharpenguin::Data::PenguinRoom']]],
   ['clearbuffer',['ClearBuffer',['../classSharpenguin_1_1Net_1_1PenguinSocket_1_1BufferState.html#a7f60791eefcb5676737befc3cf148cf9',1,'Sharpenguin::Net::PenguinSocket::BufferState']]],
-  ['closenewspaper',['closeNewspaper',['../classSharpenguin_1_1Tasks.html#afa6b3fb4e044dfaf6c9520b56d276dca',1,'Sharpenguin::Tasks']]],
+  ['closenewspaper',['CloseNewspaper',['../classSharpenguin_1_1Tasks.html#ad866855a8845c055b1848d91e74a20fe',1,'Sharpenguin::Tasks']]],
   ['coins',['Coins',['../classSharpenguin_1_1Data_1_1MyPlayer.html#a3f6ac8fc09a165c81a23d25ff016b7e2',1,'Sharpenguin::Data::MyPlayer']]],
   ['colour',['Colour',['../classSharpenguin_1_1Data_1_1PlayerItem.html#a8de96e7ee4c7a9911147ec8d6622004d',1,'Sharpenguin::Data::PlayerItem']]],
   ['command',['Command',['../classSharpenguin_1_1Xt_1_1XtParser.html#a6fb17caa59babd67acdcafc397cb563a',1,'Sharpenguin::Xt::XtParser']]],

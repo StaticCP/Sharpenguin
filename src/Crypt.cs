@@ -28,11 +28,11 @@ namespace Sharpenguin.Security {
          * @return
          *   Hashed password.
          */
-        public static string hashPassword(string strPassword, string strRndK) {
-            string strKey = subMd5(strPassword, true).ToUpper();
+        public static string HashPassword(string strPassword, string strRndK) {
+            string strKey = RevMd5(strPassword, true).ToUpper();
             strKey += strRndK;
             strKey += strSalt;
-            strKey = subMd5(strKey, true);
+            strKey = RevMd5(strKey, true);
             return strKey;
         }
 
@@ -49,9 +49,9 @@ namespace Sharpenguin.Security {
          * @return
          *   Output string.
          */
-        public static string subMd5(string strIn, bool blnMd5) {
+        public static string RevMd5(string strIn, bool blnMd5) {
             if(blnMd5) {
-                strIn = md5(strIn);
+                strIn = Md5(strIn);
             }
             string strOut = strIn.Substring(16, 16) + strIn.Substring(0, 16);
             return strOut;
@@ -66,7 +66,7 @@ namespace Sharpenguin.Security {
          * @return
          *  The output string, which is the MD5 hash of the input string.
          */
-        private static string md5(string strIn) {
+        private static string Md5(string strIn) {
             MD5 objHash = MD5.Create();
             byte[] bytData = objHash.ComputeHash(Utils.strToByte(strIn));
             string strHash = "";

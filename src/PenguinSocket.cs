@@ -128,7 +128,7 @@ namespace Sharpenguin.Net {
             int bytesRead = 0;
             if(penguinSocks.Connected) bytesRead = EndReceive(asyncResult);
             if(bytesRead > 0 && penguinSocks.Connected) {
-                receiveState.BufferString += System.Text.Encoding.ASCII.GetString(receiveState.Buffer).Substring(0, 1024);
+                receiveState.BufferString += System.Text.Encoding.ASCII.GetString(receiveState.Buffer).Substring(0, bytesRead);
                 receiveState.ClearBuffer();
                 HandleData(receiveState);
                 try {

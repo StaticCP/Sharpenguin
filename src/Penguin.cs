@@ -16,16 +16,16 @@ namespace Sharpenguin {
          * Penguin construct. Starts the loading of the system handlers.
          */
         public Penguin() : base() {
-            System.Console.WriteLine("You are using Sharpenguin, the C# Club Penguin Client, which was created by Lewis (Static) and is registered under the LGPL license.");
+            System.Console.WriteLine("You are using Sharpenguin, the C# Club Penguin Client, which was created by Lewis (Static) and is registered under the LGPLv3 license.");
             System.Console.WriteLine("Website: http://clubpenguinphp.info/\n");
-            loadSystemHandlers();
+            LoadSystemHandlers();
             currentRoom.AddSelf(new Data.MyPlayer());
         }
 
         /**
          * Loads all of the system handlers into the handler table.
          */
-        private void loadSystemHandlers() {
+        private void LoadSystemHandlers() {
             Handler.Add("l", HandleLogin);
             Handler.Add("e", HandleError);
             Handler.Add("js", HandleJoinServer);
@@ -57,11 +57,11 @@ namespace Sharpenguin {
          */
         private void HandleLogin(Data.PenguinPacket receivedPacket) {
             if(blnIsLogin) {
-                intPlayerID = int.Parse(receivedPacket.Xt.Arguments[0]);
-                strLoginKey = receivedPacket.Xt.Arguments[2];
+                playerID = int.Parse(receivedPacket.Xt.Arguments[0]);
+                loginKey = receivedPacket.Xt.Arguments[2];
                 LoginFinished();
             }else if(blnIsJoin) {
-                SendJoin(strLoginKey);
+                SendJoin(loginKey);
             }
         }
 
@@ -125,7 +125,7 @@ namespace Sharpenguin {
         private void HandleJoinRoom(Data.PenguinPacket receivedPacket) {
             extRoomID = int.Parse(receivedPacket.Xt.Arguments[0]);
             intRoomID =  receivedPacket.Xt.Room;
-            string strName = (extRoomID < 999) ? Crumbs.Rooms.GetById(extRoomID)["name"] : "Igloo";
+            string strName = (extRoomID < 1000) ? Crumbs.Rooms.GetAttributeById(extRoomID, "name") : "Igloo";
             currentRoom.ChangeRoom(strName, intRoomID, extRoomID);
             for(int intIndex = 1; intIndex < receivedPacket.Xt.Arguments.Length; intIndex++) {
                 Data.Player newPlayer = new Data.Player();
@@ -213,6 +213,7 @@ namespace Sharpenguin {
 
         /**
          * Handles the inventory list packet, (handler "gi").
+         *
          * @param receivedPacket
          *   The packet to handle.
          */

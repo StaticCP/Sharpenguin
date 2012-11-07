@@ -12,11 +12,11 @@ Inheritance diagram for Sharpenguin.\-Penguin\-Base\-:\begin{figure}[H]
 \item 
 \hyperlink{classSharpenguin_1_1PenguinBase_abae69c0be10d8de6f6f852a5a9820c44}{Penguin\-Base} ()
 \item 
-void \hyperlink{classSharpenguin_1_1PenguinBase_a339081cc6d7b689525639e9c41275d53}{Login} (string str\-Username, string str\-Password)
+void \hyperlink{classSharpenguin_1_1PenguinBase_a5447c51dc7c4f75091e9330e53f11213}{Login} (string penguin\-Username, string penguin\-Password)
 \item 
 void \hyperlink{classSharpenguin_1_1PenguinBase_ae883a098b18a513c9ca47e80d833c32e}{Join} (object obj\-Server)
 \item 
-void \hyperlink{classSharpenguin_1_1PenguinBase_a50ba7c1e17673282b539e280c4552773}{Send\-Data} (string str\-Data)
+void \hyperlink{classSharpenguin_1_1PenguinBase_a264ccadc06dccb3ad1812e6ce3ac5a44}{Send\-Data} (string data\-Text)
 \item 
 void \hyperlink{classSharpenguin_1_1PenguinBase_a1c56da96688962cc6db870fad34b9e62}{Disconnect} ()
 \end{DoxyCompactItemize}
@@ -34,13 +34,10 @@ void \hyperlink{classSharpenguin_1_1PenguinBase_a06facd0f0f753fa79596ae31a6811a8
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classSharpenguin_1_1PenguinBase_a3040b77fea34fa80159705a8f610783c}{\hyperlink{classSharpenguin_1_1Data_1_1PenguinRoom}{Data.\-Penguin\-Room} {\bfseries current\-Room}}\label{classSharpenguin_1_1PenguinBase_a3040b77fea34fa80159705a8f610783c}
-
-\item 
 \hypertarget{classSharpenguin_1_1PenguinBase_ab30aeba363ab0c00583924dce54bf6ba}{int {\bfseries ext\-Room\-I\-D}}\label{classSharpenguin_1_1PenguinBase_ab30aeba363ab0c00583924dce54bf6ba}
 
 \item 
-\hypertarget{classSharpenguin_1_1PenguinBase_a7e8cc4749d5b1f56fec1cfed440bdfec}{int {\bfseries int\-Player\-I\-D}}\label{classSharpenguin_1_1PenguinBase_a7e8cc4749d5b1f56fec1cfed440bdfec}
+\hypertarget{classSharpenguin_1_1PenguinBase_a524f3d9b6d7fd8165ee2118290d432b9}{int {\bfseries player\-I\-D}}\label{classSharpenguin_1_1PenguinBase_a524f3d9b6d7fd8165ee2118290d432b9}
 
 \item 
 \hypertarget{classSharpenguin_1_1PenguinBase_a8a73235e69c6ee95ab525449f91a7d04}{int {\bfseries int\-Room\-I\-D} = -\/1}\label{classSharpenguin_1_1PenguinBase_a8a73235e69c6ee95ab525449f91a7d04}
@@ -55,16 +52,19 @@ void \hyperlink{classSharpenguin_1_1PenguinBase_a06facd0f0f753fa79596ae31a6811a8
 \hypertarget{classSharpenguin_1_1PenguinBase_a071c1fd38db914fa1832d84a79c2c192}{bool {\bfseries bln\-Authenticated} = false}\label{classSharpenguin_1_1PenguinBase_a071c1fd38db914fa1832d84a79c2c192}
 
 \item 
-\hypertarget{classSharpenguin_1_1PenguinBase_a16671246037e50e34685781ff82da687}{string {\bfseries str\-Username} = \char`\"{}\char`\"{}}\label{classSharpenguin_1_1PenguinBase_a16671246037e50e34685781ff82da687}
+\hypertarget{classSharpenguin_1_1PenguinBase_a3b8f2c809d9583ed4976c4315ce7c48d}{string {\bfseries penguin\-Name} = \char`\"{}\char`\"{}}\label{classSharpenguin_1_1PenguinBase_a3b8f2c809d9583ed4976c4315ce7c48d}
 
 \item 
-\hypertarget{classSharpenguin_1_1PenguinBase_a4ebef7c32b60971bdf6e17dbf911b96c}{string {\bfseries str\-Password} = \char`\"{}\char`\"{}}\label{classSharpenguin_1_1PenguinBase_a4ebef7c32b60971bdf6e17dbf911b96c}
+\hypertarget{classSharpenguin_1_1PenguinBase_a1ebcb5ffc6761dd47d1dab4e8c9ecac3}{string {\bfseries penguin\-Pass} = \char`\"{}\char`\"{}}\label{classSharpenguin_1_1PenguinBase_a1ebcb5ffc6761dd47d1dab4e8c9ecac3}
 
 \item 
-\hypertarget{classSharpenguin_1_1PenguinBase_ae4232fad4dad9b1118a2227dc1a85b9f}{string {\bfseries str\-Login\-Key} = \char`\"{}\char`\"{}}\label{classSharpenguin_1_1PenguinBase_ae4232fad4dad9b1118a2227dc1a85b9f}
+\hypertarget{classSharpenguin_1_1PenguinBase_a3856c411c5fd75e8cc880a48d59488b0}{string {\bfseries login\-Key} = \char`\"{}\char`\"{}}\label{classSharpenguin_1_1PenguinBase_a3856c411c5fd75e8cc880a48d59488b0}
 
 \item 
 \hypertarget{classSharpenguin_1_1PenguinBase_a96f07f160ff42b6a544545394f7058c5}{string {\bfseries str\-Rnd\-K} = \char`\"{}\char`\"{}}\label{classSharpenguin_1_1PenguinBase_a96f07f160ff42b6a544545394f7058c5}
+
+\item 
+\hypertarget{classSharpenguin_1_1PenguinBase_a3040b77fea34fa80159705a8f610783c}{\hyperlink{classSharpenguin_1_1Data_1_1PenguinRoom}{Data.\-Penguin\-Room} {\bfseries current\-Room}}\label{classSharpenguin_1_1PenguinBase_a3040b77fea34fa80159705a8f610783c}
 
 \item 
 \hypertarget{classSharpenguin_1_1PenguinBase_a081570b66c694bab1df58a083e34ef4a}{Error\-Handler {\bfseries penguin\-Error\-Event}}\label{classSharpenguin_1_1PenguinBase_a081570b66c694bab1df58a083e34ef4a}
@@ -151,14 +151,7 @@ Disconnects the socket. \hypertarget{classSharpenguin_1_1PenguinBase_a06facd0f0f
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}}\label{classSharpenguin_1_1PenguinBase_a06facd0f0f753fa79596ae31a6811a86}
-Disconnect callback for the asynchronous socket.
-
-
-\begin{DoxyParams}{Parameters}
-{\em int\-Error} & The socket error number. \\
-\hline
-\end{DoxyParams}
-\hypertarget{classSharpenguin_1_1PenguinBase_ae883a098b18a513c9ca47e80d833c32e}{\index{Sharpenguin\-::\-Penguin\-Base@{Sharpenguin\-::\-Penguin\-Base}!Join@{Join}}
+Disconnect callback for the asynchronous socket. \hypertarget{classSharpenguin_1_1PenguinBase_ae883a098b18a513c9ca47e80d833c32e}{\index{Sharpenguin\-::\-Penguin\-Base@{Sharpenguin\-::\-Penguin\-Base}!Join@{Join}}
 \index{Join@{Join}!Sharpenguin::PenguinBase@{Sharpenguin\-::\-Penguin\-Base}}
 \subsubsection[{Join}]{\setlength{\rightskip}{0pt plus 5cm}void Sharpenguin.\-Penguin\-Base.\-Join (
 \begin{DoxyParamCaption}
@@ -179,21 +172,21 @@ Joins a game server.
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}}\label{classSharpenguin_1_1PenguinBase_a64a4a3cd550fd49156f9ed5fbd1836ed}
-Calls the on\-Join event. \hypertarget{classSharpenguin_1_1PenguinBase_a339081cc6d7b689525639e9c41275d53}{\index{Sharpenguin\-::\-Penguin\-Base@{Sharpenguin\-::\-Penguin\-Base}!Login@{Login}}
+Calls the on\-Join event. \hypertarget{classSharpenguin_1_1PenguinBase_a5447c51dc7c4f75091e9330e53f11213}{\index{Sharpenguin\-::\-Penguin\-Base@{Sharpenguin\-::\-Penguin\-Base}!Login@{Login}}
 \index{Login@{Login}!Sharpenguin::PenguinBase@{Sharpenguin\-::\-Penguin\-Base}}
 \subsubsection[{Login}]{\setlength{\rightskip}{0pt plus 5cm}void Sharpenguin.\-Penguin\-Base.\-Login (
 \begin{DoxyParamCaption}
-\item[{string}]{str\-Username, }
-\item[{string}]{str\-Password}
+\item[{string}]{penguin\-Username, }
+\item[{string}]{penguin\-Password}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSharpenguin_1_1PenguinBase_a339081cc6d7b689525639e9c41275d53}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSharpenguin_1_1PenguinBase_a5447c51dc7c4f75091e9330e53f11213}
 Connects to login server and begins authentication.
 
 
 \begin{DoxyParams}{Parameters}
-{\em str\-Username} & The username to login as. \\
+{\em penguin\-Username} & The username to login as. \\
 \hline
-{\em str\-Password} & The password of the user. \\
+{\em penguin\-Password} & The password of the user. \\
 \hline
 \end{DoxyParams}
 \hypertarget{classSharpenguin_1_1PenguinBase_aa6a126810f26f0b1d85b8c6e35eed5c9}{\index{Sharpenguin\-::\-Penguin\-Base@{Sharpenguin\-::\-Penguin\-Base}!Login\-Finished@{Login\-Finished}}
@@ -217,18 +210,18 @@ Receive callback for the asynchronous socket.
 {\em received\-Packet} & The packet that was received. \\
 \hline
 \end{DoxyParams}
-\hypertarget{classSharpenguin_1_1PenguinBase_a50ba7c1e17673282b539e280c4552773}{\index{Sharpenguin\-::\-Penguin\-Base@{Sharpenguin\-::\-Penguin\-Base}!Send\-Data@{Send\-Data}}
+\hypertarget{classSharpenguin_1_1PenguinBase_a264ccadc06dccb3ad1812e6ce3ac5a44}{\index{Sharpenguin\-::\-Penguin\-Base@{Sharpenguin\-::\-Penguin\-Base}!Send\-Data@{Send\-Data}}
 \index{Send\-Data@{Send\-Data}!Sharpenguin::PenguinBase@{Sharpenguin\-::\-Penguin\-Base}}
 \subsubsection[{Send\-Data}]{\setlength{\rightskip}{0pt plus 5cm}void Sharpenguin.\-Penguin\-Base.\-Send\-Data (
 \begin{DoxyParamCaption}
-\item[{string}]{str\-Data}
+\item[{string}]{data\-Text}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSharpenguin_1_1PenguinBase_a50ba7c1e17673282b539e280c4552773}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSharpenguin_1_1PenguinBase_a264ccadc06dccb3ad1812e6ce3ac5a44}
 Sends data to the connected host.
 
 
 \begin{DoxyParams}{Parameters}
-{\em str\-Data} & The data to send to the host. \\
+{\em data\-Text} & The data to send to the host. \\
 \hline
 \end{DoxyParams}
 

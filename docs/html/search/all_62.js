@@ -7,5 +7,5 @@ var searchData=
   ['buffersize',['BufferSize',['../classSharpenguin_1_1Net_1_1PenguinSocket_1_1BufferState.html#afe932a3bee523454ac0b09b7194843df',1,'Sharpenguin::Net::PenguinSocket::BufferState']]],
   ['bufferstate',['BufferState',['../classSharpenguin_1_1Net_1_1PenguinSocket_1_1BufferState.html',1,'Sharpenguin::Net::PenguinSocket']]],
   ['bufferstring',['BufferString',['../classSharpenguin_1_1Net_1_1PenguinSocket_1_1BufferState.html#a21fb0f33aa590cf88f1d4edc553facf0',1,'Sharpenguin::Net::PenguinSocket::BufferState']]],
-  ['buypuffle',['buyPuffle',['../classSharpenguin_1_1Tasks.html#a2e667922c2df819ec504636ab8523f5a',1,'Sharpenguin::Tasks']]]
+  ['buypuffle',['BuyPuffle',['../classSharpenguin_1_1Tasks.html#af729d70eb819036f9c9de6c10a7a672b',1,'Sharpenguin::Tasks']]]
 ];

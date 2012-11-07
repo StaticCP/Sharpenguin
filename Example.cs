@@ -100,7 +100,7 @@ namespace SharpenguinExample {
         
         private void JoinRoomHandler(Sharpenguin.Data.PenguinPacket receivedPacket) {
             // Output a message when a room is joined.
-            Sharpenguin.Out.Logger.WriteOutput("Joined room " + receivedPacket.Xt.Arguments[0] + ".");
+            Sharpenguin.Out.Logger.WriteOutput("Joined room " + receivedPacket.Xt.Arguments[0] + " [" + examplePenguin.Crumbs.Rooms.GetAttributeById(int.Parse(receivedPacket.Xt.Arguments[0]), "name") + "].");
         }
 
     }

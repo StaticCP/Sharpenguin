@@ -13,7 +13,7 @@ O.    .O o   O o   O   O     o   O O      O   o O   o O   o  O   O   o         d
 Contributors: Sam (Stanley), Tim (Test)                                  ._/"Yaa_ :    .| 88P|
      Website: http://clubpenguinphp.info/                                \    YP"      `| 8P  `.
      License: LGPLv3 (http://www.gnu.org/copyleft/lesser.html)           /     \._____.d|    .'
-     Version: 1.0.1                                                      `--..__)888888P`._.'
+     Version: 1.0.2                                                      `--..__)888888P`._.'
 
 
                                             == About ==                                     
@@ -58,6 +58,11 @@ a project using this library.
     * Changed Convert.ToInt32 to int.Parse (less verbose and less namespaces used).
     * Stopped triggering the onDisconnect event when the Disconnect() method is called
       (stops onDisconnect being called twice).
+1.0.2:
+    * Fixed the recursive read function (I broke it at some point...?)
+    * Changed a bit of documentation, since it was not up to date with the functions.
+    * Added uppercase to the first words of each method in Tasks.cs, since it looks nice in C#. 
+      (I hope this doesn't cause people too many brickings)
       
                                        == A Brief Markdown ==
 Fetures:

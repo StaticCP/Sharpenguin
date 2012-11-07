@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Sharpenguin
-   &#160;<span id="projectnumber">The C# Club Penguin Client</span>
+   &#160;<span id="projectnumber">1.0.2</span>
    </div>
-   <div id="projectbrief">This project allows conectivity to Club Penguin through the lanuage C#.</div>
+   <div id="projectbrief">The C# Club Penguin connector.</div>
   </td>
  </tr>
  </tbody>
@@ -111,9 +111,9 @@ Inheritance diagram for Sharpenguin.PenguinBase:</div>
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abae69c0be10d8de6f6f852a5a9820c44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#abae69c0be10d8de6f6f852a5a9820c44">PenguinBase</a> ()</td></tr>
-<tr class="memitem:a339081cc6d7b689525639e9c41275d53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a339081cc6d7b689525639e9c41275d53">Login</a> (string strUsername, string strPassword)</td></tr>
+<tr class="memitem:a5447c51dc7c4f75091e9330e53f11213"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a5447c51dc7c4f75091e9330e53f11213">Login</a> (string penguinUsername, string penguinPassword)</td></tr>
 <tr class="memitem:ae883a098b18a513c9ca47e80d833c32e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#ae883a098b18a513c9ca47e80d833c32e">Join</a> (object objServer)</td></tr>
-<tr class="memitem:a50ba7c1e17673282b539e280c4552773"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a50ba7c1e17673282b539e280c4552773">SendData</a> (string strData)</td></tr>
+<tr class="memitem:a264ccadc06dccb3ad1812e6ce3ac5a44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a264ccadc06dccb3ad1812e6ce3ac5a44">SendData</a> (string dataText)</td></tr>
 <tr class="memitem:a1c56da96688962cc6db870fad34b9e62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a1c56da96688962cc6db870fad34b9e62">Disconnect</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
@@ -125,12 +125,10 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a3040b77fea34fa80159705a8f610783c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3040b77fea34fa80159705a8f610783c"></a>
-<a class="el" href="classSharpenguin_1_1Data_1_1PenguinRoom.html">Data.PenguinRoom</a>&#160;</td><td class="memItemRight" valign="bottom"><b>currentRoom</b></td></tr>
 <tr class="memitem:ab30aeba363ab0c00583924dce54bf6ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab30aeba363ab0c00583924dce54bf6ba"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>extRoomID</b></td></tr>
-<tr class="memitem:a7e8cc4749d5b1f56fec1cfed440bdfec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e8cc4749d5b1f56fec1cfed440bdfec"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>intPlayerID</b></td></tr>
+<tr class="memitem:a524f3d9b6d7fd8165ee2118290d432b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a524f3d9b6d7fd8165ee2118290d432b9"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>playerID</b></td></tr>
 <tr class="memitem:a8a73235e69c6ee95ab525449f91a7d04"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a73235e69c6ee95ab525449f91a7d04"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>intRoomID</b> = -1</td></tr>
 <tr class="memitem:ad35590cd769800ad5534cb53f5bf044a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad35590cd769800ad5534cb53f5bf044a"></a>
@@ -139,14 +137,16 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>blnIsLogin</b> = fals
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>blnIsJoin</b> = false</td></tr>
 <tr class="memitem:a071c1fd38db914fa1832d84a79c2c192"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a071c1fd38db914fa1832d84a79c2c192"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>blnAuthenticated</b> = false</td></tr>
-<tr class="memitem:a16671246037e50e34685781ff82da687"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16671246037e50e34685781ff82da687"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>strUsername</b> = &quot;&quot;</td></tr>
-<tr class="memitem:a4ebef7c32b60971bdf6e17dbf911b96c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4ebef7c32b60971bdf6e17dbf911b96c"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>strPassword</b> = &quot;&quot;</td></tr>
-<tr class="memitem:ae4232fad4dad9b1118a2227dc1a85b9f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae4232fad4dad9b1118a2227dc1a85b9f"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>strLoginKey</b> = &quot;&quot;</td></tr>
+<tr class="memitem:a3b8f2c809d9583ed4976c4315ce7c48d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b8f2c809d9583ed4976c4315ce7c48d"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>penguinName</b> = &quot;&quot;</td></tr>
+<tr class="memitem:a1ebcb5ffc6761dd47d1dab4e8c9ecac3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ebcb5ffc6761dd47d1dab4e8c9ecac3"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>penguinPass</b> = &quot;&quot;</td></tr>
+<tr class="memitem:a3856c411c5fd75e8cc880a48d59488b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3856c411c5fd75e8cc880a48d59488b0"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>loginKey</b> = &quot;&quot;</td></tr>
 <tr class="memitem:a96f07f160ff42b6a544545394f7058c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96f07f160ff42b6a544545394f7058c5"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>strRndK</b> = &quot;&quot;</td></tr>
+<tr class="memitem:a3040b77fea34fa80159705a8f610783c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3040b77fea34fa80159705a8f610783c"></a>
+<a class="el" href="classSharpenguin_1_1Data_1_1PenguinRoom.html">Data.PenguinRoom</a>&#160;</td><td class="memItemRight" valign="bottom"><b>currentRoom</b></td></tr>
 <tr class="memitem:a081570b66c694bab1df58a083e34ef4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a081570b66c694bab1df58a083e34ef4a"></a>
 ErrorHandler&#160;</td><td class="memItemRight" valign="bottom"><b>penguinErrorEvent</b></td></tr>
 </table><table class="memberdecls">
@@ -272,13 +272,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Disconnect callback for the asynchronous socket.</p>
-<dl class="params"><dt>Parameters:</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">intError</td><td>The socket error number. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Disconnect callback for the asynchronous socket. </p>
 
 </div>
 </div>
@@ -337,7 +331,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 </div>
 </div>
-<a class="anchor" id="a339081cc6d7b689525639e9c41275d53"></a>
+<a class="anchor" id="a5447c51dc7c4f75091e9330e53f11213"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -348,13 +342,13 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
           <td class="memname">void Sharpenguin.PenguinBase.Login </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>strUsername</em>, </td>
+          <td class="paramname"><em>penguinUsername</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>strPassword</em>&#160;</td>
+          <td class="paramname"><em>penguinPassword</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -371,8 +365,8 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>Connects to login server and begins authentication.</p>
 <dl class="params"><dt>Parameters:</dt><dd>
   <table class="params">
-    <tr><td class="paramname">strUsername</td><td>The username to login as. </td></tr>
-    <tr><td class="paramname">strPassword</td><td>The password of the user. </td></tr>
+    <tr><td class="paramname">penguinUsername</td><td>The username to login as. </td></tr>
+    <tr><td class="paramname">penguinPassword</td><td>The password of the user. </td></tr>
   </table>
   </dd>
 </dl>
@@ -434,7 +428,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 </div>
 </div>
-<a class="anchor" id="a50ba7c1e17673282b539e280c4552773"></a>
+<a class="anchor" id="a264ccadc06dccb3ad1812e6ce3ac5a44"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -445,7 +439,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
           <td class="memname">void Sharpenguin.PenguinBase.SendData </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>strData</em></td><td>)</td>
+          <td class="paramname"><em>dataText</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -458,7 +452,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>Sends data to the connected host.</p>
 <dl class="params"><dt>Parameters:</dt><dd>
   <table class="params">
-    <tr><td class="paramname">strData</td><td>The data to send to the host. </td></tr>
+    <tr><td class="paramname">dataText</td><td>The data to send to the host. </td></tr>
   </table>
   </dd>
 </dl>
