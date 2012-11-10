@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['join',['Join',['../classSharpenguin_1_1PenguinBase.html#ae883a098b18a513c9ca47e80d833c32e',1,'Sharpenguin::PenguinBase']]],
+  ['join',['Join',['../classSharpenguin_1_1PenguinBase.html#a0ae2d038b4a98c1f2f121a3e3cd09a45',1,'Sharpenguin.PenguinBase.Join(int serverId)'],['../classSharpenguin_1_1PenguinBase.html#a71a78e2b71d95bac92e9ad78d4924600',1,'Sharpenguin.PenguinBase.Join(string serverName)']]],
   ['joinfinished',['JoinFinished',['../classSharpenguin_1_1PenguinBase.html#a64a4a3cd550fd49156f9ed5fbd1836ed',1,'Sharpenguin::PenguinBase']]],
   ['joingame',['JoinGame',['../classSharpenguin_1_1Tasks.html#afb52aff13d3e0f5e650bd15f69dcbdf5',1,'Sharpenguin::Tasks']]],
   ['joinigloo',['JoinIgloo',['../classSharpenguin_1_1Tasks.html#ae96f02abc81b122ddf425fcec3f6b311',1,'Sharpenguin::Tasks']]],

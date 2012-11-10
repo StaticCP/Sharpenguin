@@ -14,8 +14,8 @@ namespace Sharpenguin.Data {
     public class PenguinRoom {
         private MyPlayer myPlayer;
         private string strName = ""; //< Room name.
-        private int intRoomID  = 0; //< Room internal id.
-        private int intExtID   = 0; //< Room external id.
+        private int roomIntID  = 0; //< Room internal id.
+        private int roomExtID   = 0; //< Room external id.
         private Dictionary<int, Player> dicPlayers; //< Dictionary of players.
 
         //! Gets the name of the room.
@@ -24,11 +24,11 @@ namespace Sharpenguin.Data {
         }
         //! Gets the internal ID of the room.
         public int IntID {
-            get { return intRoomID; }
+            get { return roomIntID; }
         }
         //! Gets the external ID of the room.
         public int ExtID {
-            get { return intExtID; }
+            get { return roomExtID; }
         }
         //! Gets the dictionary of players.
         public Player[] Players {
@@ -62,8 +62,8 @@ namespace Sharpenguin.Data {
         public void ChangeRoom(string roomName, int roomId, int extId) {
             dicPlayers.Clear();
             strName = roomName; 
-            intRoomID = roomId;
-            intExtID = extId;
+            roomIntID = roomId;
+            roomExtID = extId;
         }
 
         /**

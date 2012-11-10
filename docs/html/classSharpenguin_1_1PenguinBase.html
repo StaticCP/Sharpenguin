@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Sharpenguin
-   &#160;<span id="projectnumber">1.0.2</span>
+   &#160;<span id="projectnumber">1.0.3</span>
    </div>
    <div id="projectbrief">The C# Club Penguin connector.</div>
   </td>
@@ -112,7 +112,8 @@ Inheritance diagram for Sharpenguin.PenguinBase:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abae69c0be10d8de6f6f852a5a9820c44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#abae69c0be10d8de6f6f852a5a9820c44">PenguinBase</a> ()</td></tr>
 <tr class="memitem:a5447c51dc7c4f75091e9330e53f11213"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a5447c51dc7c4f75091e9330e53f11213">Login</a> (string penguinUsername, string penguinPassword)</td></tr>
-<tr class="memitem:ae883a098b18a513c9ca47e80d833c32e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#ae883a098b18a513c9ca47e80d833c32e">Join</a> (object objServer)</td></tr>
+<tr class="memitem:a0ae2d038b4a98c1f2f121a3e3cd09a45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a0ae2d038b4a98c1f2f121a3e3cd09a45">Join</a> (int serverId)</td></tr>
+<tr class="memitem:a71a78e2b71d95bac92e9ad78d4924600"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a71a78e2b71d95bac92e9ad78d4924600">Join</a> (string serverName)</td></tr>
 <tr class="memitem:a264ccadc06dccb3ad1812e6ce3ac5a44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a264ccadc06dccb3ad1812e6ce3ac5a44">SendData</a> (string dataText)</td></tr>
 <tr class="memitem:a1c56da96688962cc6db870fad34b9e62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a1c56da96688962cc6db870fad34b9e62">Disconnect</a> ()</td></tr>
 </table><table class="memberdecls">
@@ -125,12 +126,8 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ab30aeba363ab0c00583924dce54bf6ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab30aeba363ab0c00583924dce54bf6ba"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>extRoomID</b></td></tr>
 <tr class="memitem:a524f3d9b6d7fd8165ee2118290d432b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a524f3d9b6d7fd8165ee2118290d432b9"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>playerID</b></td></tr>
-<tr class="memitem:a8a73235e69c6ee95ab525449f91a7d04"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a73235e69c6ee95ab525449f91a7d04"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>intRoomID</b> = -1</td></tr>
 <tr class="memitem:ad35590cd769800ad5534cb53f5bf044a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad35590cd769800ad5534cb53f5bf044a"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>blnIsLogin</b> = false</td></tr>
 <tr class="memitem:ae8d83319d81662d7d133f1f7ead386a9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae8d83319d81662d7d133f1f7ead386a9"></a>
@@ -155,32 +152,29 @@ Properties</h2></td></tr>
 <tr class="memitem:aae21196fbe688005b7a0d0a0b8bf42ed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae21196fbe688005b7a0d0a0b8bf42ed"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#aae21196fbe688005b7a0d0a0b8bf42ed">ID</a><code> [get]</code></td></tr>
 <tr class="memdesc:aae21196fbe688005b7a0d0a0b8bf42ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get's your ID. <br/></td></tr>
-<tr class="memitem:a0d4aa128eef283472312ce191841887a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d4aa128eef283472312ce191841887a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a0d4aa128eef283472312ce191841887a">IntRoom</a><code> [get]</code></td></tr>
-<tr class="memdesc:a0d4aa128eef283472312ce191841887a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets your internal room ID. <br/></td></tr>
-<tr class="memitem:ae290be3f9aa1e9f5d474cde01a3bb2ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae290be3f9aa1e9f5d474cde01a3bb2ac"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#ae290be3f9aa1e9f5d474cde01a3bb2ac">ExtRoom</a><code> [get]</code></td></tr>
-<tr class="memdesc:ae290be3f9aa1e9f5d474cde01a3bb2ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets your external room ID. <br/></td></tr>
 <tr class="memitem:af52eaa01201024b8c065f53e85120d12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af52eaa01201024b8c065f53e85120d12"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#af52eaa01201024b8c065f53e85120d12">Username</a><code> [get]</code></td></tr>
 <tr class="memdesc:af52eaa01201024b8c065f53e85120d12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets your username. <br/></td></tr>
 <tr class="memitem:a370b4ae2070f96b55fbef267d4d6b27e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a370b4ae2070f96b55fbef267d4d6b27e"></a>
 LoginHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a370b4ae2070f96b55fbef267d4d6b27e">onLogin</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a370b4ae2070f96b55fbef267d4d6b27e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event called after login success. <br/></td></tr>
+<tr class="memdesc:a370b4ae2070f96b55fbef267d4d6b27e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the event called after login success. <br/></td></tr>
 <tr class="memitem:a671a22a751f91b472db6f427c618c131"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a671a22a751f91b472db6f427c618c131"></a>
 JoinHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a671a22a751f91b472db6f427c618c131">onJoin</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a671a22a751f91b472db6f427c618c131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event called when the penguin has joined the game server. <br/></td></tr>
+<tr class="memdesc:a671a22a751f91b472db6f427c618c131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the event called when the penguin has joined the game server. <br/></td></tr>
 <tr class="memitem:ac2b810a66bab0069126d07ebe0ccfa42"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2b810a66bab0069126d07ebe0ccfa42"></a>
 PacketHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#ac2b810a66bab0069126d07ebe0ccfa42">onReceive</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ac2b810a66bab0069126d07ebe0ccfa42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event called when we have received a packet from the server. <br/></td></tr>
+<tr class="memdesc:ac2b810a66bab0069126d07ebe0ccfa42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the event called when we have received a packet from the server. <br/></td></tr>
 <tr class="memitem:a11a9cb86a237e4aff2903c84cbc0d26f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11a9cb86a237e4aff2903c84cbc0d26f"></a>
 DisconnectHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a11a9cb86a237e4aff2903c84cbc0d26f">onDisconnect</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a11a9cb86a237e4aff2903c84cbc0d26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event called when we have disconnected from the server. <br/></td></tr>
-<tr class="memitem:a1c5c62147e5a63bc6ba03c85befa6f14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c5c62147e5a63bc6ba03c85befa6f14"></a>
-ConnectionFailHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a1c5c62147e5a63bc6ba03c85befa6f14">onConnectFail</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a1c5c62147e5a63bc6ba03c85befa6f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event called when connecting to a server fails. <br/></td></tr>
+<tr class="memdesc:a11a9cb86a237e4aff2903c84cbc0d26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the event called when we have disconnected from the server. <br/></td></tr>
+<tr class="memitem:a405b654d1bbbc9bca815024fde3bfd14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a405b654d1bbbc9bca815024fde3bfd14"></a>
+ConnectionFailHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a405b654d1bbbc9bca815024fde3bfd14">onConnectionFailure</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a405b654d1bbbc9bca815024fde3bfd14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the event called when connecting to a server fails. <br/></td></tr>
+<tr class="memitem:a6739d15fdd9a00f22fdd031a7175938a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6739d15fdd9a00f22fdd031a7175938a"></a>
+ConnectionSuccessHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#a6739d15fdd9a00f22fdd031a7175938a">onConnectionSuccess</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a6739d15fdd9a00f22fdd031a7175938a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the event called when connection to a server succeeds. <br/></td></tr>
 <tr class="memitem:a209b85204c8df77c0ea7a50ee298ccd2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a209b85204c8df77c0ea7a50ee298ccd2"></a>
-ErrorHandler&#160;</td><td class="memItemRight" valign="bottom"><b>onError</b><code> [set]</code></td></tr>
+ErrorHandler&#160;</td><td class="memItemRight" valign="bottom"><b>onError</b><code> [get, set]</code></td></tr>
 <tr class="memitem:ab80d6631d32136aee2afcbfae17cdadf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab80d6631d32136aee2afcbfae17cdadf"></a>
 <a class="el" href="classSharpenguin_1_1Data_1_1PenguinRoom.html">Data.PenguinRoom</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSharpenguin_1_1PenguinBase.html#ab80d6631d32136aee2afcbfae17cdadf">Room</a><code> [get]</code></td></tr>
 <tr class="memdesc:ab80d6631d32136aee2afcbfae17cdadf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current room object. <br/></td></tr>
@@ -276,7 +270,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 </div>
 </div>
-<a class="anchor" id="ae883a098b18a513c9ca47e80d833c32e"></a>
+<a class="anchor" id="a0ae2d038b4a98c1f2f121a3e3cd09a45"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -286,8 +280,8 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
         <tr>
           <td class="memname">void Sharpenguin.PenguinBase.Join </td>
           <td>(</td>
-          <td class="paramtype">object&#160;</td>
-          <td class="paramname"><em>objServer</em></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>serverId</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -297,10 +291,41 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Joins a game server.</p>
+<p>Joins a game server via id.</p>
 <dl class="params"><dt>Parameters:</dt><dd>
   <table class="params">
-    <tr><td class="paramname">objServer</td><td>The id or name of the server you wish to connect to. </td></tr>
+    <tr><td class="paramname">serverId</td><td>The ID of the server to connect to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a71a78e2b71d95bac92e9ad78d4924600"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Sharpenguin.PenguinBase.Join </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>serverName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Joins a game server via name.</p>
+<dl class="params"><dt>Parameters:</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">serverName</td><td>The name of the server to connect to. </td></tr>
   </table>
   </dd>
 </dl>

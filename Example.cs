@@ -61,7 +61,7 @@ namespace SharpenguinExample {
             // Sets the disconnect handler. This is called when we are disconnected from a server.
             examplePenguin.onDisconnect = DisconnectHandler;
             // Sets the connection failure handler. This is called if we are unable to connect to a server.
-            examplePenguin.onConnectFail = ConnectFailHandler;
+            examplePenguin.onConnectionFailure = ConnectFailHandler;
             // Gives the player a handler for when they join a room. In this case, the handler is "jr".
             examplePenguin.Handler.Add("jr", JoinRoomHandler);
         }

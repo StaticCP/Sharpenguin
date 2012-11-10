@@ -31,7 +31,7 @@ A few notes about the sections above:
     * "License" is the license that this library is under. This must not be changed unless explicit
        written permission is received from the founder, or lead developer of this library.
     * "Version" is the current version of this library.
-    
+
 NOTE: The position of "lead developer" is appointed by, and only by, the founder of this library.
 
                                            == Usage ==
@@ -42,7 +42,7 @@ Requirements:
     * .NET 4.0+ compiler and run time.
     * An internet connection which allows access to the game's servers and the main website of this
       project.
-      
+
 Please read the documentation (located in the "docs" directory) to become familiar with this
 library and how to work with it. You can also look at the "Example.cs" file to see an example of
 a project using this library.
@@ -51,19 +51,26 @@ a project using this library.
 1.0.0:
     * Library released to the public.
     * Documentation created.
-    
+
 1.0.1:
     * Added IsAuthenticated property.
     * Added server name property.
     * Changed Convert.ToInt32 to int.Parse (less verbose and less namespaces used).
     * Stopped triggering the onDisconnect event when the Disconnect() method is called
       (stops onDisconnect being called twice).
+
 1.0.2:
     * Fixed the recursive read function (I broke it at some point...?)
     * Changed a bit of documentation, since it was not up to date with the functions.
     * Added uppercase to the first words of each method in Tasks.cs, since it looks nice in C#. 
       (I hope this doesn't cause people too many brickings)
-      
+
+1.0.3:
+    * Removed Room IDs (internal and external) from the PenguinBase class as they are stored in the
+      Room object, so they can be retrieved from there.
+    * Changed from synchronous to asynchronous connecting.
+    * Added onConnectionSuccess event.
+
                                        == A Brief Markdown ==
 Fetures:
     * Uses asynchronous sockets.
@@ -71,13 +78,12 @@ Fetures:
     * Allows, and eases, the ability to connect to Disney's Club Penguin with C#.
     * Easy to use, and implement, framework.
     * Fast as poop sliding of a shiny shovel.
-    
+
                                            == Contact ==
 Lewis (Static):
     E-mail: static@clubpenguinphp.info
        AIM: cpstaticabc
      Skype: staticabc
        IRC: Lewis (irc://i.r.cx)
-       
-       
+
 Abade abade, that's all folks!

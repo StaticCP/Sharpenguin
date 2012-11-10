@@ -2,7 +2,6 @@ var searchData=
 [
   ['id',['Id',['../classSharpenguin_1_1Data_1_1Player.html#a2607a3c888d2a6e67fdf6f3f5a5e75ec',1,'Sharpenguin.Data.Player.Id()'],['../classSharpenguin_1_1PenguinBase.html#aae21196fbe688005b7a0d0a0b8bf42ed',1,'Sharpenguin.PenguinBase.ID()']]],
   ['intid',['IntID',['../classSharpenguin_1_1Data_1_1PenguinRoom.html#a223a3cbc592600dee66427838e926956',1,'Sharpenguin::Data::PenguinRoom']]],
-  ['introom',['IntRoom',['../classSharpenguin_1_1PenguinBase.html#a0d4aa128eef283472312ce191841887a',1,'Sharpenguin::PenguinBase']]],
   ['invalidapiexception',['InvalidAPIException',['../classSharpenguin_1_1Exceptions_1_1InvalidAPIException.html',1,'Sharpenguin::Exceptions']]],
   ['invalidconfigexception',['InvalidConfigException',['../classSharpenguin_1_1Exceptions_1_1InvalidConfigException.html',1,'Sharpenguin::Exceptions']]],
   ['invalidxtexception',['InvalidXtException',['../classSharpenguin_1_1Exceptions_1_1InvalidXtException.html',1,'Sharpenguin::Exceptions']]],

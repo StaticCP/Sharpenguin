@@ -1,15 +1,12 @@
 \hypertarget{classSharpenguin_1_1Net_1_1PenguinSocket}{\section{Sharpenguin.\-Net.\-Penguin\-Socket Class Reference}
 \label{classSharpenguin_1_1Net_1_1PenguinSocket}\index{Sharpenguin.\-Net.\-Penguin\-Socket@{Sharpenguin.\-Net.\-Penguin\-Socket}}
 }
-\subsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-class \hyperlink{classSharpenguin_1_1Net_1_1PenguinSocket_1_1BufferState}{Buffer\-State}
-\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \hyperlink{classSharpenguin_1_1Net_1_1PenguinSocket_a024e4bbf684a0e2a279c477174e1c5d2}{Connect} (string str\-Host, int int\-Port)
+void \hyperlink{classSharpenguin_1_1Net_1_1PenguinSocket_a6508a955d89a5aa6a51f8bfac2f52b3e}{Begin\-Connect} (string str\-Host, int int\-Port, Penguin\-Connect\-Callback connect\-Callback)
+\item 
+void \hyperlink{classSharpenguin_1_1Net_1_1PenguinSocket_ac6fc724da56b753de71deb6aea0d473e}{Connection\-Callback} (System.\-I\-Async\-Result async\-Result)
 \item 
 void \hyperlink{classSharpenguin_1_1Net_1_1PenguinSocket_ac60926b98466d10e0db01bd48c4b4ad8}{Disconnect} ()
 \item 
@@ -31,6 +28,24 @@ void \hyperlink{classSharpenguin_1_1Net_1_1PenguinSocket_a08bb8907688a36801115b1
 Socket wrapper for penguin. Incorporates asynchronous reading until \textbackslash{}0. 
 
 \subsection{Member Function Documentation}
+\hypertarget{classSharpenguin_1_1Net_1_1PenguinSocket_a6508a955d89a5aa6a51f8bfac2f52b3e}{\index{Sharpenguin\-::\-Net\-::\-Penguin\-Socket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}!Begin\-Connect@{Begin\-Connect}}
+\index{Begin\-Connect@{Begin\-Connect}!Sharpenguin::Net::PenguinSocket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}}
+\subsubsection[{Begin\-Connect}]{\setlength{\rightskip}{0pt plus 5cm}void Sharpenguin.\-Net.\-Penguin\-Socket.\-Begin\-Connect (
+\begin{DoxyParamCaption}
+\item[{string}]{str\-Host, }
+\item[{int}]{int\-Port, }
+\item[{Penguin\-Connect\-Callback}]{connect\-Callback}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSharpenguin_1_1Net_1_1PenguinSocket_a6508a955d89a5aa6a51f8bfac2f52b3e}
+Creates a new socket and connects to the specified host and port.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str\-Host} & Host to connect to. \\
+\hline
+{\em int\-Port} & Port to connect to. \\
+\hline
+\end{DoxyParams}
 \hypertarget{classSharpenguin_1_1Net_1_1PenguinSocket_af55abe0b108fa3b4e94e20a639812b32}{\index{Sharpenguin\-::\-Net\-::\-Penguin\-Socket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}!Begin\-Receive@{Begin\-Receive}}
 \index{Begin\-Receive@{Begin\-Receive}!Sharpenguin::Net::PenguinSocket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}}
 \subsubsection[{Begin\-Receive}]{\setlength{\rightskip}{0pt plus 5cm}void Sharpenguin.\-Net.\-Penguin\-Socket.\-Begin\-Receive (
@@ -62,21 +77,18 @@ Begins asynchronous writing.
 {\em str\-Data} & The data to send. \\
 \hline
 \end{DoxyParams}
-\hypertarget{classSharpenguin_1_1Net_1_1PenguinSocket_a024e4bbf684a0e2a279c477174e1c5d2}{\index{Sharpenguin\-::\-Net\-::\-Penguin\-Socket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}!Connect@{Connect}}
-\index{Connect@{Connect}!Sharpenguin::Net::PenguinSocket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}}
-\subsubsection[{Connect}]{\setlength{\rightskip}{0pt plus 5cm}bool Sharpenguin.\-Net.\-Penguin\-Socket.\-Connect (
+\hypertarget{classSharpenguin_1_1Net_1_1PenguinSocket_ac6fc724da56b753de71deb6aea0d473e}{\index{Sharpenguin\-::\-Net\-::\-Penguin\-Socket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}!Connection\-Callback@{Connection\-Callback}}
+\index{Connection\-Callback@{Connection\-Callback}!Sharpenguin::Net::PenguinSocket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}}
+\subsubsection[{Connection\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}void Sharpenguin.\-Net.\-Penguin\-Socket.\-Connection\-Callback (
 \begin{DoxyParamCaption}
-\item[{string}]{str\-Host, }
-\item[{int}]{int\-Port}
+\item[{System.\-I\-Async\-Result}]{async\-Result}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSharpenguin_1_1Net_1_1PenguinSocket_a024e4bbf684a0e2a279c477174e1c5d2}
-Creates a new socket and connects to the specified host and port.
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSharpenguin_1_1Net_1_1PenguinSocket_ac6fc724da56b753de71deb6aea0d473e}
+Handles connection success or failure.
 
 
 \begin{DoxyParams}{Parameters}
-{\em str\-Host} & Host to connect to. \\
-\hline
-{\em int\-Port} & Port to connect to. \\
+{\em async\-Result} & The I\-Async\-Result of the connection attempt. \\
 \hline
 \end{DoxyParams}
 \hypertarget{classSharpenguin_1_1Net_1_1PenguinSocket_ac60926b98466d10e0db01bd48c4b4ad8}{\index{Sharpenguin\-::\-Net\-::\-Penguin\-Socket@{Sharpenguin\-::\-Net\-::\-Penguin\-Socket}!Disconnect@{Disconnect}}

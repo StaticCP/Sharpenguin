@@ -11,6 +11,7 @@
 namespace Sharpenguin.Net {
     using Sockets = System.Net.Sockets;
 
+    public delegate void PenguinConnectCallback(string connectionAddress, int connectionPort, bool connectionSuccessful);
     public delegate void PenguinReceiveCallback(Data.PenguinPacket objPacket);
     public delegate void PenguinDisconnectCallback();
 
@@ -27,36 +28,6 @@ namespace Sharpenguin.Net {
             get { return penguinSocks.Connected; }
         }
 
-        /**
-         * Buffer state object which stores data received from the socket until it is ready to be handled (i.e. we reach \0)
-         */
-        public class BufferState {
-            private const int intBuffer = 1024; //< Buffer length to attempt to read from the socket.
-            private byte[] arrBuffer = new byte[intBuffer]; //< Byte array of data.
-            private string strBuffer = ""; //< String representation of the received bytes.
-
-            //! Gets the length to attempt to read from the socket.
-            public int BufferSize {
-                get { return intBuffer; }
-            }
-            //! Gets or sets the byte array of data.
-            public byte[] Buffer {
-                get { return arrBuffer; }
-                set { arrBuffer = value; }
-            }
-            //! Gets or sets the string representation of the byte array of data.
-            public string BufferString {
-                get { return strBuffer; }
-                set { strBuffer = value; }
-            }
-            
-            /**
-             * Clears the byte array to start fresh for the next receive.
-             */
-            public void ClearBuffer() {
-                Buffer = new byte[BufferSize];
-            }
-        }
 
         /**
          * Creates a new socket and connects to the specified host and port.
@@ -66,23 +37,37 @@ namespace Sharpenguin.Net {
          * @param intPort
          *   Port to connect to.
          */
-        public bool Connect(string strHost, int intPort) {
+        public void BeginConnect(string strHost, int intPort, PenguinConnectCallback connectCallback) {
+            penguinSocks = new Sockets.Socket(Sockets.AddressFamily.InterNetwork, Sockets.SocketType.Stream, Sockets.ProtocolType.Tcp);
+            ConnectState connectionState = new ConnectState(strHost, intPort, connectCallback);
+            penguinSocks.BeginConnect(System.Net.IPAddress.Parse(strHost), intPort, ConnectionCallback, connectionState);
+        }
+        
+        /**
+         * Handles connection success or failure.
+         *
+         * @param asyncResult
+         *  The IAsyncResult of the connection attempt.
+         */
+        public void ConnectionCallback(System.IAsyncResult asyncResult) {
+            bool connectionSuccess = true;
+            ConnectState connectionState = (ConnectState) asyncResult.AsyncState;
             try {
-                penguinSocks = new Sockets.Socket(Sockets.AddressFamily.InterNetwork, Sockets.SocketType.Stream, Sockets.ProtocolType.Tcp);
-                penguinSocks.Connect(System.Net.IPAddress.Parse(strHost), intPort);
-                penguinSocks.Blocking = true;
-                return true;
+                penguinSocks.EndConnect(asyncResult);
             }catch{
-                return false;
+                connectionSuccess = false;
             }
+            connectionState.ConnectCallback(connectionState.Host, connectionState.Port, connectionSuccess);
         }
 
         /**
          * Closes the socket connection.
          */
         public void Disconnect() {
-            penguinSocks.Shutdown(Sockets.SocketShutdown.Both);
-            penguinSocks.Disconnect(true);
+            if(Connected) {
+                penguinSocks.Shutdown(Sockets.SocketShutdown.Both);
+                penguinSocks.Disconnect(true);
+            }
         }
 
         /**
@@ -99,7 +84,7 @@ namespace Sharpenguin.Net {
             receiveCall = receiveCallback;
             disconnectCall = disconnectCallback;
             BufferState receiveState = new BufferState();
-            penguinSocks.BeginReceive(receiveState.Buffer, 0, receiveState.BufferSize, 0, new System.AsyncCallback(ReceiveCallback), receiveState);
+            penguinSocks.BeginReceive(receiveState.Buffer, 0, receiveState.BufferSize, 0, ReceiveCallback, receiveState);
         }
 
         /**
@@ -132,7 +117,7 @@ namespace Sharpenguin.Net {
                 receiveState.ClearBuffer();
                 HandleData(receiveState);
                 try {
-                    penguinSocks.BeginReceive(receiveState.Buffer, 0, receiveState.BufferSize, 0, new System.AsyncCallback(ReceiveCallback), receiveState);
+                    penguinSocks.BeginReceive(receiveState.Buffer, 0, receiveState.BufferSize, 0, ReceiveCallback, receiveState);
                 }catch(System.Exception readEx) {
                     Out.Logger.WriteOutput("Could not start read from socket: " + readEx.Message, Out.Logger.LogLevel.Error);
                     disconnectCall();
@@ -167,7 +152,7 @@ namespace Sharpenguin.Net {
         public void BeginWrite(string strData) {
             byte[] arrData = System.Text.Encoding.ASCII.GetBytes(strData + "\0");
             try {
-                penguinSocks.BeginSend(arrData, 0, arrData.Length, Sockets.SocketFlags.None, new System.AsyncCallback(SendCallback), penguinSocks);
+                penguinSocks.BeginSend(arrData, 0, arrData.Length, Sockets.SocketFlags.None, SendCallback, penguinSocks);
             }catch(System.Exception writeEx) {
                 Out.Logger.WriteOutput("Could not send to socket: " + writeEx.Message, Out.Logger.LogLevel.Error);
                 disconnectCall();
@@ -189,5 +174,65 @@ namespace Sharpenguin.Net {
         }
 
 
+    }
+    
+    /**
+     * Buffer state object which stores data received from the socket until it is ready to be handled (i.e. we reach \0)
+     */
+    public class BufferState {
+        private const int intBuffer = 1024; //< Buffer length to attempt to read from the socket.
+        private byte[] arrBuffer = new byte[intBuffer]; //< Byte array of data.
+        private string strBuffer = ""; //< String representation of the received bytes.
+
+         //! Gets the length to attempt to read from the socket.
+        public int BufferSize {
+            get { return intBuffer; }
+        }
+        //! Gets or sets the byte array of data.
+        public byte[] Buffer {
+            get { return arrBuffer; }
+            set { arrBuffer = value; }
+        }
+        //! Gets or sets the string representation of the byte array of data.
+        public string BufferString {
+            get { return strBuffer; }
+            set { strBuffer = value; }
+        }
+
+        /**
+         * Clears the byte array to start fresh for the next receive.
+         */
+        public void ClearBuffer() {
+            Buffer = new byte[BufferSize];
+        }
+    }
+    
+    /**
+     * Connect state object which contains the connect callback and host and port we are connecting to.
+     */
+    public class ConnectState {
+        private string connectHost; //< Host we are connecting to.
+        private int connectPort; //< Port we are connecting to.
+        private PenguinConnectCallback connectCallback; //< Delegate called when connection had succeeded or failed.
+        
+        //! Gets the host we are connecting to.
+        public string Host {
+            get { return connectHost; }
+        }
+        //! Gets the port we are connecting to.
+        public int Port {
+            get { return connectPort; }
+        }
+        //! Gets the connect callback.
+        public PenguinConnectCallback ConnectCallback {
+            get { return connectCallback; }
+        }
+        
+        public ConnectState(string host, int port, PenguinConnectCallback callback) {
+            connectHost = host;
+            connectPort = port;
+            connectCallback = callback;
+        }
+    
     }
 }

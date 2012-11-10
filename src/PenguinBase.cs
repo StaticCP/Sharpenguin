@@ -10,6 +10,7 @@ namespace Sharpenguin {
 
     public delegate void LoginHandler();
     public delegate void JoinHandler();
+    public delegate void ConnectionSuccessHandler(string strIp, int intPort);
     public delegate void ConnectionFailHandler(string strIp, int intPort);
     public delegate void XtHandler(Xt.XtParser xpParser);
     public delegate void PacketHandler(Data.PenguinPacket receivedPacket);
@@ -21,9 +22,7 @@ namespace Sharpenguin {
      */
     public abstract class PenguinBase {
         // Feilds
-        protected int extRoomID; //< External room id.
         protected int playerID; //< Player id.
-        protected int intRoomID         = -1; //< Internal room id.
         private const int intAPIVersion = 152; // Smart fox server API version.
         protected bool blnIsLogin       = false; //< If we are contacting the login servers, this is true.
         protected bool blnIsJoin        = false; //< If we are authenticating with the game servers, this is true.
@@ -43,52 +42,51 @@ namespace Sharpenguin {
         private event PacketHandler packetReceived; //< Event for handling a packet being received.
         private event DisconnectHandler disconnectEvent; //< Event for handling socket disconnection.
         private event ConnectionFailHandler connectFail; //< Event for handling connection failure.
+        private event ConnectionSuccessHandler connectSuccess; //< Event for handling connection success;
 
         // Properties
         //! Get's your ID.
         public int ID {
             get { return playerID; }
         }
-        //! Gets your internal room ID.
-        public int IntRoom {
-            get { return intRoomID; }
-        }
-        //! Gets your external room ID.
-        public int ExtRoom {
-            get { return extRoomID; }
-        }
         //! Gets your username.
         public string Username {
             get { return penguinName; }
         }
-        //! Event called after login success.
+        //! Gets or sets the event called after login success.
         public LoginHandler onLogin {
             set { loginSuccess = value; }
             get { return loginSuccess; }
         }
-        //! Event called when the penguin has joined the game server.
+        //! Gets or sets the event called when the penguin has joined the game server.
         public JoinHandler onJoin {
             set { joinSuccess = value; }
             get { return joinSuccess; }
         }
-        //! Event called when we have received a packet from the server.
+        //! Gets or sets the event called when we have received a packet from the server.
         public PacketHandler onReceive {
             set { packetReceived = value; }
             get { return packetReceived; }
         }
-        //! Event called when we have disconnected from the server.
+        //! Gets or sets the event called when we have disconnected from the server.
         public DisconnectHandler onDisconnect {
             set { disconnectEvent = value; }
             get { return disconnectEvent; }
         }
-        //! Event called when connecting to a server fails
-        public ConnectionFailHandler onConnectFail {
+        //! Gets or sets the event called when connecting to a server fails.
+        public ConnectionFailHandler onConnectionFailure {
             set { connectFail = value; }
             get { return connectFail; }
         }
-        // Event called when an error occurs.
+        //! Gets or sets the event called when connection to a server succeeds.
+        public ConnectionSuccessHandler onConnectionSuccess {
+            set { connectSuccess = value; }
+            get { return connectSuccess; }
+        }
+        // Gets or sets the event called when an error occurs.
         public ErrorHandler onError {
             set { penguinErrorEvent = value; }
+            get { return penguinErrorEvent; }
         }
         //! Gets the current room object.
         public Data.PenguinRoom Room {
@@ -123,27 +121,20 @@ namespace Sharpenguin {
             penguinHandlers = new Xt.HandlerTable();
             currentRoom = new Data.PenguinRoom();
         }
+        
 
         /**
-         * Creates a socket and connects to a host.
+         * Starts a new connection.
          *
-         * @param strIp
-         *   The IP address of the remote host.
-         * @param intPort
-         *   The port to connect to.
-         *
-         * @return
-         *   TRUE on success, FALSE on failure.
+         * @param connectionHost
+         *   The address of the host we are connecting to.
+         * @param connectionPort
+         *   The port we are connecting to.
          */
-        private bool InitialiseConnection(string strIp, int intPort) {
+         private void InitialiseConnection(string connectionHost, int connectionPort) {
             psSock = new Net.PenguinSocket();
-            if(psSock.Connect(strIp, intPort)) {
-                return true;
-            }else{
-                if(connectFail != null) connectFail(strIp, intPort);
-                return false;
-            }
-        }
+            psSock.BeginConnect(connectionHost, connectionPort, ConnectCallback);
+         }
 
         /**
          * Connects to login server and begins authentication.
@@ -155,14 +146,57 @@ namespace Sharpenguin {
          */
         public void Login(string penguinUsername, string penguinPassword) {
             if(CheckCredentials(penguinUsername, penguinPassword) == false) return;
+            penguinName = penguinUsername;
+            penguinPass = penguinPassword;
             blnAuthenticated = false;
             int loginServer = Crumbs.LoginServers.GetRandom();
             string strIp = Crumbs.LoginServers.GetAttributeById(loginServer, "ip");
-            if(InitialiseConnection(strIp, LoginPort(penguinUsername, loginServer))) {
-                blnIsLogin = true;
-                StartAuth(penguinUsername, penguinPassword);
-           }
+            blnIsLogin = true;
+            InitialiseConnection(strIp, LoginPort(penguinUsername, loginServer));
         }
+        
+        /**
+         * Joins a game server via id.
+         *
+         * @param serverId
+         *   The ID of the server to connect to.
+         */
+        public void Join(int serverId) {
+            if(loginKey == "") throw new Exceptions.EarlyJoinException("You must login before you can join a game server!");
+            System.Collections.Generic.Dictionary<string, string> serverCrumbs = Crumbs.Servers.GetById(serverId);
+            serverName = serverCrumbs["name"];
+            blnIsJoin = true;
+            InitialiseConnection(serverCrumbs["ip"], int.Parse(serverCrumbs["port"]));
+        }
+        
+        /**
+         * Joins a game server via name.
+         *
+         * @param serverName
+         *   The name of the server to connect to.
+         */
+        public void Join(string serverName) {
+            Join(Crumbs.Servers.GetIdByAttribute("name", serverName));
+        }
+        
+        /**
+         * Connection attempt callback.
+         *
+         * @param hostAddress
+         *  The address of the host we attempted to connect to.
+         * @param hostPort
+         *  The port we attempted to connect to.
+         * @param connectionSuccess
+         *  Whether the connection was successful or not.
+         */
+        private void ConnectCallback(string hostAddress, int hostPort, bool connectionSuccess) {
+            if(connectionSuccess) {
+                if(connectSuccess != null) connectSuccess(hostAddress, hostPort);
+                StartAuth(penguinName, blnIsLogin ? penguinPass : loginKey);
+            }else{
+                if(connectFail != null) connectFail(hostAddress, hostPort);
+            }
+         }
 
         /**
          * Checks username and password are correct lengths before login.
@@ -190,24 +224,6 @@ namespace Sharpenguin {
             if(intError == 0) return true;
             if(penguinErrorEvent != null) penguinErrorEvent(intError);
             return false;
-        }
-
-        /**
-         * Joins a game server.
-         *
-         * @param objServer
-         *   The id or name of the server you wish to connect to.
-         */
-        public void Join(object objServer) {
-            if(loginKey == "") throw new Exceptions.EarlyJoinException("You must login before you can join a game server!");
-            System.Collections.Generic.Dictionary<string, string> serverCrumbs = (objServer is int) ? Crumbs.Servers.GetById((int) objServer) : Crumbs.Servers.GetByAttribute("name", objServer as string);
-            string strIp = serverCrumbs["ip"];
-            int intPort = int.Parse(serverCrumbs["port"]);
-            serverName = serverCrumbs["name"];
-            if(InitialiseConnection(strIp, intPort)) {
-                blnIsJoin = true;
-                StartAuth(penguinName, loginKey);
-            }
         }
 
         /**
@@ -377,9 +393,7 @@ namespace Sharpenguin {
          * Disconnects the socket.
          */
         public void Disconnect() {
-            if(psSock.Connected) {
-                psSock.Disconnect();
-            }
+            psSock.Disconnect();
         }
 
     }

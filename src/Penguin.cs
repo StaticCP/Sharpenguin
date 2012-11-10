@@ -123,10 +123,9 @@ namespace Sharpenguin {
          *   The packet to handle.
          */
         private void HandleJoinRoom(Data.PenguinPacket receivedPacket) {
-            extRoomID = int.Parse(receivedPacket.Xt.Arguments[0]);
-            intRoomID =  receivedPacket.Xt.Room;
-            string strName = (extRoomID < 1000) ? Crumbs.Rooms.GetAttributeById(extRoomID, "name") : "Igloo";
-            currentRoom.ChangeRoom(strName, intRoomID, extRoomID);
+            int roomExtId = int.Parse(receivedPacket.Xt.Arguments[0]);
+            string strName = (roomExtId < 1000) ? Crumbs.Rooms.GetAttributeById(roomExtId, "name") : "Igloo";
+            currentRoom.ChangeRoom(strName, receivedPacket.Xt.Room, roomExtId);
             for(int intIndex = 1; intIndex < receivedPacket.Xt.Arguments.Length; intIndex++) {
                 Data.Player newPlayer = new Data.Player();
                 newPlayer.LoadData(receivedPacket.Xt.Arguments[intIndex]);
@@ -180,8 +179,8 @@ namespace Sharpenguin {
          *   The packet to handle.
          */
         private void HandleJoinGame(Data.PenguinPacket receivedPacket) {
-            intRoomID = receivedPacket.Xt.Room;
-            extRoomID = int.Parse(receivedPacket.Xt.Arguments[0]);
+            int roomExtId = int.Parse(receivedPacket.Xt.Arguments[0]);
+            Room.ChangeRoom(Crumbs.Rooms.GetAttributeById(roomExtId, "name"), receivedPacket.Xt.Room, roomExtId);
         }
 
         /**
