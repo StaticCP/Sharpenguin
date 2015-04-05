@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="Sharpenguin/Sharpenguin.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sharpenguin/PenguinBase.cs">
+    <Files>
+      <File FileName="Sharpenguin/PenguinBase.cs" Line="3" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

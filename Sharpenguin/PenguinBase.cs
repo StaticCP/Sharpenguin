@@ -34,15 +34,15 @@ namespace Sharpenguin {
         private string serverName       = ""; //< The name of the server we are connecting, or have connected, to.
         private Data.CPCrumbs penguinCrumbs; // Crumbs object.
         protected Data.PenguinRoom currentRoom; //< A room object of the room you are currently in.
-        private Net.PenguinSocket psSock; //< Penguin socket wrapper.
+	private NetClient.Connection connection; //< Penguin socket wrapper.
         private Xt.HandlerTable penguinHandlers; //< Handler table.
-        protected ErrorHandler penguinErrorEvent; //< Error event.
-        private event LoginHandler loginSuccess; //< Event for handling login success.
-        private event JoinHandler joinSuccess; //< Event for handling join success.
-        private event PacketHandler packetReceived; //< Event for handling a packet being received.
-        private event DisconnectHandler disconnectEvent; //< Event for handling socket disconnection.
-        private event ConnectionFailHandler connectFail; //< Event for handling connection failure.
-        private event ConnectionSuccessHandler connectSuccess; //< Event for handling connection success;
+        public event ErrorHandler OnError; //< Error event.
+        public event LoginHandler OnLogin; //< Event for handling login success.
+        public event JoinHandler OnJoin; //< Event for handling join success.
+        public event PacketHandler OnReceive; //< Event for handling a packet being received.
+        public event DisconnectHandler OnDisconnect; //< Event for handling socket disconnection.
+        public event ConnectionFailHandler OnConnectFailure; //< Event for handling connection failure.
+        public event ConnectionSuccessHandler OnConnect; //< Event for handling connection success;
 
         // Properties
         //! Get's your ID.
@@ -53,41 +53,6 @@ namespace Sharpenguin {
         public string Username {
             get { return penguinName; }
         }
-        //! Gets or sets the event called after login success.
-        public LoginHandler onLogin {
-            set { loginSuccess = value; }
-            get { return loginSuccess; }
-        }
-        //! Gets or sets the event called when the penguin has joined the game server.
-        public JoinHandler onJoin {
-            set { joinSuccess = value; }
-            get { return joinSuccess; }
-        }
-        //! Gets or sets the event called when we have received a packet from the server.
-        public PacketHandler onReceive {
-            set { packetReceived = value; }
-            get { return packetReceived; }
-        }
-        //! Gets or sets the event called when we have disconnected from the server.
-        public DisconnectHandler onDisconnect {
-            set { disconnectEvent = value; }
-            get { return disconnectEvent; }
-        }
-        //! Gets or sets the event called when connecting to a server fails.
-        public ConnectionFailHandler onConnectionFailure {
-            set { connectFail = value; }
-            get { return connectFail; }
-        }
-        //! Gets or sets the event called when connection to a server succeeds.
-        public ConnectionSuccessHandler onConnectionSuccess {
-            set { connectSuccess = value; }
-            get { return connectSuccess; }
-        }
-        // Gets or sets the event called when an error occurs.
-        public ErrorHandler onError {
-            set { penguinErrorEvent = value; }
-            get { return penguinErrorEvent; }
-        }
         //! Gets the current room object.
         public Data.PenguinRoom Room {
             get { return currentRoom; }
@@ -96,9 +61,13 @@ namespace Sharpenguin {
         public Data.CPCrumbs Crumbs {
             get { return penguinCrumbs; }
         }
-        //! Gets the socket which we connect to the server through.
-        public Net.PenguinSocket Sock {
-            get { return psSock; }
+	
+	/// <summary>
+	/// Gets the underlying connection to the server.
+	/// </summary>
+	/// <value>The connection.</value>
+        public Net.PenguinSocket Connection {
+            get { return connection; }
         }
         //! Gets the handler table.
         public Xt.HandlerTable Handler {
@@ -131,10 +100,13 @@ namespace Sharpenguin {
          * @param connectionPort
          *   The port we are connecting to.
          */
-         private void InitialiseConnection(string connectionHost, int connectionPort) {
-            psSock = new Net.PenguinSocket();
-            psSock.BeginConnect(connectionHost, connectionPort, ConnectCallback);
-         }
+        private void InitialiseConnection(string host, int port) {
+            connection = new NetClient.Connection(new NetClient.ConnectionInfo(host, port, NetClient.ConnectionType.Tcp));
+            connection.OnConnect += HandleConnect;
+            connection.OnReceive += HandleReceive;
+            connection.OnDisconnect += HandleDiconnect;
+            connection.Open();
+        }
 
         /**
          * Connects to login server and begins authentication.
@@ -189,14 +161,28 @@ namespace Sharpenguin {
          * @param connectionSuccess
          *  Whether the connection was successful or not.
          */
-        private void ConnectCallback(string hostAddress, int hostPort, bool connectionSuccess) {
-            if(connectionSuccess) {
-                if(connectSuccess != null) connectSuccess(hostAddress, hostPort);
-                StartAuth(penguinName, blnIsLogin ? penguinPass : loginKey);
-            }else{
-                if(connectFail != null) connectFail(hostAddress, hostPort);
+        private void HandleConnect(NetClient.Connection connection) {
+            if(OnConnectionSuccess != null)
+                OnConnectionSuccess(connection.Information.Host, connection.Information.Port, true);
+        }
+
+        public void HandleReceive (NetClient.Connection connection, string packet) {
+            if(OnReceive != null) OnReceive(packet);
+            if(receivedPacket.Type == Data.PenguinPacket.PacketType.Xt) {
+                HandleXt(receivedPacket);
+            }else if(receivedPacket.Type == Data.PenguinPacket.PacketType.Xml) {
+                XmlReceived(receivedPacket);
             }
-         }
+        }
+
+
+        private void SocketErrorHandler(NetClient.Connection connection, System.Net.Sockets.SocketError error) {
+            if(error == System.Net.Sockets.SocketError.HostUnreachable
+               || error == System.Net.Sockets.SocketError.ConnectionRefused
+               || error == System.Net.Sockets.SocketError.HostDown) {
+
+            }
+        }
 
         /**
          * Checks username and password are correct lengths before login.
@@ -207,22 +193,22 @@ namespace Sharpenguin {
          *   The password to check.
          */
         private bool CheckCredentials(string strUsername, string strPassword) {
-            int intError = 0;
+            int error = 0;
             if(string.IsNullOrEmpty(strUsername)) {
-                intError = 140;
+                error = 140;
             }else if(strUsername.Length < 4) {
-                intError = 141;
+                error = 141;
             }else if(strUsername.Length > 12) {
-                intError = 142;
+                error = 142;
             }else if(string.IsNullOrEmpty(strPassword)) {
-                intError = 130;
+                error = 130;
             }else if(strPassword.Length < 4) {
-                intError = 131;
+                error = 131;
             }else if(strPassword.Length > 32) {
-                intError = 132;
+                error = 132;
             }
-            if(intError == 0) return true;
-            if(penguinErrorEvent != null) penguinErrorEvent(intError);
+            if(error == 0) return true;
+            if(OnError != null) OnError(error);
             return false;
         }
 
@@ -238,7 +224,6 @@ namespace Sharpenguin {
             penguinName = penguinUsername;
             penguinPass = penguinPassword;
             sendAPIVersion();
-            psSock.BeginReceive(ReceiveCallback, DisconnectCallback);
         }
 
         /**
@@ -306,7 +291,7 @@ namespace Sharpenguin {
         protected void LoginFinished() {
             blnIsLogin = false;
             Disconnect();
-            if(loginSuccess != null) loginSuccess();
+            if(OnLogin != null) OnLogin();
         }
 
         /**
@@ -315,7 +300,7 @@ namespace Sharpenguin {
         protected void JoinFinished() {
             blnIsJoin = false;
             blnAuthenticated = true;
-            if(joinSuccess != null) joinSuccess();
+            if(OnJoin != null) OnJoin();
         }
 
         /**
@@ -324,30 +309,15 @@ namespace Sharpenguin {
          * @param dataText
          *   The data to send to the host.
          */
-        public void SendData(string dataText) {
-            psSock.BeginWrite(dataText);
-        }
-
-        /**
-         * Receive callback for the asynchronous socket.
-         *
-         * @param receivedPacket
-         *   The packet that was received.
-         */
-        protected void ReceiveCallback(Data.PenguinPacket receivedPacket) {
-            if(packetReceived != null) packetReceived(receivedPacket);
-            if(receivedPacket.Type == Data.PenguinPacket.PacketType.Xt) {
-                HandleXt(receivedPacket);
-            }else if(receivedPacket.Type == Data.PenguinPacket.PacketType.Xml) {
-                XmlReceived(receivedPacket);
-            }
+        public void Send(string data) {
+            connection.Send(data)
         }
 
         /**
          * Disconnect callback for the asynchronous socket.
          */
-        protected void DisconnectCallback() {
-            if(disconnectEvent != null) disconnectEvent();
+        protected void HandleDisconnect() {
+            if(OnDisconnect != null) OnDisconnect();
         }
 
         /**
