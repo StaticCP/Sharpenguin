@@ -11,15 +11,6 @@
 namespace Sharpenguin.Exceptions {
 
     /**
-     * Penguin base exception class.
-     */
-    public class PenguinException : System.Exception {
-        public PenguinException() : base() { }
-        public PenguinException(string strMessage) : base(strMessage) { }
-        public PenguinException(string strMessage, PenguinException objException) : base(strMessage, objException) { }
-    }
-
-    /**
      * Exception for when the configuration file is invalid for whatever reason.
      */
     public class InvalidConfigException : PenguinException {
