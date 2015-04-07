@@ -15,25 +15,25 @@ namespace Sharpenguin.Security {
      * Crypt class for managing password and login key hashing.
      */
     static class Crypt {
-        private const string strSalt = "Y(02.>'H}t\":E1"; //< Password salt.
+        private const string salt = "Y(02.>'H}t\":E1"; //< Password salt.
 
         /**
          * Hashes password with the random key provided by the server.
          *
-         * @param strPassword
+         * @param password
          *   Password to hash.
-         * @param strRndK
+         * @param rndk
          *   Random key provided by the server.
          *
          * @return
          *   Hashed password.
          */
-        public static string HashPassword(string strPassword, string strRndK) {
-            string strKey = RevMd5(strPassword, true).ToUpper();
-            strKey += strRndK;
-            strKey += strSalt;
-            strKey = RevMd5(strKey, true);
-            return strKey;
+        public static string HashPassword(string password, string rndk) {
+            string key = SwapMD5(password, true).ToUpper();
+            key += rndk;
+            key += salt;
+            key = SwapMD5(key, true);
+            return key;
         }
 
         /**
@@ -41,7 +41,7 @@ namespace Sharpenguin.Security {
          *
          * Gets the last 16 characters and first 16 characters of an MD5 hash and puts them together, effectively swapping the two halves. Optionally, you can also hash the input string.
          *
-         * @param strIn
+         * @param plain
          *   The input string.
          * @param blnMd5
          *   Whether to hash the input string or not.
@@ -49,31 +49,30 @@ namespace Sharpenguin.Security {
          * @return
          *   Output string.
          */
-        public static string RevMd5(string strIn, bool blnMd5) {
-            if(blnMd5) {
-                strIn = Md5(strIn);
-            }
-            string strOut = strIn.Substring(16, 16) + strIn.Substring(0, 16);
-            return strOut;
+        public static string SwapMD5(string plain, bool blnMd5) {
+            string hash = plain;
+            if(blnMd5) hash = Md5(plain);
+            hash = hash.Substring(16, 16) + hash.Substring(0, 16);
+            return hash;
         }
 
         /**
          * Hashes a string in md5.
          *
-         * @param strIn
+         * @param plain
          *  The input string.
          *
          * @return
          *  The output string, which is the MD5 hash of the input string.
          */
-        private static string Md5(string strIn) {
-            MD5 objHash = MD5.Create();
-            byte[] bytData = objHash.ComputeHash(Utils.strToByte(strIn));
-            string strHash = "";
-            for(int intLoops = 0; intLoops < bytData.Length; intLoops++) {
-                strHash += bytData[intLoops].ToString("x2");
+        private static string Md5(string plain) {
+            MD5 algo = MD5.Create();
+            byte[] bytData = algo.ComputeHash(Utils.strToByte(plain));
+            string hash = "";
+            for(int i = 0; i < bytData.Length; i++) {
+                hash += bytData[i].ToString("x2");
             }
-            return strHash;
+            return hash;
         }
     }
 }

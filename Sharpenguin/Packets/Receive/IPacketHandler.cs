@@ -13,12 +13,12 @@ namespace Sharpenguin.Packets.Receive {
         /// <summary>
         /// Handle the given packet.
         /// </summary>
-        /// <param name='sender'>
-        /// The sender of the packet.
+        /// <param name='receiver'>
+        /// The connection that received the packet.
         /// </param>
         /// <param name='packet'>
         /// The packet.
         /// </param>
-        void Handle(PenguinConnection sender, T packet);
+        void Handle(PenguinConnection receiver, T packet);
     }
 }

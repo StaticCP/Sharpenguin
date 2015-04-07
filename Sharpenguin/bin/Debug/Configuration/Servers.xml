@@ -1,0 +1,163 @@
+<servers>
+    <login>
+        <server id="1" ip="204.75.167.165" odd="3724" even="3724"/>
+    </login>
+
+    <game>
+        <server id="3100" name="Blizzard" ip="204.75.167.9" port="3724" safe="0"/>
+        <server id="3101" name="Ice Berg" ip="204.75.167.9" port="6112" safe="0"/>
+        <server id="3102" name="White Out" ip="204.75.167.9" port="9875" safe="0"/>
+        <server id="3103" name="Slushy" ip="204.75.167.10" port="3724" safe="0"/>
+        <server id="3104" name="Flurry" ip="204.75.167.10" port="6112" safe="0"/>
+        <server id="3105" name="Snow Angel" ip="204.75.167.10" port="9875" safe="0"/>
+        <server id="3106" name="Snow Day" ip="204.75.167.11" port="3724" safe="0"/>
+        <server id="3107" name="Frostbite" ip="204.75.167.11" port="6112" safe="0"/>
+        <server id="3108" name="Icicle" ip="204.75.167.11" port="9875" safe="0"/>
+        <server id="3109" name="Tundra" ip="204.75.167.12" port="3724" safe="0"/>
+        <server id="3110" name="Snow Cone" ip="204.75.167.12" port="6112" safe="0"/>
+        <server id="3111" name="Alpine" ip="204.75.167.12" port="9875" safe="0"/>
+        <server id="3112" name="Ice Breaker" ip="204.75.167.13" port="3724" safe="0"/>
+        <server id="3113" name="Snow Globe" ip="204.75.167.13" port="6112" safe="0"/>
+        <server id="3114" name="Snow Fort" ip="204.75.167.13" port="9875" safe="0"/>
+        <server id="3115" name="Mammoth" ip="204.75.167.14" port="3724" safe="0"/>
+        <server id="3116" name="Grizzly" ip="204.75.167.14" port="6112" safe="0"/>
+        <server id="3117" name="Winter Land" ip="204.75.167.14" port="9875" safe="0"/>
+        <server id="3120" name="Freezer" ip="204.75.167.15" port="3724" safe="0"/>
+        <server id="3121" name="Avalanche" ip="204.75.167.15" port="6112" safe="0"/>
+        <server id="3122" name="Powder Ball" ip="204.75.167.15" port="9875" safe="0"/>
+        <server id="3123" name="Summit" ip="204.75.167.16" port="3724" safe="0"/>
+        <server id="3124" name="Flippers" ip="204.75.167.16" port="6112" safe="0"/>
+        <server id="3125" name="Yeti" ip="204.75.167.16" port="9875" safe="0"/>
+        <server id="3126" name="Sub Zero" ip="204.75.167.17" port="3724" safe="0"/>
+        <server id="3127" name="Ice Cold" ip="204.75.167.17" port="6112" safe="0"/>
+        <server id="3128" name="Crystal" ip="204.75.167.17" port="9875" safe="0"/>
+        <server id="3129" name="Snow Bank" ip="204.75.167.18" port="3724" safe="0"/>
+        <server id="3130" name="Ice Palace" ip="204.75.167.18" port="6112" safe="0"/>
+        <server id="3131" name="Tuxedo" ip="204.75.167.18" port="9875" safe="0"/>
+        <server id="3132" name="Abominable" ip="204.75.167.19" port="3724" safe="0"/>
+        <server id="3133" name="Half Pipe" ip="204.75.167.19" port="6112" safe="0"/>
+        <server id="3134" name="Snow Board" ip="204.75.167.19" port="9875" safe="0"/>
+        <server id="3135" name="Alaska" ip="204.75.167.20" port="3724" safe="0"/>
+        <server id="3136" name="Thermal" ip="204.75.167.20" port="6112" safe="0"/>
+        <server id="3137" name="Toboggan" ip="204.75.167.20" port="9875" safe="0"/>
+        <server id="3138" name="Husky" ip="204.75.167.21" port="3724" safe="0"/>
+        <server id="3139" name="Snow Plow" ip="204.75.167.21" port="6112" safe="0"/>
+        <server id="3140" name="Ice Age" ip="204.75.167.21" port="9875" safe="0"/>
+        <server id="3141" name="Sabertooth" ip="204.75.167.22" port="3724" safe="0"/>
+        <server id="3142" name="Parka" ip="204.75.167.22" port="6112" safe="0"/>
+        <server id="3143" name="Hibernate" ip="204.75.167.22" port="9875" safe="0"/>
+        <server id="3144" name="Sleet" ip="204.75.167.23" port="3724" safe="0"/>
+        <server id="3145" name="Vanilla" ip="204.75.167.23" port="6112" safe="0"/>
+        <server id="3146" name="Christmas" ip="204.75.167.23" port="9875" safe="0"/>
+        <server id="3147" name="Klondike" ip="204.75.167.24" port="3724" safe="0"/>
+        <server id="3148" name="Icebound" ip="204.75.167.24" port="6112" safe="0"/>
+        <server id="3149" name="Marshmallow" ip="204.75.167.24" port="9875" safe="0"/>
+        <server id="3150" name="White House" ip="204.75.167.25" port="3724" safe="0"/>
+        <server id="3151" name="Fjord" ip="204.75.167.25" port="6112" safe="0"/>
+        <server id="3152" name="Big Foot" ip="204.75.167.25" port="9875" safe="0"/>
+        <server id="3155" name="Rocky Road" ip="204.75.167.26" port="3724" safe="0"/>
+        <server id="3156" name="Rainbow" ip="204.75.167.26" port="6112" safe="0"/>
+        <server id="3157" name="Arctic" ip="204.75.167.26" port="9875" safe="0"/>
+        <server id="3158" name="Shiver" ip="204.75.167.27" port="3724" safe="0"/>
+        <server id="3159" name="Matterhorn" ip="204.75.167.27" port="6112" safe="0"/>
+        <server id="3160" name="Bobsled" ip="204.75.167.27" port="9875" safe="0"/>
+        <server id="3161" name="Ice Box" ip="204.75.167.28" port="3724" safe="0"/>
+        <server id="3162" name="Bunny Hill" ip="204.75.167.28" port="6112" safe="0"/>
+        <server id="3163" name="Walrus" ip="204.75.167.28" port="9875" safe="0"/>
+        <server id="3164" name="Deep Snow" ip="204.75.167.29" port="3724" safe="0"/>
+        <server id="3166" name="Snowmobile" ip="204.75.167.29" port="6112" safe="0"/>
+        <server id="3167" name="Northern Lights" ip="204.75.167.29" port="9875" safe="0"/>
+        <server id="3168" name="Southern Lights" ip="204.75.167.30" port="3724" safe="0"/>
+        <server id="3169" name="Ice Shelf" ip="204.75.167.30" port="6112" safe="0"/>
+        <server id="3170" name="Ascent" ip="204.75.167.30" port="9875" safe="0"/>
+        <server id="3171" name="Snowcap" ip="204.75.167.31" port="3724" safe="0"/>
+        <server id="3200" name="North Pole" ip="204.75.167.31" port="6112" safe="0"/>
+        <server id="3201" name="Glacier" ip="204.75.167.31" port="9875" safe="0"/>
+        <server id="3202" name="Aurora" ip="204.75.167.32" port="3724" safe="0"/>
+        <server id="3203" name="Mukluk" ip="204.75.167.32" port="6112" safe="0"/>
+        <server id="3204" name="Great White" ip="204.75.167.32" port="9875" safe="0"/>
+        <server id="3205" name="Snow Shoe" ip="204.75.167.33" port="3724" safe="0"/>
+        <server id="3206" name="Yukon" ip="204.75.167.33" port="6112" safe="0"/>
+        <server id="3207" name="Polar Bear" ip="204.75.167.33" port="9875" safe="0"/>
+        <server id="3209" name="Chinook" ip="204.75.167.34" port="3724" safe="0"/>
+        <server id="3210" name="Wool Socks" ip="204.75.167.34" port="6112" safe="0"/>
+        <server id="3211" name="Snowbound" ip="204.75.167.34" port="9875" safe="0"/>
+        <server id="3213" name="Ice Pond" ip="204.75.167.35" port="6112" safe="0"/>
+        <server id="3214" name="Snowfall" ip="204.75.167.35" port="9875" safe="0"/>
+        <server id="3215" name="Caribou" ip="204.75.167.36" port="3724" safe="0"/>
+        <server id="3300" name="Deep Freeze" ip="204.75.167.36" port="6112" safe="0"/>
+        <server id="3301" name="Cold Front" ip="204.75.167.36" port="9875" safe="0"/>
+        <server id="3302" name="Frozen" ip="204.75.167.37" port="3724" safe="0"/>
+        <server id="3303" name="Snow Flake" ip="204.75.167.37" port="6112" safe="0"/>
+        <server id="3304" name="Frosty" ip="204.75.167.37" port="9875" safe="0"/>
+        <server id="3306" name="Snow Drift" ip="204.75.167.38" port="3724" safe="0"/>
+        <server id="3307" name="Mittens" ip="204.75.167.38" port="6112" safe="0"/>
+        <server id="3310" name="Breeze" ip="204.75.167.38" port="9875" safe="0"/>
+        <server id="3311" name="Crunch" ip="204.75.167.39" port="3724" safe="0"/>
+        <server id="3312" name="Wind Chill" ip="204.75.167.39" port="6112" safe="0"/>
+        <server id="3313" name="Iceland" ip="204.75.167.39" port="9875" safe="0"/>
+        <server id="3314" name="Belly Slide" ip="204.75.167.40" port="3724" safe="0"/>
+        <server id="3315" name="Sherbet" ip="204.75.167.40" port="6112" safe="0"/>
+        <server id="3400" name="South Pole" ip="204.75.167.40" port="9875" safe="0"/>
+        <server id="3401" name="Big Surf" ip="204.75.167.41" port="3724" safe="0"/>
+        <server id="3403" name="Sasquatch" ip="204.75.167.41" port="6112" safe="0"/>
+        <server id="3404" name="Kosciuszko" ip="204.75.167.41" port="9875" safe="0"/>
+        <server id="3405" name="Down Under" ip="204.75.167.42" port="3724" safe="0"/>
+        <server id="3406" name="Beanie" ip="204.75.167.42" port="6112" safe="0"/>
+        <server id="3407" name="Outback" ip="204.75.167.42" port="9875" safe="0"/>
+        <server id="3409" name="Snowy River" ip="204.75.167.43" port="3724" safe="0"/>
+        <server id="3410" name="Big Snow" ip="204.75.167.43" port="6112" safe="0"/>
+        <server id="3411" name="Brumby" ip="204.75.167.43" port="9875" safe="0"/>
+        <server id="3180" name="Sled" ip="204.75.167.46" port="3724" safe="0"/>
+        <server id="3181" name="Cold Snap" ip="204.75.167.46" port="6112" safe="0"/>
+        <server id="3182" name="Permafrost" ip="204.75.167.46" port="9875" safe="0"/>
+        <server id="3183" name="Below Zero" ip="204.75.167.47" port="3724" safe="0"/>
+        <server id="3172" name="Berg" ip="204.75.167.47" port="6112" safe="0"/>
+        <server id="3173" name="Cozy" ip="204.75.167.47" port="9875" safe="0"/>
+        <server id="3174" name="Sparkle" ip="204.75.167.48" port="3724" safe="0"/>
+        <server id="3175" name="Slippers" ip="204.75.167.48" port="6112" safe="0"/>
+        <server id="3176" name="Mountain" ip="204.75.167.48" port="9875" safe="0"/>
+        <server id="3177" name="Cabin" ip="204.75.167.49" port="3724" safe="0"/>
+        <server id="3178" name="Fog" ip="204.75.167.49" port="6112" safe="0"/>
+        <server id="3179" name="Cloudy" ip="204.75.167.49" port="9875" safe="0"/>
+        <server id="3720" name="Hockey" ip="204.75.167.50" port="3724" safe="0"/>
+        <server id="3721" name="Jack Frost" ip="204.75.167.50" port="6112" safe="0"/>
+        <server id="3722" name="Oyster" ip="204.75.167.50" port="9875" safe="0"/>
+        <server id="3723" name="Pine Needles" ip="204.75.167.51" port="3724" safe="0"/>
+        <server id="3724" name="Hypothermia" ip="204.75.167.51" port="6112" safe="0"/>
+        <server id="3725" name="Zipline" ip="204.75.167.51" port="9875" safe="0"/>
+        <server id="3118" name="Snow Ball" ip="204.75.167.52" port="3724" safe="1"/>
+        <server id="3119" name="Ice Pack" ip="204.75.167.52" port="6112" safe="1"/>
+        <server id="3153" name="Ice Cream" ip="204.75.167.52" port="9875" safe="1"/>
+        <server id="3154" name="Bubblegum" ip="204.75.167.53" port="3724" safe="1"/>
+        <server id="3165" name="Altitude" ip="204.75.167.53" port="6112" safe="1"/>
+        <server id="3208" name="Canoe" ip="204.75.167.53" port="9875" safe="1"/>
+        <server id="3212" name="Ice Rink" ip="204.75.167.54" port="3724" safe="1"/>
+        <server id="3308" name="Ice Cave" ip="204.75.167.54" port="6112" safe="1"/>
+        <server id="3309" name="Boots" ip="204.75.167.54" port="9875" safe="1"/>
+        <server id="3402" name="Ice Cube" ip="204.75.167.55" port="3724" safe="1"/>
+        <server id="3408" name="Bonza" ip="204.75.167.55" port="6112" safe="1"/>
+        <server id="3512" name="Polar" ip="204.75.167.55" port="9875" safe="1"/>
+        <server id="3513" name="Dry Ice" ip="204.75.167.56" port="3724" safe="1"/>
+        <server id="3514" name="Snow Covered" ip="204.75.167.56" port="6112" safe="1"/>
+        <server id="3654" name="Glacial" ip="204.75.167.56" port="9875" safe="1"/>
+        <server id="3656" name="Patagonia" ip="204.75.167.57" port="3724" safe="1"/>
+        <server id="3552" name="Antarctic" ip="204.75.167.57" port="6112" safe="1"/>
+        <server id="3680" name="Downhill" ip="204.75.167.44" port="3724" safe="1"/>
+        <server id="3681" name="Elevation" ip="204.75.167.44" port="6112" safe="1"/>
+        <server id="3682" name="Tea" ip="204.75.167.44" port="9875" safe="1"/>
+        <server id="3683" name="Misty" ip="204.75.167.45" port="3724" safe="1"/>
+        <server id="3708" name="Adventure" ip="204.75.167.58" port="3724" safe="1"/>
+        <server id="3709" name="Beanbag" ip="204.75.167.58" port="6112" safe="1"/>
+        <server id="3710" name="Cream Soda" ip="204.75.167.58" port="9875" safe="1"/>
+        <server id="3711" name="Fiesta" ip="204.75.167.59" port="3724" safe="1"/>
+        <server id="3712" name="Grasshopper" ip="204.75.167.59" port="6112" safe="1"/>
+        <server id="3713" name="Hot Chocolate" ip="204.75.167.59" port="9875" safe="1"/>
+        <server id="3714" name="Jackhammer" ip="204.75.167.60" port="3724" safe="1"/>
+        <server id="3715" name="Migrator" ip="204.75.167.60" port="6112" safe="1"/>
+        <server id="3716" name="Mullet" ip="204.75.167.60" port="9875" safe="1"/>
+        <server id="3717" name="Puddle" ip="204.75.167.61" port="3724" safe="1"/>
+        <server id="3718" name="Sardine" ip="204.75.167.61" port="6112" safe="1"/>
+        <server id="3719" name="Skates" ip="204.75.167.61" port="9875" safe="1"/>
+    </game>
+</servers>

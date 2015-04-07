@@ -5,290 +5,122 @@
  * @license http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Sharpenguin.Data {
+namespace Sharpenguin.Game.Player {
 
     /**
      * The player class. Information about players in the room are stored here.
      */
     public class Player {
-        private PlayerItem playerItems; //< PlayerItem object to store the player's items.
-        private PlayerPosition playerPosition; //< Player position object to store the player's position and frame.
-        private int intId              = 0; //< The player's id.
-        private int intMemberDays      = 0; //< How many days the player has been a member for.
-        private int intTimeZoneOffset  = 0; //< The time offset of the player.
-        private string strName         = ""; //< The name of the player.
-        private bool blnIsMember       = false; //< Whether the player is a member or not.
+        /// <summary>
+        /// The player's items.
+        /// </summary>
+        private Items items       = new Items();
+        /// <summary>
+        /// The player's position.
+        /// </summary>
+        private Position position = new Position();
+        /// <summary>
+        /// The player's ID.
+        /// </summary>
+        private int id            = 0;
+        /// <summary>
+        /// The amount of days the player has been a member for.
+        /// </summary>
+        private int memberDays    = 0;
+        /// <summary>
+        /// The time zone offset.
+        /// </summary>
+        private int tzo           = 0;
+        /// <summary>
+        /// The player's username.
+        /// </summary>
+        private string username   = "";
+        /// <summary>
+        /// Whether the player is a member.
+        /// </summary>
+        private bool isMember     = false;
 
-        //! Gets the player's ID.
+        /// <summary>
+        /// Gets the player's ID.
+        /// </summary>
+        /// <value>The player's ID.</value>
         public int Id {
-            get { return intId; }
+            get { return id; }
         }
-        //! Gets the amount of days that this player has been a member.
+
+        /// <summary>
+        /// Gets the amount of days the player has been a member.
+        /// </summary>
+        /// <value>The amount of days the player has been a member.</value>
         public int MemberDays {
-            get { return intMemberDays; }
+            get { return memberDays; }
         }
-        //! Gets the player's time zone offset.
+        /// <summary>
+        /// Gets the time zone offset.
+        /// </summary>
+        /// <value>The time zone offset.</value>
         public int TimeZoneOffset {
-            get { return intTimeZoneOffset; }
+            get { return tzo; }
         }
-        //! Get's the player's username.
+
+        /// <summary>
+        /// Gets the player's username.
+        /// </summary>
+        /// <value>The player's username.</value>
         public string Username {
-            get { return strName; }
+            get { return username; }
         }
-        //! Gets whether the player is a member or not.
+
+        /// <summary>
+        /// Gets a value indicating whether this player is a member.
+        /// </summary>
+        /// <value><c>true</c> if this player is a member; otherwise, <c>false</c>.</value>
         public bool IsMember {
-            get { return blnIsMember; }
-        }
-        //! Gets the player's items.
-        public PlayerItem Item {
-            get { return playerItems; }
-        }
-        //! Get's the player's position object.
-        public PlayerPosition Position {
-            get { return playerPosition; }
+            get { return isMember; }
         }
 
-        /**
-         * Constructor for the player class, loads the player data from the player string.
-         */
-        public void LoadData(string strData) {
-            string[] arrData = strData.Split("|".ToCharArray());
-            intId = int.Parse(arrData[0]);
-            strName = arrData[1];
-            blnIsMember = (int.Parse(arrData[15]) != 0);
-            intMemberDays = int.Parse(arrData[16]);
-            LoadItems(arrData);
-            LoadPosition(arrData);
+        /// <summary>
+        /// Gets player's the items.
+        /// </summary>
+        /// <value>The player's items.</value>
+        public Items Items {
+            get { return items; }
         }
 
-        private void LoadItems(string[] arrData) {
-            playerItems = new PlayerItem();
-            playerItems.SetColour(int.Parse(arrData[3]));
-            playerItems.SetHead(int.Parse(arrData[4]));
-            playerItems.SetFace(int.Parse(arrData[5]));
-            playerItems.SetNeck(int.Parse(arrData[6]));
-            playerItems.SetBody(int.Parse(arrData[7]));
-            playerItems.SetHand(int.Parse(arrData[8]));
-            playerItems.SetFeet(int.Parse(arrData[9]));
-            playerItems.SetFlag(int.Parse(arrData[10]));
-            playerItems.SetPhoto(int.Parse(arrData[11]));
+        /// <summary>
+        /// Gets the player's position.
+        /// </summary>
+        /// <value>The player's position.</value>
+        public Position Position {
+            get { return position; }
+        }
+            
+        public void LoadData(string data) {
+            string[] arr = data.Split("|".ToCharArray());
+            id = int.Parse(arr[0]);
+            username = arr[1];
+            isMember = (int.Parse(arr[15]) != 0);
+            memberDays = int.Parse(arr[16]);
+            LoadItems(arr);
+            LoadPosition(arr);
         }
 
-        private void LoadPosition(string[] arrData) {
-            playerPosition = new PlayerPosition();
-            playerPosition.SetX(int.Parse(arrData[12]));
-            playerPosition.SetY(int.Parse(arrData[13]));
-            playerPosition.SetFrame(int.Parse(arrData[14]));
-        }
-    }
-
-    /**
-     * Player item class, items are stored here.
-     */
-    public class PlayerItem {
-        private System.Collections.Generic.Dictionary<string, int> dicItems = new System.Collections.Generic.Dictionary<string, int>();
-        private string[] arrCodes = new string[] {"upc", "uph", "upf", "upn", "upb", "upa", "upe", "upl", "upp"};
-        //! Gets the player's colour.
-        public int Colour {
-            get { return dicItems["upc"]; }
-        }
-        //! Gets the player's head item.
-        public int Head {
-            get { return dicItems["uph"]; }
-        }
-        //! Gets the player's face item.
-        public int Face {
-            get { return dicItems["upf"]; }
-        }
-        //! Gets the player's neck item.
-        public int Neck {
-            get { return dicItems["upn"]; }
-        }
-        //! Gets the player's body item.
-        public int Body {
-            get { return dicItems["upb"]; }
-        }
-        //! Gets the player's hand item.
-        public int Hand {
-            get { return dicItems["upa"]; }
-        }
-        //! Gets the player's feet item.
-        public int Feet {
-            get { return dicItems["upe"]; }
-        }
-        //! Gets the player's flag (pin).
-        public int Flag {
-            get { return dicItems["upl"]; }
-        }
-        //! Gets the player's photo (background).
-        public int Photo {
-            get { return dicItems["upp"]; }
+        private void LoadItems(string[] arr) {
+            items.Colour = int.Parse(arr[3]);
+            items.Head = int.Parse(arr[4]);
+            items.Face = int.Parse(arr[5]);
+            items.Neck = int.Parse(arr[6]);
+            items.Body = int.Parse(arr[7]);
+            items.Hand = int.Parse(arr[8]);
+            items.Feet = int.Parse(arr[9]);
+            items.Flag = int.Parse(arr[10]);
+            items.Background = int.Parse(arr[11]);
         }
 
-        /**
-         * PlayerItem constructor.
-         */
-        public PlayerItem() {
-            foreach(string strCode in arrCodes) {
-                dicItems[strCode] = 0;
-            }
-        }
-
-        /**
-         * Sets the players colour.
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetColour(int intId) {
-            dicItems["upc"] = intId;
-        }
-
-        /**
-         * Sets the players head.
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetHead(int intId) {
-            dicItems["uph"] = intId;
-        }
-
-        /**
-         * Sets the players face.
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetFace(int intId) {
-            dicItems["upf"] = intId;
-        }
-
-        /**
-         * Sets the players neck.
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetNeck(int intId) {
-            dicItems["upn"] = intId;
-        }
-
-        /**
-         * Sets the players body.
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetBody(int intId) {
-            dicItems["upb"] = intId;
-        }
-
-        /**
-         * Sets the players hand.
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetHand(int intId) {
-            dicItems["upa"] = intId;
-        }
-
-        /**
-         * Sets the players feet.
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetFeet(int intId) {
-            dicItems["upe"] = intId;
-        }
-
-        /**
-         * Sets the players flag (pin).
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetFlag(int intId) {
-            dicItems["upl"] = intId;
-        }
-
-        /**
-         * Sets the players photo.
-         *
-         * @param intId
-         *  ID of the item.
-         */
-        public void SetPhoto(int intId) {
-            dicItems["upp"] = intId;
-        }
-
-        /**
-         * Sets a player item by the code of the item type.
-         *
-         * @param strCode
-         *  Item type code.
-         *
-         * @param intId
-         *  The ID of the item.
-         */
-        public bool SetByCode(string strCode, int intId) {
-            if(dicItems.ContainsKey(strCode)) {
-                dicItems[strCode] = intId;
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
-    public class PlayerPosition {
-        private int intX     = 0; //< X Position
-        private int intY     = 0; //< Y Position
-        private int intFrame = 0; //< Frame number.
-        
-        //! Gets the player's X position.
-        public int X {
-            get { return intX; }
-        }
-        //! Gets the pleyer's Y position.
-        public int Y {
-            get { return intY; }
-        }
-        //! Gets the player's frame number.
-        public int Frame {
-            get { return intFrame; }
-        }
-
-        /**
-         * Sets the X position of the player.
-         *
-         * @param newX
-         *   The new X position of the player.
-         */
-        public void SetX(int newX) {
-            intX = newX;
-        }
-
-        /**
-         * Sets the Y position of the player.
-         *
-         * @param newY
-         *  The new Y position of the player.
-         */
-        public void SetY(int newY) {
-            intY = newY;
-        }
-
-        /**
-         * Sets the frame number the player is currently in.
-         *
-         * @param newFrame
-         *   The number of the new frame.
-         */
-        public void SetFrame(int newFrame) {
-            intFrame = newFrame;
+        private void LoadPosition(string[] arr) {
+            position.X = int.Parse(arr[12]);
+            position.Y = int.Parse(arr[13]);
+            position.Frame = int.Parse(arr[14]);
         }
     }
 }

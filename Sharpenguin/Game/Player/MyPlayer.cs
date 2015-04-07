@@ -5,67 +5,37 @@
  * @license http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Sharpenguin.Data {
+namespace Sharpenguin.Game.Player {
     using GCollections = System.Collections.Generic;
 
     /**
      * An extension class of player for your own player.
      */
     public class MyPlayer : Player {
-        private int intAge             = 0; //< The age of the player.
-        private int totalCoins         = 0; //< How many coins the player has.
-        private int intMemberRemaining = 0; //< How many membership days the player has remaining.
-        private int intMinutesPlayed   = 0; //< The minutes the player has spent playing the game.
+        private int age             = 0; //< The age of the player.
+        private int memberRemaining = 0; //< How many membership days the player has remaining.
+        private int minutes         = 0; //< The minutes the player has spent playing the game.
+        private Money.Wallet wallet = new Money.Wallet();
         private GCollections.List<int> inventoryList = new GCollections.List<int>(); //< The list of inventory items.
 
         //! Gets the player's age.
         public int Age {
-            get { return intAge; }
+            get { return age; }
         }
-        //! Gets the amount of coins that the player has.
-        public int Coins {
-            get { return totalCoins; }
+        public Money.Wallet Wallet {
+            get { return wallet; }
         }
         //! Gets the amount membership days remaining for the player.
         public int MemberRemaining {
-            get { return intMemberRemaining; }
+            get { return memberRemaining; }
         }
         //! Gets the amount of minutes played by the player.
         public int MinutesPlayed {
-            get { return intMinutesPlayed; }
+            get { return minutes; }
         }
         //! Gets an array of the player's inventory.
         public int[] Inventory {
             get { return inventoryList.ToArray(); }
-        }
-
-        /**
-         * Sets how many coins the player has.
-         *
-         * @param coinAmount
-         *   The amount of coins that the player has.
-         */
-        public void SetCoins(int coinAmount) {
-            totalCoins = coinAmount;
-        }
-
-        /**
-         * Adds coins to the total coin amount.
-         *
-         * @param addTotal
-         *   The amount of coins to add.
-         */
-        public void AddCoins(int addTotal) {
-            totalCoins += addTotal;
-        }
-
-        /**
-         * Subtracts coins from the total coin amount.
-         * @param subTotal
-         *   The amount of coins to subtract.
-         */
-        public void SubCoins(int subTotal) {
-            totalCoins -= subTotal;
         }
 
         /**
@@ -75,7 +45,7 @@ namespace Sharpenguin.Data {
          *   How many days old the player is.
          */
         public void SetAge(int totalDays) {
-            intAge = totalDays;
+            age = totalDays;
         }
 
         /**
@@ -85,7 +55,7 @@ namespace Sharpenguin.Data {
          *   The amount of days remaining.
          */
         public void SetMemberRemaining(int totalDays) {
-            intMemberRemaining = totalDays;
+            memberRemaining = totalDays;
         }
 
         /**
@@ -95,7 +65,7 @@ namespace Sharpenguin.Data {
          *   The total amount of minutes that the player has played.
          */
         public void SetMinutesPlayed(int totalMinutes) {
-            intMinutesPlayed = totalMinutes;
+            minutes = totalMinutes;
         }
 
         /**

@@ -10,22 +10,8 @@ namespace Sharpenguin {
     /**
      * An extension of PenguinBase with all of the tasks you can perform on the Club Penguin game servers.
      */
-    public abstract class Tasks : PenguinBase {
-        /**
-         * Constructor, extended from the base class.
-         */
-        public Tasks() : base() {}
+    public abstract class Tasks {
 
-        /**
-         * Sends a message to everyone in the room.
-         *
-         * @param strMessage
-         *   The message to Send.
-         */
-        public void SendMessage(string strMessage) {
-            SendData("%xt%s%m#sm%" + Room.IntID.ToString() + "%" + ID.ToString() + "%" + strMessage + "%");
-        }
-        
         /**
          *
          */
@@ -111,52 +97,6 @@ namespace Sharpenguin {
         }
 
         /**
-         * Sends a new player position to the room, effectively moving your player.
-         *
-         * @param intX
-         *   X Position to move to.
-         * @param intY
-         *   Y Position to move to.
-         */
-        public void SendPosition(int intX, int intY){
-            SendData("%xt%s%u#sp%" + Room.IntID.ToString() + "%" + intX.ToString() + "%" + intY.ToString() + "%");
-        }
-
-        /**
-         * Throws a snowball.
-         *
-         * Throws a snowball to the specified x and y position.
-         *
-         * @param intX
-         *   The x position to throw the snowball.
-         * @param intY
-         *   The y position to throw the snowball.
-         */
-        public void SnowBall(int intX, int intY){
-            SendData("%xt%s%u#sb%" + Room.IntID.ToString() + "%" + intX.ToString() + "%" + intY.ToString() + "%");
-        }
-
-        /**
-         * Send an action to the room.
-         *
-         * @param intActionID
-         *   The id of the action to Send.
-         */
-        public void SendAction(int intActionID){
-            SendData("%xt%s%u#sa%" + Room.IntID.ToString() + "%" + intActionID.ToString() + "%");
-        }
-
-        /**
-         * Sends a frame to the room.
-         *
-         * @param intFrameID
-         *  The id of the frame to Send.
-         */
-        public void SendFrame(int intFrameID){
-            SendData("%xt%s%u#sf%" + Room.IntID.ToString() + "%" + intFrameID.ToString() + "%");
-        }
-
-        /**
          * Sends a post card to a penguin.
          *
          * @param intPenguinID
@@ -190,46 +130,6 @@ namespace Sharpenguin {
         */
 
         /**
-         * Finds a penguin by their ID.
-         *
-         * @param intPenguinID
-         *   The id of the penguin to find
-         */
-        public void FindBuddy(int intPenguinID){
-            SendData("%xt%s%u#bf%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
-        }
-
-        /**
-         * Ignores a player by their id.
-         *
-         * @param intPenguinID
-         *   The id of the penguin to ignore.
-         */
-        public void AddIgnore(int intPenguinID){
-            SendData("%xt%s%n#an%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
-        }
-
-        /**
-         * Removes player from ignore list bt their id.
-         *
-         * @param intPenguinID
-         *   The id of the penguin to ignore.
-         */
-        public void RemoveIgnore(int intPenguinID){
-            SendData("%xt%s%n#rn%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
-        }
-
-        /**
-         * Adds an item to the player's inventory.
-         *
-         * @param intItemId
-         *   Id of the item to add.
-         */
-        public void AddItem(int intItemId){
-            SendData("%xt%s%i#ai%" + Room.IntID.ToString() + "%" + intItemId.ToString() + "%");
-        }
-
-        /**
          * Adds a stamp - WARNING, YOU MAY BE BANNED. USE WITH CAUTION.
          *
          * @param intId
@@ -237,112 +137,6 @@ namespace Sharpenguin {
          */
         public void AddStamp(int intId){
             SendData("%xt%s%st#sse%" + Room.IntID.ToString() + "%" + intId.ToString() + "%");
-        }
-
-        /**
-         * Change's the penguin's colour.
-         *
-         * @param intItemID
-         *   The id of the colour to change to.
-         */
-        public void UpdateColour(int intItemID){
-            SendData("%xt%s%s#upc%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Change's the player's head item.
-         *
-         * @param intItemID
-         *   The id of the head item to wear.
-         */
-        public void UpdateHead(int intItemID){
-            SendData("%xt%s%s#uph%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Change's the player's face item.
-         *
-         * @param intItemID
-         *   The id of the face item to wear.
-         */
-        public void UpdateFace(int intItemID){
-            SendData("%xt%s%s#upf%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Change's the player's neck item.
-         *
-         * @param intItemID
-         *   The id of the neck item to wear.
-         */
-        public void UpdateNeck(int intItemID){
-            SendData("%xt%s%s#upn%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Change's the player's body item.
-         *
-         * @param intItemID
-         *   The id of the body item to wear.
-         */
-        public void UpdateBody(int intItemID){
-            SendData("%xt%s%s#upb%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Change's the player's hand item.
-         *
-         * @param intItemID
-         *   The id of the hand item to wear.
-         */
-        public void UpdateHand(int intItemID){
-            SendData("%xt%s%s#upa%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Change's the player's feet item.
-         *
-         * @param intItemID
-         *   The id of the feet item to wear.
-         */
-        public void UpdateFeet(int intItemID){
-            SendData("%xt%s%s#upe%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Change's the player's flag item.
-         *
-         * @param intItemID
-         *   The id of the flag item to wear.
-         */
-        public void UpdateFlag(int intItemID){
-            SendData("%xt%s%s#upl%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Change's the player's photo item.
-         *
-         * @param intItemID
-         *   The id of the photo item to wear.
-         */
-        public void UpdatePhoto(int intItemID){
-            SendData("%xt%s%s#upp%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-        
-        public void UpdateRemove(int intItemID){
-            SendData("%xt%s%s#upr%" + Room.IntID.ToString() + "%" + intItemID.ToString() + "%");
-        }
-
-        /**
-         * Joins a player's igloo.
-         *
-         * @param intPenguinID
-         *   The id of the penguin who's igloo you wish to go to.
-         */
-        public void JoinIgloo(int intPenguinID){
-            SendData("%xt%s%g#gm%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
-            SendData("%xt%s%p#pg%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
-            SendData("%xt%s%j#jp%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
         }
 
         /**
@@ -367,10 +161,6 @@ namespace Sharpenguin {
          */
         public void GetCoins(int intAmount){
             SendData("%xt%z%zo%" + Room.IntID.ToString() + "%" + intAmount.ToString() + "%");
-        }
-
-        public void GetPlayer(int intPenguinID){
-            SendData("%xt%s%u#gp%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
         }
 
         /**
@@ -443,25 +233,6 @@ namespace Sharpenguin {
             SendData("%xt%s%m#sc%" + Room.IntID.ToString() + "%" + playerID.ToString() + "%" + strId + "%");
         }
 
-        /**
-         * Sends a join packet to a game server.
-         *
-         * @param strLoginKey
-         *   The login key we were given by the login server.
-         */
-        public void SendJoin(string loginKey) {
-            SendData("%xt%s%j#js%" + Room.IntID.ToString() + "%" + playerID.ToString() + "%" + loginKey + "%en%");
-        }
-
-        /**
-         * Asks the server for your inventory.
-         *
-         * @param strLoginKey
-         *   The login key we were given by the login server.
-         */
-        public void SendGetInventory() {
-            SendData("%xt%s%i#gi%" + Room.IntID.ToString() + "%");
-        }
 
     }
 

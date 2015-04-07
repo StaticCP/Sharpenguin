@@ -22,7 +22,7 @@ namespace Sharpenguin.Packets.Receive.Xml {
         /// </summary>
         public XmlPacket(string data) : base(data) {
             LoadXml(data);
-            command = xmlData.Name;
+            command = xmlData.ChildNodes[0].Attributes["action"].Value;
         }
 
         /// <summary>

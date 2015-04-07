@@ -1,9 +1,10 @@
-﻿using System;
+﻿namespace Sharpenguin.Game.Player.Money {
+    public sealed class Wallet {
+        private int amount = 0;
 
-namespace Sharpenguin {
-    public class Wallet {
-        public Wallet() {
+        public int Amount {
+            get { return amount; }
+            set { amount = value; }
         }
     }
 }
-
