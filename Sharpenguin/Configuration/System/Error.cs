@@ -1,13 +1,15 @@
-﻿namespace Sharpenguin.Configuration.System {
+﻿using System.Runtime.CompilerServices;
+
+namespace Sharpenguin.Configuration.System {
     public class Error {
         public int Id {
             get;
-            set;
+            internal set;
         }
 
         public string Message {
             get;
-            set;
+            internal set;
         }
     }
 }

@@ -29,9 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="NetClient">
-      <HintPath>lib\NetClient.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -40,6 +37,9 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="NetClient">
+      <HintPath>..\..\NetClient\NetClient\bin\Debug\NetClient.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,6 +129,12 @@
     <Compile Include="Room\JoinRoomEventHandler.cs" />
     <Compile Include="Room\LeaveRoomEvent.cs" />
     <Compile Include="Room\Room.cs" />
+    <Compile Include="Configuration\System\NonExistentErrorException.cs" />
+    <Compile Include="Packets\Receive\IDefaultPacketHandler.cs" />
+    <Compile Include="Room\AddPlayerHandler.cs" />
+    <Compile Include="Room\RemovePlayerHandler.cs" />
+    <Compile Include="Game\Player\PositionHandler.cs" />
+    <Compile Include="Packets\Receive\UnhandledPacketException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

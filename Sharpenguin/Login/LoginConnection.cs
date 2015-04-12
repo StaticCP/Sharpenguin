@@ -13,13 +13,13 @@ namespace Sharpenguin.Login {
 
         public class RandomKeyHandler : Packets.Receive.ILoginPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> {
             public string Handles {
-                get { return "rndk"; }
+                get { return "rndK"; }
             }
 
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xml.XmlPacket packet) {
                 LoginConnection login = connection as LoginConnection;
                 login.rndk = packet.XmlData.ChildNodes[0].InnerText;
-                string hash = Security.Crypt.HashPassword(login.password, login.rndk);
+                string hash = Security.Crypt.HashPassword(login.username, login.password, login.rndk);
                 login.Send(new Sharpenguin.Packets.Send.Xml.Login(login.Username, hash));
             }
         }
@@ -45,10 +45,17 @@ namespace Sharpenguin.Login {
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 LoginConnection login = connection as LoginConnection;
                 if(login != null && packet.Arguments.Length >= 3) {
-                    int id;
+                    /*int id;
                     if(int.TryParse(packet.Arguments[2], out id)) {
                         Game.GameConnection game = new Game.GameConnection(id, connection.Username, packet.Arguments[2]);
-                        login.OnLogin(game);
+                        if(login.OnLogin != null) login.OnLogin(game);
+                        login.Disconnect();
+                    } - NEW */
+                    // Legacy
+                    int id;
+                    if(int.TryParse(packet.Arguments[0], out id)) {
+                        if(login.OnLogin != null)
+                            login.OnLogin(new Game.GameConnection(id, connection.Username, packet.Arguments[1]));
                         login.Disconnect();
                     }
                 }

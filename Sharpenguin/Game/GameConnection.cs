@@ -23,13 +23,13 @@ namespace Sharpenguin.Game {
 
         public class RandomKeyHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> {
             public string Handles {
-                get { return "rndk"; }
+                get { return "rndK"; }
             }
 
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xml.XmlPacket packet) {
                 GameConnection game = connection as GameConnection;
                 game.rndk = packet.XmlData.ChildNodes[0].InnerText;
-                string hash = Security.Crypt.HashPassword(game.password, game.rndk);
+                string hash = Security.Crypt.HashPassword(game.username, game.password, game.rndk);
                 game.Send(new Sharpenguin.Packets.Send.Xml.Login(game.Username, hash + game.password));
             }
         }
@@ -54,9 +54,7 @@ namespace Sharpenguin.Game {
             /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 GameConnection game = connection as GameConnection;
-                if(game != null) {
-                    game.OnJoin();
-                }
+                if(game != null && game.OnJoin != null) game.OnJoin(game);
             }
         }
     }

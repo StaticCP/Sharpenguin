@@ -1,8 +1,18 @@
 ﻿<Properties StartupItem="Sharpenguin/Sharpenguin.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sharpenguin/PenguinBase.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sharpenguin/PenguinConnection.cs">
     <Files>
-      <File FileName="Sharpenguin/PenguinBase.cs" Line="3" Column="3" />
+      <File FileName="Sharpenguin/Room/AddPlayerHandler.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Game/Player/Player.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Room/Room.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Room/RemovePlayerHandler.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Game/Player/PositionHandler.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Configuration/System/Error.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Configuration/System/Errors.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Configuration/Configuration.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Properties/AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/PenguinConnection.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Game/Player/Inventory/Inventory.cs" Line="9" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

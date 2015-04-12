@@ -2,12 +2,12 @@
     public class Emoticon {
         public int Id {
             get;
-            set;
+            internal set;
         }
 
         public string Emote {
             get;
-            set;
+            internal set;
         }
 
     }

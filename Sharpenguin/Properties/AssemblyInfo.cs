@@ -25,3 +25,12 @@ using System.Runtime.CompilerServices;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.System.Errors")]
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.System.GameServers")]
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.System.LoginServers")]
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.System.Errors")]
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.Emoticons")]
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.Items")]
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.Jokes")]
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.Rooms")]
+[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.SafeChats")]

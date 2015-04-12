@@ -1,4 +1,4 @@
 ﻿namespace Sharpenguin.Game {
-    public delegate void JoinEventHandler();
+    public delegate void JoinEventHandler(GameConnection connection);
 }
 

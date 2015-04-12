@@ -22,7 +22,10 @@ namespace Sharpenguin.Packets.Receive.Xml {
         /// </summary>
         public XmlPacket(string data) : base(data) {
             LoadXml(data);
-            command = xmlData.ChildNodes[0].Attributes["action"].Value;
+            if(xmlData.ChildNodes[0] != null && xmlData.ChildNodes[0].Attributes["action"] != null)
+                command = xmlData.ChildNodes[0].Attributes["action"].Value;
+            else
+                throw new UnhandledPacketException("Unknown XML packet, cannot process.");
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Sharpenguin {
-    public class ApiOKHandler : Packets.Receive.IPacketHandler<Packets.Receive.Xml.XmlPacket> {
+    public class ApiOKHandler : Packets.Receive.IDefaultPacketHandler<Packets.Receive.Xml.XmlPacket> {
         public string Handles {
             get { return "apiOK"; }
         }

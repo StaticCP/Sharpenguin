@@ -6,6 +6,17 @@ namespace Sharpenguin.Configuration.System {
     public class LoginServers {
         private List<LoginServer> servers;
 
+        public LoginServer this[int i] {
+            get {
+                IEnumerable<LoginServer> result = servers.Where(p => p.Id == i);
+                if(result.Count() != 0) {
+                    return result.First();
+                } else {
+                    throw new NonExistentErrorException("The error with ID '" + i + "' does not exist in the configuration!");
+                }
+            }
+        }
+
         public LoginServers(string file) {
             XLinq.XDocument document = XLinq.XDocument.Load(file);
             Load(document);
@@ -15,7 +26,6 @@ namespace Sharpenguin.Configuration.System {
             servers = (
                 from e in document.Root.Element("login").Elements("server") select new LoginServer {
                     Id = (int) e.Attribute("id"),
-                    Name = (string) e.Attribute("name"),
                     Host = (string) e.Attribute("host"),
                     Port = (int) e.Attribute("port"),
                 }

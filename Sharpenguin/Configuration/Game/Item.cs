@@ -2,27 +2,27 @@
     public class Item {
         public int Id {
             get;
-            set;
+            internal set;
         }
 
         public int Price {
             get;
-            set;
+            internal set;
         }
 
         public string Description {
             get;
-            set;
+            internal set;
         }
 
         public bool Member {
             get;
-            set;
+            internal set;
         }
 
         public ItemType Type {
             get;
-            set;
+            internal set;
         }
     }
 }

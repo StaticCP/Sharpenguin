@@ -7,6 +7,12 @@ namespace Sharpenguin {
         public event JoinRoomEventHandler OnJoin;
         public event LeaveRoomEventHandler OnLeave;
 
+        public IReadOnlyList<Game.Player.Player> Players {
+            get {
+                return players.AsReadOnly();
+            }
+        }
+
         public Game.Player.MyPlayer Self {
             get;
             set;

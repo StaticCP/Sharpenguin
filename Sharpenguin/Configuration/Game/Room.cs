@@ -4,17 +4,17 @@ namespace Sharpenguin.Configuration.Game {
     public class Room {
         public int Id {
             get;
-            set;
+            internal set;
         }
 
         public string Name {
             get;
-            set;
+            internal set;
         }
 
         public bool IsMember {
             get;
-            set;
+            internal set;
         }
     }
 }

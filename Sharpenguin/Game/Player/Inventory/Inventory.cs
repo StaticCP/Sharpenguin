@@ -34,7 +34,7 @@ namespace Sharpenguin.Game.Inventory {
                 foreach(string i in packet.Arguments) {
                     try {
                         int id = int.Parse(i);
-                        items.Add(connection.Configuration.Items[id]);
+                        items.Add(Configuration.Configuration.Items[id]);
                     }catch(Configuration.Game.NonExistentItemException ex) {
 
                     }catch(System.FormatException ex) {
@@ -49,7 +49,7 @@ namespace Sharpenguin.Game.Inventory {
         /// </summary>
         /// <param name="id">Identifier.</param>
         public void Add(int id) {
-            Add(connection.Configuration.Items[id]);
+            Add(Configuration.Configuration.Items[id]);
         }
 
         /// <summary>

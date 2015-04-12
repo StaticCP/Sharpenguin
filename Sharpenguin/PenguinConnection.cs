@@ -4,6 +4,7 @@
  * @url http://clubpenguinphp.info/
  * @license http://www.gnu.org/copyleft/lesser.html
  */
+#define DEBUG
 
 namespace Sharpenguin {
 
@@ -26,7 +27,6 @@ namespace Sharpenguin {
         protected string rndk        = ""; //< Random key from login or game.
         private string buffer        = "";
         private string serverName    = ""; //< The name of the server we are connecting, or have connected, to.
-        private Configuration.Configuration configuration;
 	    private NetClient.Connection connection; //< Penguin socket wrapper.
         private Room room;
         protected int id;
@@ -72,10 +72,6 @@ namespace Sharpenguin {
             get { return serverName; }
         }
 
-        public Sharpenguin.Configuration.Configuration Configuration {
-            get { return configuration; }
-        }
-
         /**
          * PenguinConnection constuctor. Creates the crumbs object and handler table.
          */
@@ -86,6 +82,10 @@ namespace Sharpenguin {
                 throw new System.ArgumentNullException("password", "Argument cannot be null.");
             this.username = username;
             this.password = password;
+            Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket>[] xml = HandlerLoader.GetHandlers<Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket>>();
+            Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket>[] xt = HandlerLoader.GetHandlers<Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket>>();
+            foreach(Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> handler in xml) XmlHandlers.Add(handler);
+            foreach(Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> handler in xt) XtHandlers.Add(handler);
             OnReceive += HandlePacket;
             room = new Room {
                 Id = -1,
@@ -145,16 +145,25 @@ namespace Sharpenguin {
             buffer += data;
             if(buffer.Contains("\0")) {
                 string[] packets = buffer.Split('\0');
-                foreach(string received in packets) {
-                    Packets.Receive.Packet packet = null;
-                    if(received.IndexOf("%") == 0)
-                        packet = new Packets.Receive.Xt.XtPacket(received);
-                    else if(received.IndexOf("<") == 0)
-                        packet = new Packets.Receive.Xml.XmlPacket(received);
-                    else
-                        return;
-                    if(OnReceive != null)
-                        OnReceive(packet);
+                buffer = packets[packets.Length - 1];
+                for(int i = 0; i <= packets.Length - 2; i++) {
+                    string received = packets[i];
+                    #if DEBUG
+                    System.Console.WriteLine("RECEIVED: " + received);
+                    #endif
+                    try {
+                        Packets.Receive.Packet packet = null;
+                        if(received.IndexOf("%") == 0)
+                            packet = new Packets.Receive.Xt.XtPacket(received);
+                        else if(received.IndexOf("<") == 0)
+                            packet = new Packets.Receive.Xml.XmlPacket(received);
+                        else
+                            return;
+                        if(OnReceive != null)
+                            OnReceive(packet);
+                    }catch(Packets.Receive.UnhandledPacketException) {
+                        // TODO
+                    }
                 }
             }
         }
@@ -195,7 +204,7 @@ namespace Sharpenguin {
                 throw new InvalidCredentialsException("No password was given.");
             }else if(password.Length < 4) {
                 throw new InvalidCredentialsException("The given password is too short.");
-            }else if(password.Length > 32) {
+            }else if(password.Length > 100) {
                 throw new InvalidCredentialsException("The given password is too long.");
             }
         }
@@ -207,11 +216,14 @@ namespace Sharpenguin {
          *   The data to send to the host.
          */
         public void Send(string data) {
+            #if DEBUG
+            System.Console.WriteLine("SENT: " + data);
+            #endif
             connection.Send(data);
         }
 
         public void Send(Packets.Send.Packet packet) {
-            Send(packet.Data);
+            Send(packet.Data + "\0");
         }
 
         /**
@@ -225,13 +237,13 @@ namespace Sharpenguin {
          * Disconnects the socket.
          */
         public void Disconnect() {
-            connection.Close();
+            connection.Disconnect();
         }
 
         /// <summary>
         /// Represents an error handler.
         /// </summary>
-        public class ErrorHandler : Packets.Receive.IPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+        public class ErrorHandler : Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Gets the command that this packet handler handles.
             /// </summary>
@@ -250,13 +262,13 @@ namespace Sharpenguin {
                 if(packet.Arguments.Length >= 1) {
                     int id;
                     if(int.TryParse(packet.Arguments[0], out id)) {
-                        connection.OnError(id);
+                        if(connection.OnError != null) connection.OnError(id);
                     }
                 }
             }
         }
 
-        public class ApiKOHandler : Packets.Receive.IPacketHandler<Packets.Receive.Xml.XmlPacket> {
+        public class ApiKOHandler : Packets.Receive.IDefaultPacketHandler<Packets.Receive.Xml.XmlPacket> {
             public string Handles {
                 get { return "apiKO"; }
             }

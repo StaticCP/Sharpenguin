@@ -6,6 +6,17 @@ namespace Sharpenguin.Configuration.System {
     public class Errors {
         private List<Error> errors;
 
+        public Error this[int i] {
+            get {
+                IEnumerable<Error> result = errors.Where(p => p.Id == i);
+                if(result.Count() != 0) {
+                    return result.First();
+                } else {
+                    throw new NonExistentErrorException("The error with ID '" + i + "' does not exist in the configuration!");
+                }
+            }
+        }
+
         public Errors(string file) {
             XLinq.XDocument document = XLinq.XDocument.Load(file);
             Load(document);

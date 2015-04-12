@@ -6,6 +6,17 @@ namespace Sharpenguin.Configuration.System {
     public class GameServers {
         private List<GameServer> servers;
 
+        public GameServer this[int i] {
+            get {
+                IEnumerable<GameServer> result = servers.Where(p => p.Id == i);
+                if(result.Count() != 0) {
+                    return result.First();
+                } else {
+                    throw new NonExistentErrorException("The server with ID '" + i + "' does not exist in the configuration!");
+                }
+            }
+        }
+
         public GameServers(string file) {
             XLinq.XDocument document = XLinq.XDocument.Load(file);
             Load(document);

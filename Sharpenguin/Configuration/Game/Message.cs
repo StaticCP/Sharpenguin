@@ -4,12 +4,12 @@ namespace Sharpenguin.Configuration.Game {
     public class Message {
         public int Id {
             get;
-            set;
+            internal set;
         }
 
         public string Text {
             get;
-            set;
+            internal set;
         }
     }
 }

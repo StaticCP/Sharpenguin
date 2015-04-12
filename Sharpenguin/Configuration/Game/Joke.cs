@@ -3,17 +3,17 @@
 
         public int Id {
             get;
-            set;
+            internal set;
         }
 
         public string Question {
             get;
-            set;
+            internal set;
         }
 
         public string Answer {
             get;
-            set;
+            internal set;
         }
     }
 }
