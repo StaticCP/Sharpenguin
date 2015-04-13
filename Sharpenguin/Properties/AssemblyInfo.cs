@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("Sharpenguin")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A C# Club Penguin connector.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("lewis")]
+[assembly: AssemblyCopyright("Licensed under GPLv3. Created by Lewis Hazell.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,14 +23,4 @@ using System.Runtime.CompilerServices;
 // if desired. See the Mono documentation for more information about signing.
 
 //[assembly: AssemblyDelaySign(false)]
-//[assembly: AssemblyKeyFile("")]
-
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.System.Errors")]
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.System.GameServers")]
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.System.LoginServers")]
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.System.Errors")]
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.Emoticons")]
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.Items")]
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.Jokes")]
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.Rooms")]
-[assembly:InternalsVisibleTo("Sharpenguin.Configuration.Game.SafeChats")]
+                                 //[assembly: AssemblyKeyFile("")]

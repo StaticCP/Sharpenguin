@@ -1,10 +1,13 @@
 ﻿using System;
 using XtPacket = Sharpenguin.Packets.Receive.Xt.XtPacket;
 using XmlPacket = Sharpenguin.Packets.Receive.Xml.XmlPacket;
+using Timers = System.Timers;
+
 namespace Sharpenguin.Game {
     public class GameConnection : PenguinConnection {
         public event JoinEventHandler OnJoin; //< Event for handling join success.
         private Player.MyPlayer player;
+        private Timers.Timer beat = new Timers.Timer(); //< Heartbeat timer.
 
 
         public Player.MyPlayer Player {
@@ -13,13 +16,33 @@ namespace Sharpenguin.Game {
 
         public GameConnection(int id, string username, string loginkey) : base(username, loginkey) {
             this.id = id;
-            player = new Player.MyPlayer();
+            player = new Player.MyPlayer(this);
             Packets.Receive.IGamePacketHandler<XmlPacket>[] xml = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XmlPacket>>();
             Packets.Receive.IGamePacketHandler<XtPacket>[] xt = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XtPacket>>();
             foreach(Packets.Receive.IGamePacketHandler<XmlPacket> handler in xml) XmlHandlers.Add(handler);
             foreach(Packets.Receive.IGamePacketHandler<XtPacket> handler in xt) XtHandlers.Add(handler);
+            beat.Interval = 60000;
+            beat.Elapsed += HeartBeat;
+            OnDisconnect += DisconnectHandler;
+            beat.Start();
         }
 
+        /// <summary>
+        /// Sends a heartbeat packet to the server on each interval of the beat timer.
+        /// </summary>
+        /// <param name="sender">The timer.</param>
+        /// <param name="e">The event arguments.</param>
+        private void HeartBeat(object sender, Timers.ElapsedEventArgs e) {
+            Send(new Packets.Send.Xt.HeartBeat(this)); // Sends the heart beat
+        }
+
+        /// <summary>
+        /// Handles a disconnect.
+        /// </summary>
+        /// <param name="connection">Connection.</param>
+        private void DisconnectHandler(PenguinConnection connection) {
+            beat.Stop(); 
+        }
 
         public class RandomKeyHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> {
             public string Handles {

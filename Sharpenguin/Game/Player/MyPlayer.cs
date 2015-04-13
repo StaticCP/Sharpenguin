@@ -16,11 +16,14 @@ namespace Sharpenguin.Game.Player {
         private int memberRemaining = 0; //< How many membership days the player has remaining.
         private int minutes         = 0; //< The minutes the player has spent playing the game.
         private Money.Wallet wallet = new Money.Wallet();
+        private Inventory.Inventory inventory;
         private GCollections.List<int> inventoryList = new GCollections.List<int>(); //< The list of inventory items.
+        private GameConnection connection;
 
         //! Gets the player's age.
         public int Age {
             get { return age; }
+            internal set { age = value; }
         }
         public Money.Wallet Wallet {
             get { return wallet; }
@@ -28,54 +31,24 @@ namespace Sharpenguin.Game.Player {
         //! Gets the amount membership days remaining for the player.
         public int MemberRemaining {
             get { return memberRemaining; }
+            internal set { memberRemaining = value; }
         }
         //! Gets the amount of minutes played by the player.
         public int MinutesPlayed {
             get { return minutes; }
+            internal set { minutes = value; }
         }
         //! Gets an array of the player's inventory.
         public int[] Inventory {
             get { return inventoryList.ToArray(); }
         }
-
-        /**
-         * Sets the age of the player.
-         *
-         * @param totalDays
-         *   How many days old the player is.
-         */
-        public void SetAge(int totalDays) {
-            age = totalDays;
+        public GameConnection Connection {
+            get { return connection; }
         }
 
-        /**
-         * Sets the remaining member days that the player has.
-         *
-         * @param totalDays
-         *   The amount of days remaining.
-         */
-        public void SetMemberRemaining(int totalDays) {
-            memberRemaining = totalDays;
-        }
-
-        /**
-         * Sets the amount of minutes that the player has played the game.
-         *
-         * @param totalMinutes
-         *   The total amount of minutes that the player has played.
-         */
-        public void SetMinutesPlayed(int totalMinutes) {
-            minutes = totalMinutes;
-        }
-
-        /**
-         * Adds an item to the inventory list.
-         *
-         * @param itemId
-         *   The id of the item to add.
-         */
-        public void AddInventoryItem(int itemId) {
-            inventoryList.Add(itemId);
+        public MyPlayer(GameConnection connection) {
+            this.connection = connection;
+            inventory = new Inventory.Inventory(this);
         }
 
     }

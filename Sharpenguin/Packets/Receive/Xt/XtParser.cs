@@ -53,7 +53,7 @@ namespace Sharpenguin.Packets.Receive.Xt {
         /// <param name="data">The xt string.</param>
         /// <returns>TRUE if the string is an xt string, FALSE if not.</returns>
         private bool IsXt(string data) {
-            Regex.Match match = Regex.Regex.Match(data, @"^(%xt%[a-zA-Z0-9#]*%[-.0-9]*%.*?)$");
+            Regex.Match match = Regex.Regex.Match(data, @"^(%xt%[a-z|A-Z|0-9|#|_]*%-?[0-9]*%.*?)$");
             return match.Success;
         }
 

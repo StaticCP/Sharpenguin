@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sharpenguin.Game.Inventory {
+namespace Sharpenguin.Game.Player.Inventory {
     /// <summary>
     /// Describes a player's inventory.
     /// </summary>
@@ -14,14 +14,14 @@ namespace Sharpenguin.Game.Inventory {
         /// <summary>
         /// The connection this inventory belongs to.
         /// </summary>
-        private GameConnection connection;
+        private MyPlayer player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sharpenguin.Game.Inventory.Inventory"/> class.
         /// </summary>
         /// <param name="connection">The connection this inventory belongs to.</param>
-        public Inventory(GameConnection connection) {
-            this.connection = connection;
+        public Inventory(MyPlayer player) {
+            this.player = player;
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace Sharpenguin.Game.Inventory {
                         int id = int.Parse(i);
                         items.Add(Configuration.Configuration.Items[id]);
                     }catch(Configuration.Game.NonExistentItemException ex) {
-
+                        // Will be logged.
                     }catch(System.FormatException ex) {
-
+                        // Will be logged.
                     }
                 }
             }
@@ -57,12 +57,12 @@ namespace Sharpenguin.Game.Inventory {
         /// </summary>
         /// <param name="item">The item to add.</param>
         public void Add(Configuration.Game.Item item) {
-            if(connection.Player.Wallet.Amount >= item.Price) {
+            if(player.Wallet.Amount >= item.Price) {
                 items.Add(item);
-                connection.Send(new Packets.Send.Xt.Player.Inventory.AddItem(connection, item.Id));
+                player.Connection.Send(new Packets.Send.Xt.Player.Inventory.AddItem(player.Connection, item.Id));
             }else{
                 // Not that we care, we can make a money maker..
-                throw new Player.Money.NotEnoughCoinsException("You do not have enough coins to buy this item!");
+                throw new Money.NotEnoughCoinsException("You do not have enough coins to buy this item!");
             }
         }
 

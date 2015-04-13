@@ -135,6 +135,8 @@
     <Compile Include="Room\RemovePlayerHandler.cs" />
     <Compile Include="Game\Player\PositionHandler.cs" />
     <Compile Include="Packets\Receive\UnhandledPacketException.cs" />
+    <Compile Include="Game\Packets\Send\Xt\HeartBeat.cs" />
+    <Compile Include="Game\Player\NotMeException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

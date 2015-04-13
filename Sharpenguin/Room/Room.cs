@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sharpenguin {
+namespace Sharpenguin.Room {
     public class Room {
-        private List<Game.Player.Player> players;
+        private List<Game.Player.Player> players = new List<Game.Player.Player>();
         public event JoinRoomEventHandler OnJoin;
         public event LeaveRoomEventHandler OnLeave;
 
@@ -15,31 +15,31 @@ namespace Sharpenguin {
 
         public Game.Player.MyPlayer Self {
             get;
-            set;
+            internal set;
         }
 
         public int Id {
             get;
-            set;
+            internal set;
         }
 
         public int External {
             get;
-            set;
+            internal set;
         }
 
         public string Name {
             get;
-            set;
+            internal set;
         }
 
-        public void Add(Game.Player.Player player) {
+        internal void Add(Game.Player.Player player) {
             players.Add(player);
             if(OnJoin != null)
                 OnJoin(player);
         }
 
-        public void Remove(Game.Player.Player player) {
+        internal void Remove(Game.Player.Player player) {
             players.Remove(player);
             if(OnLeave != null)
                 OnLeave(player);

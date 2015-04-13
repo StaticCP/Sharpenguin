@@ -18,7 +18,7 @@ namespace Sharpenguin.Game.Player {
         /// <summary>
         /// The player's position.
         /// </summary>
-        private Position position = new Position();
+        private Position position;
         /// <summary>
         /// The player's ID.
         /// </summary>
@@ -94,7 +94,11 @@ namespace Sharpenguin.Game.Player {
         public Position Position {
             get { return position; }
         }
-            
+
+        public Player() {
+            position = new Position(this);
+        }
+
         public void LoadData(string data) {
             string[] arr = data.Split("|".ToCharArray());
             id = int.Parse(arr[0]);
@@ -120,7 +124,7 @@ namespace Sharpenguin.Game.Player {
         private void LoadPosition(string[] arr) {
             position.X = int.Parse(arr[12]);
             position.Y = int.Parse(arr[13]);
-            position.Frame = int.Parse(arr[14]);
+            position.frame = int.Parse(arr[14]);
         }
     }
 }

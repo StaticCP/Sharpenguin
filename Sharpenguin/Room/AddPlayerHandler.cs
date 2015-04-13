@@ -11,7 +11,7 @@ namespace Sharpenguin {
             if(game != null) {
                 Game.Player.Player player = new Game.Player.Player();
                 player.LoadData(packet.Arguments[0]);
-                game.Room.Add(player);
+                if(player.Id != game.Player.Id) game.Room.Add(player);
             }
         }
     }

@@ -11,9 +11,9 @@ namespace Sharpenguin {
     public delegate void ConnectionSuccessEventHandler(string host, int port);
     public delegate void ConnectionFailEventHandler(string host, int port);
     public delegate void ReceiveEventHandler(Packets.Receive.Packet receivedPacket);
-    public delegate void DisconnectEventHandler();
-    public delegate void ErrorEventHandler(int id);
-    public delegate void IncorrectAPIHandler();
+    public delegate void DisconnectEventHandler(PenguinConnection connection);
+    public delegate void ErrorEventHandler(PenguinConnection connection, int id);
+    public delegate void IncorrectAPIHandler(PenguinConnection connection);
 
     /**
      * The base of the Sharpenguin library, which handles authentication to the servers, determines how packets are processed and handles events.
@@ -28,7 +28,7 @@ namespace Sharpenguin {
         private string buffer        = "";
         private string serverName    = ""; //< The name of the server we are connecting, or have connected, to.
 	    private NetClient.Connection connection; //< Penguin socket wrapper.
-        private Room room;
+        private Room.Room room;
         protected int id;
         public readonly Packets.Receive.HandlerTable<Packets.Receive.Xt.XtPacket> XtHandlers = new Packets.Receive.HandlerTable<Packets.Receive.Xt.XtPacket>();
         public readonly Packets.Receive.HandlerTable<Packets.Receive.Xml.XmlPacket> XmlHandlers = new Packets.Receive.HandlerTable<Packets.Receive.Xml.XmlPacket>();
@@ -52,7 +52,7 @@ namespace Sharpenguin {
             set { password = value; }
         }
 
-        public Room Room {
+        public Room.Room Room {
             get { return room; }
         }
 	
@@ -87,7 +87,7 @@ namespace Sharpenguin {
             foreach(Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> handler in xml) XmlHandlers.Add(handler);
             foreach(Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> handler in xt) XtHandlers.Add(handler);
             OnReceive += HandlePacket;
-            room = new Room {
+            room = new Room.Room {
                 Id = -1,
                 External = 0,
                 Name = "System"
@@ -230,7 +230,7 @@ namespace Sharpenguin {
          * Disconnect callback for the asynchronous socket.
          */
         private void HandleDisconnect(NetClient.Connection connection) {
-            if(OnDisconnect != null) OnDisconnect();
+            if(OnDisconnect != null) OnDisconnect(this);
         }
 
         /**
@@ -262,7 +262,7 @@ namespace Sharpenguin {
                 if(packet.Arguments.Length >= 1) {
                     int id;
                     if(int.TryParse(packet.Arguments[0], out id)) {
-                        if(connection.OnError != null) connection.OnError(id);
+                        if(connection.OnError != null) connection.OnError(connection, id);
                     }
                 }
             }
@@ -274,7 +274,7 @@ namespace Sharpenguin {
             }
 
             public void Handle(PenguinConnection connection, Packets.Receive.Xml.XmlPacket packet) {
-                connection.OnIncorrectAPI();
+                connection.OnIncorrectAPI(connection);
                 connection.Disconnect();
             }
         }
