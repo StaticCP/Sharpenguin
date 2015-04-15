@@ -22,7 +22,6 @@ namespace Sharpenguin.Game.Player {
         //! Gets the player's age.
         public int Age {
             get { return age; }
-            internal set { age = value; }
         }
         public Money.Wallet Wallet {
             get { return wallet; }
@@ -58,9 +57,16 @@ namespace Sharpenguin.Game.Player {
         /// Initializes a new instance of the <see cref="Sharpenguin.Game.Player.MyPlayer"/> class.
         /// </summary>
         /// <param name="connection">They player's parent connection.</param>
-        public MyPlayer(GameConnection connection) {
+        public MyPlayer(GameConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
             this.connection = connection;
             inventory = new Inventory.Inventory(this);
+            LoadData(packet.Arguments[0]);
+            int coins, age, minutes;
+            if(int.TryParse(packet.Arguments[1], out coins) && int.TryParse(packet.Arguments[5], out age) && int.TryParse(packet.Arguments[7], out minutes)) {
+                Wallet.Amount = coins;
+                this.age = age;
+                this.minutes = minutes;
+            }
         }
 
     }

@@ -3,12 +3,14 @@ using System.Linq;
 using System.Collections.Generic;
 
 namespace Sharpenguin.Game.Room {
-    public class RemovePlayerHandler : Game.Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+    class RemovePlayerHandler : Game.Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
         public string Handles {
             get { return "rp"; }
         }
 
         public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+            if(connection == null) throw new System.ArgumentNullException("connection");
+            if(packet == null) throw new System.ArgumentNullException("packet");
             Game.GameConnection game = connection as Game.GameConnection;
             if(game != null) {
                 int id;

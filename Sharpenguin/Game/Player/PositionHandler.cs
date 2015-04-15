@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Sharpenguin.Game.Player {
-    public class PositionHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+    class PositionHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
         public string Handles {
             get { return "sp"; }
         }
 
         public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+            if(connection == null) throw new System.ArgumentNullException("connection");
+            if(packet == null) throw new System.ArgumentNullException("packet");
             GameConnection game = connection as GameConnection;
             if(packet.Arguments.Length >= 3 && game != null) {
                 int id;

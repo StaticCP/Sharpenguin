@@ -2,7 +2,7 @@
     /// <summary>
     /// Represents an join room handler.
     /// </summary>
-    public class JoinRoomHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+    class JoinRoomHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
         /// <summary>
         /// Gets the command that this packet handler handles.
         /// </summary>
@@ -18,6 +18,8 @@
         /// <param name="packet">The packet.</param>
         /// <param name="connection">Connection.</param>
         public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+            if(connection == null) throw new System.ArgumentNullException("connection");
+            if(packet == null) throw new System.ArgumentNullException("packet");
             // TODO
         }
     }

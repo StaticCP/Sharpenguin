@@ -95,11 +95,16 @@ namespace Sharpenguin.Game.Player {
             get { return position; }
         }
 
-        public Player() {
+        protected Player() {
             position = new Position(this);
         }
 
-        public void LoadData(string data) {
+        public Player(string data) {
+            position = new Position(this);
+            LoadData(data);
+        }
+
+        protected void LoadData(string data) {
             string[] arr = data.Split("|".ToCharArray());
             id = int.Parse(arr[0]);
             username = arr[1];

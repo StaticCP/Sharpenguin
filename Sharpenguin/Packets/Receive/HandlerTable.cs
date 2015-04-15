@@ -13,9 +13,9 @@ namespace Sharpenguin.Packets.Receive {
             table.AddOrUpdate(
                 handler.Handles,
                 new System.Collections.Generic.List<IPacketHandler<T>>(new IPacketHandler<T>[] { handler }),
-                (key, oldValue) => {
-                                       lock(oldValue) oldValue.Add(handler);
-                                       return oldValue;
+                (key, handlers) => {
+                                       lock(handlers) handlers.Add(handler);
+                                       return handlers;
                                    }
             );
         }

@@ -6,7 +6,7 @@ using Timers = System.Timers;
 namespace Sharpenguin.Game {
     public class GameConnection : PenguinConnection {
         public event JoinEventHandler OnJoin; //< Event for handling join success.
-        private Player.MyPlayer player;
+        private Player.MyPlayer player = null;
         private Timers.Timer beat = new Timers.Timer(); //< Heartbeat timer.
         private Room.Room room;
 
@@ -20,12 +20,17 @@ namespace Sharpenguin.Game {
         }
 
         public Player.MyPlayer Player {
-            get { return player; }
+            get { 
+                if(player != null)
+                    return player;
+                else
+                    throw new Player.PlayerNotLoadedException("Your player has not yet been loaded!");
+            }
+            private set { player = value; }
         }
 
         public GameConnection(int id, string username, string loginkey) : base(username, loginkey) {
             this.id = id;
-            player = new Player.MyPlayer(this);
             Packets.Receive.IGamePacketHandler<XmlPacket>[] xml = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XmlPacket>>();
             Packets.Receive.IGamePacketHandler<XtPacket>[] xt = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XtPacket>>();
             foreach(Packets.Receive.IGamePacketHandler<XmlPacket> handler in xml) XmlHandlers.Add(handler);
@@ -58,12 +63,14 @@ namespace Sharpenguin.Game {
             beat.Stop(); 
         }
 
-        public class RandomKeyHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> {
+        class RandomKeyHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> {
             public string Handles {
                 get { return "rndK"; }
             }
 
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xml.XmlPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection");
+                if(packet == null) throw new System.ArgumentNullException("packet");
                 GameConnection game = connection as GameConnection;
                 game.rndk = packet.XmlData.ChildNodes[0].InnerText;
                 string hash = Security.Crypt.HashPassword(game.username, game.password, game.rndk);
@@ -72,9 +79,9 @@ namespace Sharpenguin.Game {
         }
 
         /// <summary>
-        /// Represents an join server handler.
+        /// Represents a join server handler.
         /// </summary>
-        public class JoinServerHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+        class JoinServerHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Gets the command that this packet handler handles.
             /// </summary>
@@ -90,10 +97,40 @@ namespace Sharpenguin.Game {
             /// <param name="packet">The packet.</param>
             /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection");
+                if(packet == null) throw new System.ArgumentNullException("packet");
                 GameConnection game = connection as GameConnection;
                 if(game != null) {
                     if(game.OnJoin != null) game.OnJoin(game);
                     game.Send(new Packets.Send.Xt.Player.Inventory.GetInventory(game));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Represents a load player handler.
+        /// </summary>
+        class LoadPlayerHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
+            public string Handles {
+                get { return "lp"; }
+            }
+
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="sender">The sender of the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
+            public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection");
+                if(packet == null) throw new System.ArgumentNullException("packet");
+                GameConnection game = connection as GameConnection;
+                if(game != null) {
+                    game.Player = new Player.MyPlayer(game, packet);
                 }
             }
         }

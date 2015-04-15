@@ -21,6 +21,7 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// </summary>
         /// <param name="connection">The connection this inventory belongs to.</param>
         public Inventory(MyPlayer player) {
+            if(player == null) throw new System.ArgumentNullException("player");
             this.player = player;
         }
 
@@ -37,6 +38,7 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// </summary>
         /// <param name="item">The item to add.</param>
         public void Add(Configuration.Game.Item item) {
+            if(item == null) throw new System.ArgumentNullException("item");
             if(player.Wallet.Amount >= item.Price) {
                 player.Connection.Send(new Packets.Send.Xt.Player.Inventory.AddItem(player.Connection, item.Id));
             }else{
@@ -51,6 +53,8 @@ namespace Sharpenguin.Game.Player.Inventory {
             }
 
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection");
+                if(packet == null) throw new System.ArgumentNullException("packet");
                 GameConnection game = connection as GameConnection;
                 if(game != null) {
                     game.Player.Inventory.items.Clear();
@@ -59,7 +63,7 @@ namespace Sharpenguin.Game.Player.Inventory {
                         try {
                             if(int.TryParse(s, out id)) {
                                 game.Player.Inventory.items.Add(Configuration.Configuration.Items[id]);
-                            } else {
+                            }else{
                                 // Will be logged
                             }
                         } catch(Configuration.Game.NonExistentItemException ex) {
@@ -94,6 +98,7 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// </summary>
         /// <param name="predictate">Search predictate.</param>
         public IEnumerable<Configuration.Game.Item> Where(System.Func<Configuration.Game.Item, bool> predictate) {
+            if(predictate == null) throw new System.ArgumentNullException("predictate");
             return items.Where<Configuration.Game.Item>(predictate);
         }
 
@@ -102,6 +107,7 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// </summary>
         /// <param name="predictate">Search predictate.</param>
         public bool Exists(System.Func<Configuration.Game.Item, bool> predictate) {
+            if(predictate == null) throw new System.ArgumentNullException("predictate");
             return Where(predictate).Count() != 0;
         }
     }

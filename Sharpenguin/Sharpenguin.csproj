@@ -92,7 +92,6 @@
     <Compile Include="Game\Packets\Send\Xt\Player\Position.cs" />
     <Compile Include="Login\LoginEventHandler.cs" />
     <Compile Include="Game\JoinEventHandler.cs" />
-    <Compile Include="Game\JoinRoomHandler.cs" />
     <Compile Include="Game\Player\Items.cs" />
     <Compile Include="Game\Player\Position.cs" />
     <Compile Include="Configuration\System\Error.cs" />
@@ -137,6 +136,8 @@
     <Compile Include="Game\Room\LeaveRoomEvent.cs" />
     <Compile Include="Game\Room\RemovePlayerHandler.cs" />
     <Compile Include="Game\Room\Room.cs" />
+    <Compile Include="Configuration\Game\NonExistentRoomException.cs" />
+    <Compile Include="Game\Player\PlayerNotLoadedException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
