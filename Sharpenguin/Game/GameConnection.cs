@@ -8,7 +8,16 @@ namespace Sharpenguin.Game {
         public event JoinEventHandler OnJoin; //< Event for handling join success.
         private Player.MyPlayer player;
         private Timers.Timer beat = new Timers.Timer(); //< Heartbeat timer.
+        private Room.Room room;
 
+        public override int InternalRoom {
+            get { return room.Id; }
+        }
+
+        public Room.Room Room {
+            get { return room; }
+            internal set { room = value; }
+        }
 
         public Player.MyPlayer Player {
             get { return player; }
@@ -21,6 +30,11 @@ namespace Sharpenguin.Game {
             Packets.Receive.IGamePacketHandler<XtPacket>[] xt = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XtPacket>>();
             foreach(Packets.Receive.IGamePacketHandler<XmlPacket> handler in xml) XmlHandlers.Add(handler);
             foreach(Packets.Receive.IGamePacketHandler<XtPacket> handler in xt) XtHandlers.Add(handler);
+            room = new Room.Room {
+                Id = -1,
+                External = 0,
+                Name = "System"
+            };
             beat.Interval = 60000;
             beat.Elapsed += HeartBeat;
             OnDisconnect += DisconnectHandler;

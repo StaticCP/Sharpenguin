@@ -20,40 +20,101 @@ namespace Sharpenguin {
      */
     public abstract class PenguinConnection {
         // Fields
-        public const int APIVersion  = 152; // Smart fox server API version.
-        protected bool authenticated = false; //< If we are authenticated with a game server, this is true.
-        protected string username    = ""; //< Your username.
-        protected string password    = ""; //< Your password.
-        protected string rndk        = ""; //< Random key from login or game.
+        /// <summary>
+        /// The smart fox server API version.
+        /// </summary>
+        public const int APIVersion  = 152;
+        /// <summary>
+        /// Whether this instance is authenticated.
+        /// </summary>
+        protected bool authenticated = false;
+        /// <summary>
+        /// The username.
+        /// </summary>
+        protected string username    = "";
+        /// <summary>
+        /// The password.
+        /// </summary>
+        protected string password    = "";
+        /// <summary>
+        /// The random key.
+        /// </summary>
+        protected string rndk        = "";
+        /// <summary>
+        /// The temporary buffer where data from currently incomplete packets are stored.
+        /// </summary>
         private string buffer        = "";
         private string serverName    = ""; //< The name of the server we are connecting, or have connected, to.
-	    private NetClient.Connection connection; //< Penguin socket wrapper.
-        private Room.Room room;
+        /// <summary>
+        /// The connection.
+        /// </summary>
+	    private NetClient.Connection connection;
+        /// <summary>
+        /// The player's identifier.
+        /// </summary>
         protected int id;
+        /// <summary>
+        /// The xt handler table.
+        /// </summary>
         public readonly Packets.Receive.HandlerTable<Packets.Receive.Xt.XtPacket> XtHandlers = new Packets.Receive.HandlerTable<Packets.Receive.Xt.XtPacket>();
+        /// <summary>
+        /// The xml handler table.
+        /// </summary>
         public readonly Packets.Receive.HandlerTable<Packets.Receive.Xml.XmlPacket> XmlHandlers = new Packets.Receive.HandlerTable<Packets.Receive.Xml.XmlPacket>();
-        public event ErrorEventHandler OnError; //< Error event.
-        public event ReceiveEventHandler OnReceive; //< Event for handling a packet being received.
-        public event DisconnectEventHandler OnDisconnect; //< Event for handling socket disconnection.
-        public event ConnectionFailEventHandler OnConnectFailure; //< Event for handling connection failure.
-        public event ConnectionSuccessEventHandler OnConnect; //< Event for handling connection success;
+        /// <summary>
+        /// Raised when an error occurs.
+        /// </summary>
+        public event ErrorEventHandler OnError;
+        /// <summary>
+        /// Occurs when a packet is received.
+        /// </summary>
+        public event ReceiveEventHandler OnReceive;
+        /// <summary>
+        /// Occurs when the client or server disconnects.
+        /// </summary>
+        public event DisconnectEventHandler OnDisconnect;
+        /// <summary>
+        /// Occurs when the connection fails.
+        /// </summary>
+        public event ConnectionFailEventHandler OnConnectFailure;
+        /// <summary>
+        /// Occurs when a connection has been established.
+        /// </summary>
+        public event ConnectionSuccessEventHandler OnConnect;
+        /// <summary>
+        /// Occurs when the smart fox server API version is incompatible with the server.
+        /// </summary>
         public event IncorrectAPIHandler OnIncorrectAPI;
 
         // Properties
-        //! Gets your username.
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
         public int Id {
             get { return id; }
         }
+        /// <summary>
+        /// Gets the username.
+        /// </summary>
+        /// <value>The username.</value>
         public string Username {
             get { return username; }
         }
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>The password.</value>
         public string Password {
             get { return password; }
             set { password = value; }
         }
-
-        public Room.Room Room {
-            get { return room; }
+        /// <summary>
+        /// Gets or sets the internal room id.
+        /// </summary>
+        /// <value>The internal room.</value>
+        public virtual int InternalRoom {
+            get { return -1; } // The system room, -1.
         }
 	
 	    /// <summary>
@@ -63,18 +124,26 @@ namespace Sharpenguin {
         public NetClient.Connection Connection {
             get { return connection; }
         }
-        //! Gets whether we have authenticated or not.
+        /// <summary>
+        /// Gets a value indicating whether this instance is authenticated.
+        /// </summary>
+        /// <value><c>true</c> if this instance is authenticated; otherwise, <c>false</c>.</value>
         public bool IsAuthenticated {
             get { return authenticated; }
         }
-        //! Gets the name of the server we are connecting, or have connected, to.
+        /// <summary>
+        /// Gets the name of the server.
+        /// </summary>
+        /// <value>The name of the server.</value>
         public string ServerName {
             get { return serverName; }
         }
 
-        /**
-         * PenguinConnection constuctor. Creates the crumbs object and handler table.
-         */
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.PenguinConnection"/> class.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <param name="password">Password.</param>
         public PenguinConnection(string username, string password) {
             if(username == null)
                 throw new System.ArgumentNullException("username", "Argument cannot be null.");
@@ -87,11 +156,6 @@ namespace Sharpenguin {
             foreach(Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> handler in xml) XmlHandlers.Add(handler);
             foreach(Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> handler in xt) XtHandlers.Add(handler);
             OnReceive += HandlePacket;
-            room = new Room.Room {
-                Id = -1,
-                External = 0,
-                Name = "System"
-            };
         }
 
         /// <summary>
@@ -103,15 +167,11 @@ namespace Sharpenguin {
             Connect(server.Host, server.Port);
         }
         
-
-        /**
-         * Starts a new connection.
-         *
-         * @param connectionHost
-         *   The address of the host we are connecting to.
-         * @param connectionPort
-         *   The port we are connecting to.
-         */
+        /// <summary>
+        /// Connect the specified host and port.
+        /// </summary>
+        /// <param name="host">Host.</param>
+        /// <param name="port">Port.</param>
         private void Connect(string host, int port) {
             if(host == null)
                 throw new System.ArgumentNullException("host", "Argument cannot be null.");
@@ -125,22 +185,21 @@ namespace Sharpenguin {
         }
 
         
-        /**
-         * Connection attempt callback.
-         *
-         * @param hostAddress
-         *  The address of the host we attempted to connect to.
-         * @param hostPort
-         *  The port we attempted to connect to.
-         * @param connectionSuccess
-         *  Whether the connection was successful or not.
-         */
+        /// <summary>
+        /// Handles the connect event.
+        /// </summary>
+        /// <param name="connection">The established connection.</param>
         private void HandleConnect(NetClient.Connection connection) {
             if(OnConnect != null)
                 OnConnect(connection.Information.Host.ToString(), connection.Information.Port);
             Send(new Packets.Send.Xml.VersionCheck(APIVersion));
         }
 
+        /// <summary>
+        /// Handles the received data.
+        /// </summary>
+        /// <param name="connection">The connection data was recieved from.</param>
+        /// <param name="data">The received data.</param>
         public void HandleReceive(NetClient.Connection connection, string data) {
             buffer += data;
             if(buffer.Contains("\0")) {
@@ -168,6 +227,10 @@ namespace Sharpenguin {
             }
         }
 
+        /// <summary>
+        /// Handles a received packet.
+        /// </summary>
+        /// <param name="packet">The received packet.</param>
         private void HandlePacket(Packets.Receive.Packet packet) {
             if(packet is Packets.Receive.Xt.XtPacket) {
                 XtHandlers.Handle(this, (Packets.Receive.Xt.XtPacket) packet);
@@ -176,7 +239,11 @@ namespace Sharpenguin {
             }
         }
 
-
+        /// <summary>
+        /// Handles a socket error.
+        /// </summary>
+        /// <param name="connection">The connection which the error happened on.</param>
+        /// <param name="error">The socket error.</param>
         private void SocketErrorHandler(NetClient.Connection connection, System.Net.Sockets.SocketError error) {
             if(error == System.Net.Sockets.SocketError.HostUnreachable
                || error == System.Net.Sockets.SocketError.ConnectionRefused
@@ -185,14 +252,11 @@ namespace Sharpenguin {
             }
         }
 
-        /**
-         * Checks username and password are correct lengths before login.
-         *
-         * @param username
-         *   The username to check.
-         * @param password
-         *   The password to check.
-         */
+        /// <summary>
+        /// Checks the credentials before login.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <param name="password">Password.</param>
         protected void CheckCredentials(string username, string password) {
             if(string.IsNullOrEmpty(username)) {
                 throw new InvalidCredentialsException("No username was given.");
@@ -209,12 +273,10 @@ namespace Sharpenguin {
             }
         }
 
-        /**
-         * Sends data to the connected host.
-         *
-         * @param dataText
-         *   The data to send to the host.
-         */
+        /// <summary>
+        /// Send data to the connected host.
+        /// </summary>
+        /// <param name="data">The data to send.</param>
         public void Send(string data) {
             #if DEBUG
             System.Console.WriteLine("SENT: " + data);
@@ -222,20 +284,25 @@ namespace Sharpenguin {
             connection.Send(data);
         }
 
+        /// <summary>
+        /// Sends a packet to the host.
+        /// </summary>
+        /// <param name="packet">The packet to send.</param>
         public void Send(Packets.Send.Packet packet) {
             Send(packet.Data + "\0");
         }
 
-        /**
-         * Disconnect callback for the asynchronous socket.
-         */
+        /// <summary>
+        /// Handles a disconnect from the host.
+        /// </summary>
+        /// <param name="connection">The connection that disconnected.</param>
         private void HandleDisconnect(NetClient.Connection connection) {
             if(OnDisconnect != null) OnDisconnect(this);
         }
 
-        /**
-         * Disconnects the socket.
-         */
+        /// <summary>
+        /// Disconnect this instance.
+        /// </summary>
         public void Disconnect() {
             connection.Disconnect();
         }
@@ -268,11 +335,24 @@ namespace Sharpenguin {
             }
         }
 
+        /// <summary>
+        /// Represents an incorrect API version handler.
+        /// </summary>
         public class ApiKOHandler : Packets.Receive.IDefaultPacketHandler<Packets.Receive.Xml.XmlPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
             public string Handles {
                 get { return "apiKO"; }
             }
 
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Packets.Receive.Xml.XmlPacket packet) {
                 connection.OnIncorrectAPI(connection);
                 connection.Disconnect();

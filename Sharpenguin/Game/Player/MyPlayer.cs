@@ -17,7 +17,6 @@ namespace Sharpenguin.Game.Player {
         private int minutes         = 0; //< The minutes the player has spent playing the game.
         private Money.Wallet wallet = new Money.Wallet();
         private Inventory.Inventory inventory;
-        private GCollections.List<int> inventoryList = new GCollections.List<int>(); //< The list of inventory items.
         private GameConnection connection;
 
         //! Gets the player's age.
@@ -38,14 +37,27 @@ namespace Sharpenguin.Game.Player {
             get { return minutes; }
             internal set { minutes = value; }
         }
-        //! Gets an array of the player's inventory.
-        public int[] Inventory {
-            get { return inventoryList.ToArray(); }
+
+        /// <summary>
+        /// Gets the player's inventory.
+        /// </summary>
+        /// <value>The inventory.</value>
+        public Inventory.Inventory Inventory {
+            get { return inventory; }
         }
+
+        /// <summary>
+        /// Gets the player's connection.
+        /// </summary>
+        /// <value>The connection.</value>
         public GameConnection Connection {
             get { return connection; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.Game.Player.MyPlayer"/> class.
+        /// </summary>
+        /// <param name="connection">They player's parent connection.</param>
         public MyPlayer(GameConnection connection) {
             this.connection = connection;
             inventory = new Inventory.Inventory(this);
