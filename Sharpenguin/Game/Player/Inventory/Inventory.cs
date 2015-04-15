@@ -58,11 +58,29 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// <param name="item">The item to add.</param>
         public void Add(Configuration.Game.Item item) {
             if(player.Wallet.Amount >= item.Price) {
-                items.Add(item);
                 player.Connection.Send(new Packets.Send.Xt.Player.Inventory.AddItem(player.Connection, item.Id));
             }else{
                 // Not that we care, we can make a money maker..
                 throw new Money.NotEnoughCoinsException("You do not have enough coins to buy this item!");
+            }
+        }
+        // base(recipient, "ai", new string[] { item.Id.ToString(), recipient.Wallet.Amount.ToString() })
+
+        class AddItemHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            public string Handles {
+                get { return "ai"; }
+            }
+
+            public void Handler(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(packet.Arguments.Length >= 2) {
+                    int id;
+                    int coins;
+                    if(int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out coins)) {
+                        Configuration.Game.Item item = Configuration.Configuration.Items[id];
+                        items.Add(item);
+                        player.Wallet.Amount = coins;
+                    }
+                }
             }
         }
 
