@@ -96,6 +96,14 @@ namespace Sharpenguin.Game.Player.Inventory {
         public IEnumerable<Configuration.Game.Item> Where(System.Func<Configuration.Game.Item, bool> predictate) {
             return items.Where<Configuration.Game.Item>(predictate);
         }
+
+        /// <summary>
+        /// Gets whether an item with the specified properties exists.
+        /// </summary>
+        /// <param name="predictate">Search predictate.</param>
+        public bool Exists(System.Func<Configuration.Game.Item, bool> predictate) {
+            return Where(predictate).Count() != 0;
+        }
     }
 }
 

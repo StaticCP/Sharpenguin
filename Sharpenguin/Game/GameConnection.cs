@@ -91,7 +91,10 @@ namespace Sharpenguin.Game {
             /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 GameConnection game = connection as GameConnection;
-                if(game != null && game.OnJoin != null) game.OnJoin(game);
+                if(game != null) {
+                    if(game.OnJoin != null) game.OnJoin(game);
+                    game.Send(new Packets.Send.Xt.Player.Inventory.GetInventory(game));
+                }
             }
         }
     }
