@@ -25,26 +25,6 @@ namespace Sharpenguin.Game.Player.Inventory {
         }
 
         /// <summary>
-        /// Load the inventory from the specified packet.
-        /// </summary>
-        /// <param name="packet">The packet to load the inventory from.</param>
-        public void Load(Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
-            if(packet.Command == "gi") {
-                items.Clear();
-                foreach(string i in packet.Arguments) {
-                    try {
-                        int id = int.Parse(i);
-                        items.Add(Configuration.Configuration.Items[id]);
-                    }catch(Configuration.Game.NonExistentItemException ex) {
-                        // Will be logged.
-                    }catch(System.FormatException ex) {
-                        // Will be logged.
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Adds the item with the specified ID.
         /// </summary>
         /// <param name="id">Identifier.</param>
@@ -64,21 +44,46 @@ namespace Sharpenguin.Game.Player.Inventory {
                 throw new Money.NotEnoughCoinsException("You do not have enough coins to buy this item!");
             }
         }
-        // base(recipient, "ai", new string[] { item.Id.ToString(), recipient.Wallet.Amount.ToString() })
+
+        class GetInventoryHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            public string Handles {
+                get { return "gi"; }
+            }
+
+            public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                GameConnection game = connection as GameConnection;
+                if(game != null) {
+                    game.Player.Inventory.items.Clear();
+                    foreach(string s in packet.Arguments) {
+                        int id;
+                        try {
+                            if(int.TryParse(s, out id)) {
+                                game.Player.Inventory.items.Add(Configuration.Configuration.Items[id]);
+                            } else {
+                                // Will be logged
+                            }
+                        } catch(Configuration.Game.NonExistentItemException ex) {
+                            // Will be logged.
+                        }
+                    }
+                }
+            }
+        }
 
         class AddItemHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             public string Handles {
                 get { return "ai"; }
             }
 
-            public void Handler(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
-                if(packet.Arguments.Length >= 2) {
+            public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                GameConnection game = connection as GameConnection;
+                if(packet.Arguments.Length >= 2 && game != null) {
                     int id;
                     int coins;
                     if(int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out coins)) {
                         Configuration.Game.Item item = Configuration.Configuration.Items[id];
-                        items.Add(item);
-                        player.Wallet.Amount = coins;
+                        game.Player.Inventory.items.Add(item);
+                        game.Player.Wallet.Amount = coins;
                     }
                 }
             }
