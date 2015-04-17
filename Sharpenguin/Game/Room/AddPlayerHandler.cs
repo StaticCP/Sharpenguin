@@ -7,8 +7,8 @@ namespace Sharpenguin.Game.Room {
         }
 
         public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
-            if(connection == null) throw new System.ArgumentNullException("connection");
-            if(packet == null) throw new System.ArgumentNullException("packet");
+            if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+            if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
             Game.GameConnection game = connection as Game.GameConnection;
             if(game != null) {
                 Game.Player.Player player = new Game.Player.Player(packet.Arguments[0]);

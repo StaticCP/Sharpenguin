@@ -92,7 +92,6 @@
     <Compile Include="Game\Packets\Send\Xt\Player\Position.cs" />
     <Compile Include="Login\LoginEventHandler.cs" />
     <Compile Include="Game\JoinEventHandler.cs" />
-    <Compile Include="Game\Player\Items.cs" />
     <Compile Include="Game\Player\Position.cs" />
     <Compile Include="Configuration\System\Error.cs" />
     <Compile Include="Configuration\System\Server.cs" />
@@ -138,6 +137,13 @@
     <Compile Include="Game\Room\Room.cs" />
     <Compile Include="Configuration\Game\NonExistentRoomException.cs" />
     <Compile Include="Game\Player\PlayerNotLoadedException.cs" />
+    <Compile Include="Game\Player\Appearance\Clothing.cs" />
+    <Compile Include="Game\LoadEventHandler.cs" />
+    <Compile Include="Game\Packets\Send\Xt\Room\JoinRoom.cs" />
+    <Compile Include="Game\Packets\Send\Xt\Room\JoinPlayer.cs" />
+    <Compile Include="Game\Packets\Send\Xt\Player\GetPuffle.cs" />
+    <Compile Include="Game\Packets\Send\Xt\Room\GetIglooDetails.cs" />
+    <Compile Include="NotConnectedException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -172,5 +178,7 @@
     <Folder Include="Game\Packets\Send\Xt\Player\Appearance\" />
     <Folder Include="Configuration\System\" />
     <Folder Include="Configuration\Game\" />
+    <Folder Include="Game\Player\Appearance\" />
+    <Folder Include="Game\Packets\Send\Xt\Room\" />
   </ItemGroup>
 </Project>

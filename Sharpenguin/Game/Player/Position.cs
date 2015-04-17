@@ -57,7 +57,7 @@
         /// </summary>
         /// <param name="player">The parent player.</param>
         public Position(Player player) {
-            if(player == null) throw new System.ArgumentNullException("player");
+            if(player == null) throw new System.ArgumentNullException("player", "Argument cannot be null.");
             this.player = player;
         }
 

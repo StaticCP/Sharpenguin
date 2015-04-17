@@ -8,7 +8,7 @@
         /// </summary>
         /// <param name="sender">The sender of the packet.</param>
         /// <param name="id">The ID of the Message to send.</param>
-        public Message(PenguinConnection sender, string message) : base(sender, "u#sm", new string[] { sender.Id.ToString(), message }) {}
+        public Message(PenguinConnection sender, string message) : base(sender, "m#sm", new string[] { sender.Id.ToString(), message }) {}
     }
 }
 

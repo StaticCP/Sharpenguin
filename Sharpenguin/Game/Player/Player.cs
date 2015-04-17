@@ -14,7 +14,7 @@ namespace Sharpenguin.Game.Player {
         /// <summary>
         /// The player's items.
         /// </summary>
-        private Items items       = new Items();
+        private Appearance.Clothing items;
         /// <summary>
         /// The player's position.
         /// </summary>
@@ -83,7 +83,7 @@ namespace Sharpenguin.Game.Player {
         /// Gets player's the items.
         /// </summary>
         /// <value>The player's items.</value>
-        public Items Items {
+        public Appearance.Clothing Clothing {
             get { return items; }
         }
 
@@ -115,15 +115,16 @@ namespace Sharpenguin.Game.Player {
         }
 
         private void LoadItems(string[] arr) {
-            items.Colour = int.Parse(arr[3]);
-            items.Head = int.Parse(arr[4]);
-            items.Face = int.Parse(arr[5]);
-            items.Neck = int.Parse(arr[6]);
-            items.Body = int.Parse(arr[7]);
-            items.Hand = int.Parse(arr[8]);
-            items.Feet = int.Parse(arr[9]);
-            items.Flag = int.Parse(arr[10]);
-            items.Background = int.Parse(arr[11]);
+            items = new Appearance.Clothing(this);
+            items.colour = int.Parse(arr[3]);
+            items.head = int.Parse(arr[4]);
+            items.face = int.Parse(arr[5]);
+            items.neck = int.Parse(arr[6]);
+            items.body = int.Parse(arr[7]);
+            items.hand = int.Parse(arr[8]);
+            items.feet = int.Parse(arr[9]);
+            items.flag = int.Parse(arr[10]);
+            items.background = int.Parse(arr[11]);
         }
 
         private void LoadPosition(string[] arr) {

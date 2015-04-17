@@ -44,7 +44,6 @@ namespace Sharpenguin {
         /// The temporary buffer where data from currently incomplete packets are stored.
         /// </summary>
         private string buffer        = "";
-        private string serverName    = ""; //< The name of the server we are connecting, or have connected, to.
         /// <summary>
         /// The connection.
         /// </summary>
@@ -61,6 +60,7 @@ namespace Sharpenguin {
         /// The xml handler table.
         /// </summary>
         public readonly Packets.Receive.HandlerTable<Packets.Receive.Xml.XmlPacket> XmlHandlers = new Packets.Receive.HandlerTable<Packets.Receive.Xml.XmlPacket>();
+        private Configuration.System.Server server;
         /// <summary>
         /// Raised when an error occurs.
         /// </summary>
@@ -113,8 +113,8 @@ namespace Sharpenguin {
         /// Gets or sets the internal room id.
         /// </summary>
         /// <value>The internal room.</value>
-        public virtual int InternalRoom {
-            get { return -1; } // The system room, -1.
+        public abstract int InternalRoom {
+            get;
         }
 	
 	    /// <summary>
@@ -131,12 +131,18 @@ namespace Sharpenguin {
         public bool IsAuthenticated {
             get { return authenticated; }
         }
+
         /// <summary>
-        /// Gets the name of the server.
+        /// Gets the configuration of the server the connection is connected to.
         /// </summary>
-        /// <value>The name of the server.</value>
-        public string ServerName {
-            get { return serverName; }
+        /// <value>The server.</value>
+        public Configuration.System.Server Server {
+            get {
+                if(server == null)
+                    throw new NotConnectedException("You are not connected to a server yet.");
+                else
+                    return server;
+            }
         }
 
         /// <summary>
@@ -145,8 +151,8 @@ namespace Sharpenguin {
         /// <param name="username">Username.</param>
         /// <param name="password">Password.</param>
         public PenguinConnection(string username, string password) {
-            if(username == null) throw new System.ArgumentNullException("username");
-            if(password == null) throw new System.ArgumentNullException("password");
+            if(username == null) throw new System.ArgumentNullException("username", "Argument cannot be null.");
+            if(password == null) throw new System.ArgumentNullException("password", "Argument cannot be null.");
             this.username = username;
             this.password = password;
             Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket>[] xml = HandlerLoader.GetHandlers<Packets.Receive.IDefaultPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket>>();
@@ -161,6 +167,8 @@ namespace Sharpenguin {
         /// </summary>
         /// <param name="server">The server to authenticate with.</param>
         public void Authenticate(Configuration.System.Server server) {
+            if(server == null) throw new System.ArgumentNullException("server", "Argument cannot be null.");
+            this.server = server;
             CheckCredentials(username, password);
             Connect(server.Host, server.Port);
         }
@@ -171,7 +179,7 @@ namespace Sharpenguin {
         /// <param name="host">Host.</param>
         /// <param name="port">Port.</param>
         private void Connect(string host, int port) {
-            if(host == null) throw new System.ArgumentNullException("host");
+            if(host == null) throw new System.ArgumentNullException("host", "Argument cannot be null.");
             if(connection != null && connection.Connected == true) throw new AlreadyConnectedException("This instance is already connected to a server!");
             connection = new NetClient.Connection(new NetClient.ConnectionInfo(host, port, NetClient.ConnectionType.Tcp));
             connection.OnConnect += HandleConnect;
@@ -186,7 +194,7 @@ namespace Sharpenguin {
         /// </summary>
         /// <param name="connection">The established connection.</param>
         private void HandleConnect(NetClient.Connection connection) {
-            if(connection == null) throw new System.ArgumentNullException("connection");
+            if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
             if(OnConnect != null)
                 OnConnect(connection.Information.Host.ToString(), connection.Information.Port);
             Send(new Packets.Send.Xml.VersionCheck(APIVersion));
@@ -198,12 +206,11 @@ namespace Sharpenguin {
         /// <param name="connection">The connection data was recieved from.</param>
         /// <param name="data">The received data.</param>
         private void HandleReceive(NetClient.Connection connection, string data) {
-            if(connection == null) throw new System.ArgumentNullException("connection");
-            if(data == null) throw new System.ArgumentNullException("data");
+            if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+            if(data == null) throw new System.ArgumentNullException("data", "Argument cannot be null.");
             buffer += data;
             if(buffer.Contains("\0")) {
                 string[] packets = buffer.Split('\0');
-                buffer = packets[packets.Length - 1];
                 for(int i = 0; i <= packets.Length - 2; i++) {
                     string received = packets[i];
                     #if DEBUG
@@ -223,6 +230,7 @@ namespace Sharpenguin {
                         // TODO
                     }
                 }
+                buffer = packets[packets.Length - 1];
             }
         }
 
@@ -231,7 +239,7 @@ namespace Sharpenguin {
         /// </summary>
         /// <param name="packet">The received packet.</param>
         private void HandlePacket(Packets.Receive.Packet packet) {
-            if(packet == null) throw new System.ArgumentNullException("packet");
+            if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
             if(packet is Packets.Receive.Xt.XtPacket) {
                 XtHandlers.Handle(this, (Packets.Receive.Xt.XtPacket) packet);
             } else if(packet is Packets.Receive.Xml.XmlPacket) {
@@ -245,7 +253,7 @@ namespace Sharpenguin {
         /// <param name="connection">The connection which the error happened on.</param>
         /// <param name="error">The socket error.</param>
         private void SocketErrorHandler(NetClient.Connection connection, System.Net.Sockets.SocketError error) {
-            if(connection == null) throw new System.ArgumentNullException("connection");
+            if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
             if(error == System.Net.Sockets.SocketError.HostUnreachable
                || error == System.Net.Sockets.SocketError.ConnectionRefused
                || error == System.Net.Sockets.SocketError.HostDown) {
@@ -279,7 +287,7 @@ namespace Sharpenguin {
         /// </summary>
         /// <param name="data">The data to send.</param>
         public void Send(string data) {
-            if(data == null) throw new System.ArgumentNullException("data");
+            if(data == null) throw new System.ArgumentNullException("data", "Argument cannot be null.");
             #if DEBUG
             System.Console.WriteLine("SENT: " + data);
             #endif
@@ -291,7 +299,7 @@ namespace Sharpenguin {
         /// </summary>
         /// <param name="packet">The packet to send.</param>
         public void Send(Packets.Send.Packet packet) {
-            if(packet == null) throw new System.ArgumentNullException("packet");
+            if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
             Send(packet.Data + "\0");
         }
 
@@ -300,7 +308,7 @@ namespace Sharpenguin {
         /// </summary>
         /// <param name="connection">The connection that disconnected.</param>
         private void HandleDisconnect(NetClient.Connection connection) {
-            if(connection == null) throw new System.ArgumentNullException("connection");
+            if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
             if(OnDisconnect != null) OnDisconnect(this);
         }
 
@@ -330,8 +338,8 @@ namespace Sharpenguin {
             /// <param name="packet">The packet.</param>
             /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Packets.Receive.Xt.XtPacket packet) {
-                if(connection == null) throw new System.ArgumentNullException("connection");
-                if(packet == null) throw new System.ArgumentNullException("packet");
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 if(packet.Arguments.Length >= 1) {
                     int id;
                     if(int.TryParse(packet.Arguments[0], out id)) {
@@ -360,8 +368,8 @@ namespace Sharpenguin {
             /// <param name="packet">The packet.</param>
             /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Packets.Receive.Xml.XmlPacket packet) {
-                if(connection == null) throw new System.ArgumentNullException("connection");
-                if(packet == null) throw new System.ArgumentNullException("packet");
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 connection.OnIncorrectAPI(connection);
                 connection.Disconnect();
             }

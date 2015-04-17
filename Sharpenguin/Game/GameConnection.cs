@@ -5,9 +5,25 @@ using Timers = System.Timers;
 
 namespace Sharpenguin.Game {
     public class GameConnection : PenguinConnection {
-        public event JoinEventHandler OnJoin; //< Event for handling join success.
+        /// <summary>
+        /// Occurs when the game server has been joined.
+        /// </summary>
+        public event JoinEventHandler OnJoin;
+        /// <summary>
+        /// Occurs when the connection's player has been loaded.
+        /// </summary>
+        public event LoadEventHandler OnLoad;
+        /// <summary>
+        /// The connection's player.
+        /// </summary>
         private Player.MyPlayer player = null;
-        private Timers.Timer beat = new Timers.Timer(); //< Heartbeat timer.
+        /// <summary>
+        /// Heartbeat timer.
+        /// </summary>
+        private Timers.Timer beat = new Timers.Timer();
+        /// <summary>
+        /// The room the player is currently in.
+        /// </summary>
         private Room.Room room;
 
         public override int InternalRoom {
@@ -35,7 +51,7 @@ namespace Sharpenguin.Game {
             Packets.Receive.IGamePacketHandler<XtPacket>[] xt = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XtPacket>>();
             foreach(Packets.Receive.IGamePacketHandler<XmlPacket> handler in xml) XmlHandlers.Add(handler);
             foreach(Packets.Receive.IGamePacketHandler<XtPacket> handler in xt) XtHandlers.Add(handler);
-            room = new Room.Room {
+            room = new Room.Room(this) {
                 Id = -1,
                 External = 0,
                 Name = "System"
@@ -69,8 +85,8 @@ namespace Sharpenguin.Game {
             }
 
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xml.XmlPacket packet) {
-                if(connection == null) throw new System.ArgumentNullException("connection");
-                if(packet == null) throw new System.ArgumentNullException("packet");
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 GameConnection game = connection as GameConnection;
                 game.rndk = packet.XmlData.ChildNodes[0].InnerText;
                 string hash = Security.Crypt.HashPassword(game.username, game.password, game.rndk);
@@ -97,8 +113,8 @@ namespace Sharpenguin.Game {
             /// <param name="packet">The packet.</param>
             /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
-                if(connection == null) throw new System.ArgumentNullException("connection");
-                if(packet == null) throw new System.ArgumentNullException("packet");
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 GameConnection game = connection as GameConnection;
                 if(game != null) {
                     if(game.OnJoin != null) game.OnJoin(game);
@@ -126,11 +142,12 @@ namespace Sharpenguin.Game {
             /// <param name="packet">The packet.</param>
             /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
-                if(connection == null) throw new System.ArgumentNullException("connection");
-                if(packet == null) throw new System.ArgumentNullException("packet");
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 GameConnection game = connection as GameConnection;
                 if(game != null) {
                     game.Player = new Player.MyPlayer(game, packet);
+                    if(game.OnLoad != null) game.OnLoad(game.Player);
                 }
             }
         }

@@ -9,8 +9,8 @@ namespace Sharpenguin.Game.Player {
         }
 
         public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
-            if(connection == null) throw new System.ArgumentNullException("connection");
-            if(packet == null) throw new System.ArgumentNullException("packet");
+            if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+            if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
             GameConnection game = connection as GameConnection;
             if(packet.Arguments.Length >= 3 && game != null) {
                 int id;

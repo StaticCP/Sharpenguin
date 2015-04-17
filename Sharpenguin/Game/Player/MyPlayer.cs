@@ -58,6 +58,8 @@ namespace Sharpenguin.Game.Player {
         /// </summary>
         /// <param name="connection">They player's parent connection.</param>
         public MyPlayer(GameConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+            if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+            if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
             this.connection = connection;
             inventory = new Inventory.Inventory(this);
             LoadData(packet.Arguments[0]);
@@ -66,6 +68,42 @@ namespace Sharpenguin.Game.Player {
                 Wallet.Amount = coins;
                 this.age = age;
                 this.minutes = minutes;
+            }
+        }
+
+        /// <summary>
+        /// Make the player say the message.
+        /// </summary>
+        /// <param name="message">The message to say.</param>
+        public void Say(string message) {
+            if(message == null) throw new System.ArgumentNullException("message", "Argument cannot be null.");
+            connection.Send(new Packets.Send.Xt.Player.Message(connection, message));
+        }
+
+        /// <summary>
+        /// Makes the player join the specified room and enter at the specified x and y coordinates.
+        /// </summary>
+        /// <param name="room">Room.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        public void Enter(Configuration.Game.Room room, int x = 0, int y = 0) {
+            if(room == null) throw new System.ArgumentNullException("room", "Argument cannot be null.");
+            Enter(room.Id);
+        }
+
+        /// <summary>
+        /// Makes the player join the specified room and enter at the specified x and y coordinates.
+        /// </summary>
+        /// <param name="id">Room identifier.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        public void Enter(int id, int x = 0, int y = 0) {
+            if(id <= 1000) {
+                connection.Send(new Packets.Send.Xt.Room.JoinRoom(connection, id, x, y));
+            } else {
+                connection.Send(new Packets.Send.Xt.Room.GetIglooDetails(connection, id));
+                connection.Send(new Packets.Send.Xt.Player.GetPuffle(connection, id));
+                connection.Send(new Packets.Send.Xt.Room.JoinPlayer(connection, id));
             }
         }
 

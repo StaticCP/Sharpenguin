@@ -6,6 +6,7 @@ namespace Sharpenguin.Game.Room {
         private List<Game.Player.Player> players = new List<Game.Player.Player>();
         public event JoinRoomEventHandler OnJoin;
         public event LeaveRoomEventHandler OnLeave;
+        private GameConnection connection;
 
         public IReadOnlyList<Game.Player.Player> Players {
             get {
@@ -28,6 +29,10 @@ namespace Sharpenguin.Game.Room {
             internal set;
         }
 
+        public Room(GameConnection connection) {
+            this.connection = connection;
+        }
+
         internal void Add(Game.Player.Player player) {
             players.Add(player);
             if(OnJoin != null)
@@ -38,20 +43,6 @@ namespace Sharpenguin.Game.Room {
             players.Remove(player);
             if(OnLeave != null)
                 OnLeave(player);
-        }
-
-        public void Join(Configuration.Game.Room room) {
-            Join(room.Id);
-        }
-
-        public void Join(int id) {
-            if(id <= 1000) {
-
-            } else {
-                //SendData("%xt%s%g#gm%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
-                //SendData("%xt%s%p#pg%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
-                //SendData("%xt%s%j#jp%" + Room.IntID.ToString() + "%" + intPenguinID.ToString() + "%");
-            }
         }
 
         /// <summary>
@@ -73,22 +64,29 @@ namespace Sharpenguin.Game.Room {
             /// <param name="packet">The packet.</param>
             /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
-                if(connection == null) throw new System.ArgumentNullException("connection");
-                if(packet == null) throw new System.ArgumentNullException("packet");
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 GameConnection game = connection as GameConnection;
                 if(game != null && packet.Arguments.Length >= 1) {
                     int extId;
                     if(int.TryParse(packet.Arguments[0], out extId)) {
                         try {
-                            Configuration.Game.Room room = Configuration.Configuration.Rooms[extId];
+                            if(extId <= 1000) {
+                                Configuration.Game.Room room = Configuration.Configuration.Rooms[extId];
+                                game.Room.Id = packet.Room;
+                                game.Room.External = room.Id;
+                                game.Room.Name = room.Name;
+                            }else{
+                                game.Room.Id = extId;
+                                game.Room.External = extId;
+                                game.Room.Name = "an igloo";
+                            }
                             game.Room.players.Clear();
-                            game.Room.Id = packet.Room;
-                            game.Room.External = room.Id;
-                            game.Room.Name = room.Name;
                             for(int i = 1; i < packet.Arguments.Length; i++) {
                                 Player.Player load = new Player.Player(packet.Arguments[i]);
                                 if(load.Id != game.Id) game.Room.players.Add(load);
                             }
+                            game.Room.OnJoin(game.Player);
                         } catch(Configuration.Game.NonExistentRoomException) {
                             // Will be logged
                         }

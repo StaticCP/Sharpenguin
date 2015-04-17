@@ -4,6 +4,10 @@ namespace Sharpenguin.Login {
     public class LoginConnection : PenguinConnection {
         public event LoginEventHandler OnLogin; //< Event for handling login success.
 
+        public override int InternalRoom {
+            get { return -1; } // The system room, -1.
+        }
+
         public LoginConnection(string username, string password) : base(username, password) {
             Packets.Receive.ILoginPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket>[] xml = HandlerLoader.GetHandlers<Packets.Receive.ILoginPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket>>();
             Packets.Receive.ILoginPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket>[] xt = HandlerLoader.GetHandlers<Packets.Receive.ILoginPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket>>();

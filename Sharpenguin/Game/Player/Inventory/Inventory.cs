@@ -10,6 +10,7 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// The items in the inventory.
         /// </summary>
         private List<Configuration.Game.Item> items = new List<Configuration.Game.Item>();
+        private object _lock = new object();
 
         /// <summary>
         /// The connection this inventory belongs to.
@@ -21,7 +22,7 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// </summary>
         /// <param name="connection">The connection this inventory belongs to.</param>
         public Inventory(MyPlayer player) {
-            if(player == null) throw new System.ArgumentNullException("player");
+            if(player == null) throw new System.ArgumentNullException("player", "Argument cannot be null.");
             this.player = player;
         }
 
@@ -38,7 +39,7 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// </summary>
         /// <param name="item">The item to add.</param>
         public void Add(Configuration.Game.Item item) {
-            if(item == null) throw new System.ArgumentNullException("item");
+            if(item == null) throw new System.ArgumentNullException("item", "Argument cannot be null.");
             if(player.Wallet.Amount >= item.Price) {
                 player.Connection.Send(new Packets.Send.Xt.Player.Inventory.AddItem(player.Connection, item.Id));
             }else{
@@ -53,21 +54,23 @@ namespace Sharpenguin.Game.Player.Inventory {
             }
 
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
-                if(connection == null) throw new System.ArgumentNullException("connection");
-                if(packet == null) throw new System.ArgumentNullException("packet");
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 GameConnection game = connection as GameConnection;
                 if(game != null) {
                     game.Player.Inventory.items.Clear();
-                    foreach(string s in packet.Arguments) {
-                        int id;
-                        try {
-                            if(int.TryParse(s, out id)) {
-                                game.Player.Inventory.items.Add(Configuration.Configuration.Items[id]);
-                            }else{
-                                // Will be logged
+                    lock(game.Player.Inventory._lock) {
+                        foreach(string s in packet.Arguments) {
+                            int id;
+                            try {
+                                if(int.TryParse(s, out id)) {
+                                    game.Player.Inventory.items.Add(Configuration.Configuration.Items[id]);
+                                } else {
+                                    // Will be logged
+                                }
+                            } catch(Configuration.Game.NonExistentItemException ex) {
+                                // Will be logged.
                             }
-                        } catch(Configuration.Game.NonExistentItemException ex) {
-                            // Will be logged.
                         }
                     }
                 }
@@ -86,7 +89,8 @@ namespace Sharpenguin.Game.Player.Inventory {
                     int coins;
                     if(int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out coins)) {
                         Configuration.Game.Item item = Configuration.Configuration.Items[id];
-                        game.Player.Inventory.items.Add(item);
+                        lock(game.Player.Inventory._lock)
+                            game.Player.Inventory.items.Add(item);
                         game.Player.Wallet.Amount = coins;
                     }
                 }
@@ -98,8 +102,9 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// </summary>
         /// <param name="predictate">Search predictate.</param>
         public IEnumerable<Configuration.Game.Item> Where(System.Func<Configuration.Game.Item, bool> predictate) {
-            if(predictate == null) throw new System.ArgumentNullException("predictate");
-            return items.Where<Configuration.Game.Item>(predictate);
+            if(predictate == null) throw new System.ArgumentNullException("predictate", "Argument cannot be null.");
+            lock(_lock)
+                return items.Where<Configuration.Game.Item>(predictate);
         }
 
         /// <summary>
@@ -107,7 +112,7 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// </summary>
         /// <param name="predictate">Search predictate.</param>
         public bool Exists(System.Func<Configuration.Game.Item, bool> predictate) {
-            if(predictate == null) throw new System.ArgumentNullException("predictate");
+            if(predictate == null) throw new System.ArgumentNullException("predictate", "Argument cannot be null.");
             return Where(predictate).Count() != 0;
         }
     }
