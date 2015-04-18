@@ -90,7 +90,7 @@ namespace Sharpenguin.Game.Player {
                 me.Connection.Send(new Packets.Send.Xt.Player.Position(me.Connection, x, y));
                 X = x;
                 Y = y;
-                me.Position.OnMove(me, me.Position);
+                if(me.Position.OnMove != null) me.Position.OnMove(me, me.Position);
             } else {
                 throw new NotMeException("The position of other players cannot be set!");
             }

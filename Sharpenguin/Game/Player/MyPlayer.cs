@@ -78,6 +78,7 @@ namespace Sharpenguin.Game.Player {
         public void Say(string message) {
             if(message == null) throw new System.ArgumentNullException("message", "Argument cannot be null.");
             connection.Send(new Packets.Send.Xt.Player.Message(connection, message));
+            Spoke(this, message);
         }
 
         /// <summary>

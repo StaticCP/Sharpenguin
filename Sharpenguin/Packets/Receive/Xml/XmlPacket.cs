@@ -34,7 +34,7 @@ namespace Sharpenguin.Packets.Receive.Xml {
         /// <param name="data">The xml string.</param>
         private void LoadXml(string data) {
             XML.XmlReaderSettings xmlSettings = new XML.XmlReaderSettings();
-            xmlSettings.ProhibitDtd = true;
+            xmlSettings.DtdProcessing = XML.DtdProcessing.Prohibit;
             xmlSettings.XmlResolver = null;
             using(System.IO.StringReader stringRead = new System.IO.StringReader(data)) {
                 using(XML.XmlReader xmlRead = XML.XmlReader.Create(stringRead, xmlSettings)) {

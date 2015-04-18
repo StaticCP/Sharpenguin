@@ -15,8 +15,8 @@ namespace Sharpenguin.Game.Room {
             if(game != null) {
                 int id;
                 if(packet.Arguments.Length >= 1 && int.TryParse(packet.Arguments[0], out id)) {
-                    IEnumerable<Game.Player.Player> returns = game.Room.Players.Where(p => p.Id == id);
-                    foreach(Game.Player.Player player in returns) {
+                    Player.Player[] leaving = game.Room.Players.Where(p => p.Id == id).ToArray();
+                    foreach(Game.Player.Player player in leaving) {
                         game.Room.Remove(player);
                     }
                 }

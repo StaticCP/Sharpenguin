@@ -1,9 +1,5 @@
-/**
- * @file Player
- * @author Static
- * @url http://clubpenguinphp.info/
- * @license http://www.gnu.org/copyleft/lesser.html
- */
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sharpenguin.Game.Player {
 
@@ -137,5 +133,45 @@ namespace Sharpenguin.Game.Player {
             position.Y = int.Parse(arr[13]);
             position.frame = int.Parse(arr[14]);
         }
+
+        protected void Spoke(Player player, string message) {
+            if(OnSpeak != null) OnSpeak(player, message);
+        }
+
+        /// <summary>
+        /// Represents a message handler.
+        /// </summary>
+        class MessageHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
+            public string Handles {
+                get { return "sm"; }
+            }
+
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
+            public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
+                GameConnection game = connection as GameConnection;
+                if(game != null && packet.Arguments.Length >= 2) {
+                    int id;
+                    string message = packet.Arguments[1];
+                    if(int.TryParse(packet.Arguments[0], out id) && id != game.Id) {
+                        IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
+                        foreach(Player player in players) {
+                            player.Spoke(player, message);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
