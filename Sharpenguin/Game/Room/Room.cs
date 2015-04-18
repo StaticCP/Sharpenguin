@@ -29,6 +29,10 @@ namespace Sharpenguin.Game.Room {
             internal set;
         }
 
+        public Player.MyPlayer Me {
+            get { return connection.Player; }
+        }
+
         public Room(GameConnection connection) {
             this.connection = connection;
         }

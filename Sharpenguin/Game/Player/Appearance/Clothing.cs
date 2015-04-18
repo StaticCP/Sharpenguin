@@ -17,6 +17,17 @@ namespace Sharpenguin.Game.Player.Appearance {
         private int background;
         private Player player;
 
+        public event ClothingUpdateEventHandler OnUpdate;
+        public event ClothingUpdateEventHandler OnUpdateColour;
+        public event ClothingUpdateEventHandler OnUpdateHead;
+        public event ClothingUpdateEventHandler OnUpdateFace;
+        public event ClothingUpdateEventHandler OnUpdateNeck;
+        public event ClothingUpdateEventHandler OnUpdateBody;
+        public event ClothingUpdateEventHandler OnUpdateHand;
+        public event ClothingUpdateEventHandler OnUpdateFeet;
+        public event ClothingUpdateEventHandler OnUpdateFlag;
+        public event ClothingUpdateEventHandler OnUpdateBackground;
+
         /// <summary>
         /// Gets or sets the colour.
         /// </summary>
@@ -237,10 +248,12 @@ namespace Sharpenguin.Game.Player.Appearance {
                 if(game != null && int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out item)) {
                     if(id == game.Id) {
                         Update(game.Player, item);
+                        if(game.Player.Clothing.OnUpdate != null) game.Player.Clothing.OnUpdate(game.Player, game.Player.Clothing);
                     }else{
                         IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id);
                         foreach(Player player in players) {
                             Update(player, item);
+                            if(player.Clothing.OnUpdate != null) game.Player.Clothing.OnUpdate(player, player.Clothing);
                         }
                     }
                 }
@@ -266,6 +279,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.colour = item;
+                if(player.Clothing.OnUpdateColour != null) player.Clothing.OnUpdateColour(player, player.Clothing);
             }
         }
 
@@ -286,6 +300,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.head = item;
+                if(player.Clothing.OnUpdateHead != null) player.Clothing.OnUpdateHead(player, player.Clothing);
             }
         }
 
@@ -306,6 +321,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.face = item;
+                if(player.Clothing.OnUpdateFace != null) player.Clothing.OnUpdateFace(player, player.Clothing);
             }
         }
 
@@ -326,6 +342,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.neck = item;
+                if(player.Clothing.OnUpdateNeck != null) player.Clothing.OnUpdateNeck(player, player.Clothing);
             }
         }
 
@@ -346,6 +363,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.body = item;
+                if(player.Clothing.OnUpdateBody != null) player.Clothing.OnUpdateBody(player, player.Clothing);
             }
         }
 
@@ -366,6 +384,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.hand = item;
+                if(player.Clothing.OnUpdateHand != null) player.Clothing.OnUpdateHand(player, player.Clothing);
             }
         }
 
@@ -386,6 +405,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.feet = item;
+                if(player.Clothing.OnUpdateFeet != null) player.Clothing.OnUpdateFeet(player, player.Clothing);
             }
         }
 
@@ -406,6 +426,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.flag = item;
+                if(player.Clothing.OnUpdateFlag != null) player.Clothing.OnUpdateFlag(player, player.Clothing);
             }
         }
 
@@ -426,6 +447,7 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <param name="item">Item identifier.</param>
             protected override void Update(Player player, int item) {
                 player.Clothing.background = item;
+                if(player.Clothing.OnUpdateBackground != null) player.Clothing.OnUpdateBackground(player, player.Clothing);
             }
         }
     }

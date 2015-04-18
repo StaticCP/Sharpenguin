@@ -1,4 +1,7 @@
-﻿namespace Sharpenguin.Game.Player {
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Sharpenguin.Game.Player {
     public class Position {
         /// <summary>
         /// The x position.
@@ -16,6 +19,8 @@
         /// The parent player.
         /// </summary>
         private Player player;
+
+        public event PositionChangeEventHandler OnMove;
 
         /// <summary>
         /// Gets or sets the x position.
@@ -75,10 +80,48 @@
                 me.Connection.Send(new Packets.Send.Xt.Player.Position(me.Connection, x, y));
                 X = x;
                 Y = y;
+                me.Position.OnMove(me, me.Position);
             } else {
                 throw new NotMeException("The position of other players cannot be set!");
             }
         }
+
+        class PositionHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
+            public string Handles {
+                get { return "sp"; }
+            }
+
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
+            public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
+                GameConnection game = connection as GameConnection; // We need a game connection for the room.
+                if(packet.Arguments.Length >= 3 && game != null) {
+                    int id;
+                    int x;
+                    int y;
+                    // "id != game.Id" is a design choice, everything is handled when the player sets their own position..
+                    if(int.TryParse(packet.Arguments[0], out id) && id != game.Id &&  int.TryParse(packet.Arguments[1], out x) && int.TryParse(packet.Arguments[2], out y)) {
+                        IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
+                        foreach(Player player in players) {
+                            player.Position.X = x; // Set their X coordinate
+                            player.Position.Y = y; // Set their Y coordinate
+                            if(player.Position.OnMove != null) player.Position.OnMove(player, player.Position); // Raise the event
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
 
