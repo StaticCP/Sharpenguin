@@ -115,16 +115,16 @@ namespace Sharpenguin.Game.Player {
         }
 
         private void LoadItems(string[] arr) {
-            items = new Appearance.Clothing(this);
-            items.colour = int.Parse(arr[3]);
-            items.head = int.Parse(arr[4]);
-            items.face = int.Parse(arr[5]);
-            items.neck = int.Parse(arr[6]);
-            items.body = int.Parse(arr[7]);
-            items.hand = int.Parse(arr[8]);
-            items.feet = int.Parse(arr[9]);
-            items.flag = int.Parse(arr[10]);
-            items.background = int.Parse(arr[11]);
+            int colour = int.Parse(arr[3]);
+            int head = int.Parse(arr[4]);
+            int face = int.Parse(arr[5]);
+            int neck = int.Parse(arr[6]);
+            int body = int.Parse(arr[7]);
+            int hand = int.Parse(arr[8]);
+            int feet = int.Parse(arr[9]);
+            int flag = int.Parse(arr[10]);
+            int background = int.Parse(arr[11]);
+            items = new Appearance.Clothing(this, colour, hand, face, neck, body, hand, feet, flag, background);
         }
 
         private void LoadPosition(string[] arr) {
