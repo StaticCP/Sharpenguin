@@ -141,13 +141,13 @@ namespace Sharpenguin.Game.Player {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 GameConnection game = connection as GameConnection;
-                if(packet.Arguments.Length >= 3 && game != null) {
+                if(packet.Arguments.Length >= 2 && game != null) {
                     int id;
                     int frame;
                     if(int.TryParse(packet.Arguments[0], out id) && id != game.Id && int.TryParse(packet.Arguments[1], out frame)) {
                         IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
                         foreach(Player player in players) {
-                            player.Position.frame = frame; // Set their X coordinate
+                            player.Position.frame = frame; // Set their frame
                             if(player.Position.OnChangeFrame != null) player.Position.OnChangeFrame(player, player.Position); // Raise the event
                         }
                     }

@@ -85,10 +85,9 @@ namespace Sharpenguin.Game.Player {
         /// Make the player say the emote.
         /// </summary>
         /// <param name="emote">The emote to say.</param>
-        public void Say(Configuration.Game.Emoticon emote) {
-            if(emote == null) throw new System.ArgumentNullException("emote", "Argument cannot be null.");
-            connection.Send(new Packets.Send.Xt.Player.Emoticon(connection, emote.Id));
-            Emotion(this, emote.Id);
+        public void Say(Emotes emote) {
+            connection.Send(new Packets.Send.Xt.Player.Emoticon(connection, (int) emote));
+            Emotion(this, emote);
         }
 
         /// <summary>
@@ -98,6 +97,11 @@ namespace Sharpenguin.Game.Player {
         public void Do(int action) {
             connection.Send(new Packets.Send.Xt.Player.Action(connection, action));
             Action(this, action);
+        }
+
+        public void Throw(int x, int y) {
+            connection.Send(new Packets.Send.Xt.Player.Snowball(connection, x, y));
+            Snowball(this, x, y);
         }
 
         /// <summary>

@@ -98,11 +98,9 @@
     <Compile Include="Configuration\System\GameServer.cs" />
     <Compile Include="Configuration\System\Errors.cs" />
     <Compile Include="Configuration\Configuration.cs" />
-    <Compile Include="Configuration\Game\Emoticon.cs" />
     <Compile Include="Configuration\Game\Joke.cs" />
     <Compile Include="Configuration\Game\Room.cs" />
     <Compile Include="Configuration\Game\Message.cs" />
-    <Compile Include="Configuration\Game\Emoticons.cs" />
     <Compile Include="Configuration\Game\Jokes.cs" />
     <Compile Include="Configuration\Game\Rooms.cs" />
     <Compile Include="Configuration\Game\SafeChats.cs" />
@@ -151,6 +149,8 @@
     <Compile Include="Game\Player\EmoteEventHandler.cs" />
     <Compile Include="Game\Packets\Send\Xt\Player\Emoticon.cs" />
     <Compile Include="Game\Player\ActionEventHandler.cs" />
+    <Compile Include="Game\Player\ThrowEventHandler.cs" />
+    <Compile Include="Game\Player\Emotes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

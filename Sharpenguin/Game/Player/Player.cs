@@ -48,6 +48,10 @@ namespace Sharpenguin.Game.Player {
         /// Occurs when the player does an action.
         /// </summary>
         public event ActionEventHandler OnAction;
+        /// <summary>
+        /// Occurs when the player throws a snowball.
+        /// </summary>
+        public event ThrowEventHandler OnThrow;
 
         /// <summary>
         /// Gets the player's ID.
@@ -146,12 +150,16 @@ namespace Sharpenguin.Game.Player {
             if(player.OnSpeak != null) player.OnSpeak(player, message);
         }
 
-        protected void Emotion(Player player, int emote) {
+        protected void Emotion(Player player, Emotes emote) {
             if(player.OnEmoticon != null) player.OnEmoticon(player, emote);
         }
 
         protected void Action(Player player, int action) {
             if(player.OnAction != null) player.OnAction(player, action);
+        }
+
+        protected void Snowball(Player player, int x, int y) {
+            if(player.OnThrow != null) player.OnThrow(player, x, y);
         }
 
         /// <summary>
@@ -212,13 +220,18 @@ namespace Sharpenguin.Game.Player {
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 GameConnection game = connection as GameConnection;
                 if(game != null && packet.Arguments.Length >= 2) {
-                    int id;
-                    int emote;
-                    if(int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out emote)) {
-                        IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
-                        foreach(Player player in players) {
-                            player.Emotion(player, emote);
+                    try {
+                        int id;
+                        int emoteId;
+                        if(int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out emoteId)) {
+                            Emotes emote = (Emotes) emoteId;
+                            IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
+                            foreach(Player player in players) {
+                                player.Emotion(player, emote);
+                            }
                         }
+                    }catch(System.InvalidCastException) {
+                        // Will be logged.
                     }
                 }
             }
@@ -253,6 +266,42 @@ namespace Sharpenguin.Game.Player {
                         IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
                         foreach(Player player in players) {
                             player.Action(player, action);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Represents an snowball throw handler.
+        /// </summary>
+        class ThrowHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
+            public string Handles {
+                get { return "sb"; }
+            }
+
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
+            public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
+                GameConnection game = connection as GameConnection;
+                if(game != null && packet.Arguments.Length >= 3) {
+                    int id;
+                    int x;
+                    int y;
+                    if(int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out x) && int.TryParse(packet.Arguments[2], out y)) {
+                        IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
+                        foreach(Player player in players) {
+                            player.Snowball(player, x, y);
                         }
                     }
                 }
