@@ -151,6 +151,7 @@
     <Compile Include="Game\Player\ActionEventHandler.cs" />
     <Compile Include="Game\Player\ThrowEventHandler.cs" />
     <Compile Include="Game\Player\Emotes.cs" />
+    <Compile Include="Game\Player\Sit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

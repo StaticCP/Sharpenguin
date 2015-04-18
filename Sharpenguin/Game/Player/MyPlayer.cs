@@ -99,9 +99,36 @@ namespace Sharpenguin.Game.Player {
             Action(this, action);
         }
 
+        /// <summary>
+        /// Make the player throw a snowball to the specified x and y coordinates.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
         public void Throw(int x, int y) {
             connection.Send(new Packets.Send.Xt.Player.Snowball(connection, x, y));
             Snowball(this, x, y);
+        }
+
+        /// <summary>
+        /// Make the player wave.
+        /// </summary>
+        public void Wave() {
+            Do(25);
+        }
+
+        /// <summary>
+        /// Make the player dance.
+        /// </summary>
+        public void Dance() {
+            Position.Frame = 26;
+        }
+
+        /// <summary>
+        /// Make the player sit the specified direction.
+        /// </summary>
+        /// <param name="direction">Sit direction.</param>
+        public void Sit(Sit direction) {
+            Position.Frame = (int) direction;
         }
 
         /// <summary>
