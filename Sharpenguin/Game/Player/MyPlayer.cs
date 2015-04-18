@@ -92,6 +92,15 @@ namespace Sharpenguin.Game.Player {
         }
 
         /// <summary>
+        /// Make the player do the specified action.
+        /// </summary>
+        /// <param name="action">The identifier of the action to do.</param>
+        public void Do(int action) {
+            connection.Send(new Packets.Send.Xt.Player.Action(connection, action));
+            Action(this, action);
+        }
+
+        /// <summary>
         /// Makes the player join the specified room and enter at the specified x and y coordinates.
         /// </summary>
         /// <param name="room">Room.</param>

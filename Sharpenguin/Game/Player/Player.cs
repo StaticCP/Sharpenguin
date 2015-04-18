@@ -44,6 +44,10 @@ namespace Sharpenguin.Game.Player {
         /// Occurs when the player sends an emoticon.
         /// </summary>
         public event EmoteEventHandler OnEmoticon;
+        /// <summary>
+        /// Occurs when the player does an action.
+        /// </summary>
+        public event ActionEventHandler OnAction;
 
         /// <summary>
         /// Gets the player's ID.
@@ -139,11 +143,15 @@ namespace Sharpenguin.Game.Player {
         }
 
         protected void Spoke(Player player, string message) {
-            if(OnSpeak != null) OnSpeak(player, message);
+            if(player.OnSpeak != null) player.OnSpeak(player, message);
         }
 
         protected void Emotion(Player player, int emote) {
-            if(OnEmoticon != null) OnEmoticon(player, emote);
+            if(player.OnEmoticon != null) player.OnEmoticon(player, emote);
+        }
+
+        protected void Action(Player player, int action) {
+            if(player.OnAction != null) player.OnAction(player, action);
         }
 
         /// <summary>
@@ -182,7 +190,7 @@ namespace Sharpenguin.Game.Player {
         }
 
         /// <summary>
-        /// Represents a message handler.
+        /// Represents an emote handler.
         /// </summary>
         class EmoteHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
@@ -210,6 +218,41 @@ namespace Sharpenguin.Game.Player {
                         IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
                         foreach(Player player in players) {
                             player.Emotion(player, emote);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Represents an action handler.
+        /// </summary>
+        class ActionHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
+            public string Handles {
+                get { return "sa"; }
+            }
+
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
+            public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
+                GameConnection game = connection as GameConnection;
+                if(game != null && packet.Arguments.Length >= 2) {
+                    int id;
+                    int action;
+                    if(int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out action)) {
+                        IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
+                        foreach(Player player in players) {
+                            player.Action(player, action);
                         }
                     }
                 }
