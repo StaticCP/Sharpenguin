@@ -82,6 +82,16 @@ namespace Sharpenguin.Game.Player {
         }
 
         /// <summary>
+        /// Make the player say the emote.
+        /// </summary>
+        /// <param name="emote">The emote to say.</param>
+        public void Say(Configuration.Game.Emoticon emote) {
+            if(emote == null) throw new System.ArgumentNullException("emote", "Argument cannot be null.");
+            connection.Send(new Packets.Send.Xt.Player.Emoticon(connection, emote.Id));
+            Emotion(this, emote.Id);
+        }
+
+        /// <summary>
         /// Makes the player join the specified room and enter at the specified x and y coordinates.
         /// </summary>
         /// <param name="room">Room.</param>

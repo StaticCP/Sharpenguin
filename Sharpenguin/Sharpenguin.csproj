@@ -148,6 +148,8 @@
     <Compile Include="Game\Player\SpeakEventHandler.cs" />
     <Compile Include="Configuration\Game\NonExistentJokeException.cs" />
     <Compile Include="Configuration\Game\NonExistentMessageException.cs" />
+    <Compile Include="Game\Player\EmoteEventHandler.cs" />
+    <Compile Include="Game\Packets\Send\Xt\Player\Emoticon.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
