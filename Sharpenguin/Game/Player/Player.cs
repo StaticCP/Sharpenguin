@@ -41,6 +41,11 @@ namespace Sharpenguin.Game.Player {
         private bool isMember     = false;
 
         /// <summary>
+        /// Occurs when the player speaks.
+        /// </summary>
+        public event SpeakEventHandler OnSpeak;
+
+        /// <summary>
         /// Gets the player's ID.
         /// </summary>
         /// <value>The player's ID.</value>
@@ -124,7 +129,7 @@ namespace Sharpenguin.Game.Player {
             int feet = int.Parse(arr[9]);
             int flag = int.Parse(arr[10]);
             int background = int.Parse(arr[11]);
-            items = new Appearance.Clothing(this, colour, hand, face, neck, body, hand, feet, flag, background);
+            items = new Appearance.Clothing(this, colour, head, face, neck, body, hand, feet, flag, background);
         }
 
         private void LoadPosition(string[] arr) {

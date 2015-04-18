@@ -6,15 +6,45 @@ namespace Sharpenguin.Game.Player.Appearance {
     /// Represents the items a player is wearing.
     /// </summary>
     public class Clothing {
+        /// <summary>
+        /// The player's colour.
+        /// </summary>
         private int colour;
+        /// <summary>
+        /// The player's head item.
+        /// </summary>
         private int head;
+        /// <summary>
+        /// The player's face item.
+        /// </summary>
         private int face;
+        /// <summary>
+        /// The player's neck item.
+        /// </summary>
         private int neck;
+        /// <summary>
+        /// The player's body item.
+        /// </summary>
         private int body;
+        /// <summary>
+        /// The player's hand item.
+        /// </summary>
         private int hand;
+        /// <summary>
+        /// The player's feet item.
+        /// </summary>
         private int feet;
+        /// <summary>
+        /// The player's flag item.
+        /// </summary>
         private int flag;
+        /// <summary>
+        /// The player's background item.
+        /// </summary>
         private int background;
+        /// <summary>
+        /// The player.
+        /// </summary>
         private Player player;
 
         public event ClothingUpdateEventHandler OnUpdate;

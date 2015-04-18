@@ -2,6 +2,9 @@
 using System.Linq;
 
 namespace Sharpenguin.Game.Player {
+    /// <summary>
+    /// Represents a player's position.
+    /// </summary>
     public class Position {
         /// <summary>
         /// The x position.
@@ -20,7 +23,14 @@ namespace Sharpenguin.Game.Player {
         /// </summary>
         private Player player;
 
+        /// <summary>
+        /// Occurs when the player changes position.
+        /// </summary>
         public event PositionChangeEventHandler OnMove;
+        /// <summary>
+        /// Occurs when the player changes frame.
+        /// </summary>
+        public event FrameChangeEventHandler OnChangeFrame;
 
         /// <summary>
         /// Gets or sets the x position.
@@ -116,6 +126,29 @@ namespace Sharpenguin.Game.Player {
                             player.Position.X = x; // Set their X coordinate
                             player.Position.Y = y; // Set their Y coordinate
                             if(player.Position.OnMove != null) player.Position.OnMove(player, player.Position); // Raise the event
+                        }
+                    }
+                }
+            }
+        }
+
+        class FrameHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            public string Handles {
+                get { return "sf"; }
+            }
+
+            public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
+                GameConnection game = connection as GameConnection;
+                if(packet.Arguments.Length >= 3 && game != null) {
+                    int id;
+                    int frame;
+                    if(int.TryParse(packet.Arguments[0], out id) && id != game.Id && int.TryParse(packet.Arguments[1], out frame)) {
+                        IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
+                        foreach(Player player in players) {
+                            player.Position.frame = frame; // Set their X coordinate
+                            if(player.Position.OnChangeFrame != null) player.Position.OnChangeFrame(player, player.Position); // Raise the event
                         }
                     }
                 }

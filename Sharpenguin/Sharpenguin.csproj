@@ -145,6 +145,8 @@
     <Compile Include="NotConnectedException.cs" />
     <Compile Include="Game\Player\PositionChangeEventHandler.cs" />
     <Compile Include="Game\Player\Appearance\ClothingUpdateEventHandler.cs" />
+    <Compile Include="Game\Player\FrameChangeEventHandler.cs" />
+    <Compile Include="Game\Player\SpeakEventHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
