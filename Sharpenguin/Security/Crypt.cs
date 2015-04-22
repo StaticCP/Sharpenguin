@@ -35,10 +35,10 @@ namespace Sharpenguin.Security {
         /// <param name="password">The plaintext password.</param>
         /// <param name="rndk">The random key.</param>
         public static string HashPassword(string password, string rndk) {
-            string key = SwapMD5(password, true).ToUpper();
+            string key = SwapMD5(password).ToUpper();
             key += rndk;
             key += salt;
-            key = SwapMD5(key, true);
+            key = SwapMD5(key);
             return key;
         }
         #elif AS3

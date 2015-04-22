@@ -63,11 +63,12 @@ namespace Sharpenguin.Game {
 
         /// <summary>
         /// Gets the player's SWID.
-        /// </summary>
-        /// <value>The SWI.</value>
+        /// </summary>                        
+        #if AS3
         public System.Guid SWID {
             get { return swid; }
         }
+        #endif
 
         /// <summary>
         /// Gets the connection's player.
@@ -106,10 +107,12 @@ namespace Sharpenguin.Game {
         public GameConnection(int id, System.Guid swid, string username, string loginkey, string friendsLoginKey, string confirmationHash, string email, string logindataRaw) : base(username, loginkey) {
         #endif
             this.id = id;
+            #if AS3
             this.swid = swid;
             this.friendsLoginKey = friendsLoginKey;
             this.confirmationHash = confirmationHash;
             this.logindataRaw = logindataRaw;
+            #endif
             Packets.Receive.IGamePacketHandler<XmlPacket>[] xml = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XmlPacket>>();
             Packets.Receive.IGamePacketHandler<XtPacket>[] xt = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XtPacket>>();
             foreach(Packets.Receive.IGamePacketHandler<XmlPacket> handler in xml) XmlHandlers.Add(handler);
@@ -167,7 +170,7 @@ namespace Sharpenguin.Game {
                 game.rndk = packet.XmlData.ChildNodes[0].InnerText;
                 #if AS2
                 string hash = Security.Crypt.HashPassword(game.password, game.rndk);
-                game.Send(new Sharpenguin.Packets.Send.Xml.Login(game.logindataRaw, hash + game.password));
+                game.Send(new Sharpenguin.Packets.Send.Xml.Login(game.Username, hash + game.password));
                 #elif AS3
                 string key = Security.Crypt.SwapMD5(game.password + game.rndk) + game.password;
                 game.Send(new Sharpenguin.Packets.Send.Xml.Login(game.logindataRaw, key + "#" + game.confirmationHash));

@@ -25,7 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DefineConstants>AS3</DefineConstants>
+    <DefineConstants>AS2</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

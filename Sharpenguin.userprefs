@@ -1,24 +1,15 @@
 ﻿<Properties StartupItem="Sharpenguin/Sharpenguin.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sharpenguin/Packets/Receive/HandlerTable.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sharpenguin/Properties/AssemblyInfo.cs">
     <Files>
-      <File FileName="Sharpenguin/Game/Player/Player.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Game/Room/Room.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Packets/Send/Xt/XtPacket.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/PenguinConnection.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Game/GameConnection.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Game/Player/Inventory/Inventory.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Game/Player/MyPlayer.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Configuration/Game/Items.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Configuration/Game/SafeChats.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/HandlerLoader.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Packets/Receive/Xml/XmlPacket.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Game/Player/Actions.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Game/Player/ActionEventHandler.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Security/Crypt.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Properties/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Login/LoginConnection.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Packets/Receive/HandlerTable.cs" Line="10" Column="10" />
+      <File FileName="Sharpenguin/Properties/AssemblyInfo.cs" Line="32" Column="32" />
+      <File FileName="Sharpenguin/Game/GameConnection.cs" Line="43" Column="43" />
+      <File FileName="Sharpenguin/Game/Room/Room.cs" Line="24" Column="24" />
+      <File FileName="Sharpenguin/Configuration/Game/Item.cs" Line="24" Column="24" />
+      <File FileName="Sharpenguin/Game/Player/Relations/Buddies/Buddies.cs" Line="17" Column="17" />
+      <File FileName="Sharpenguin/Game/Player/MyPlayer.cs" Line="33" Column="33" />
+      <File FileName="Sharpenguin/Game/Player/Relations/Buddies/BuddyFindEventHandler.cs" Line="9" Column="9" />
+      <File FileName="Sharpenguin/Game/Player/ThrowEventHandler.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
