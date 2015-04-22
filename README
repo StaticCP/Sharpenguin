@@ -39,13 +39,10 @@ When using this library and it's files, please take into consideration that you 
 license specified above. (Copy of the license can be found in the "LICENSE" file.)
 
 Requirements:
-    * .NET 4.0+ compiler and run time.
-    * An internet connection which allows access to the game's servers and the main website of this
-      project.
+    * .NET 4.5+ compiler and run time.
+    * An internet connection which allows access to the game's servers.
 
-Please read the documentation (located in the "docs" directory) to become familiar with this
-library and how to work with it. You can also look at the "Example.cs" file to see an example of
-a project using this library.
+You can look at the "Example.cs" file to see an example of a project (follow bot) using this library.
 
                                          == Change Log ==
 1.0.0:
@@ -71,8 +68,12 @@ a project using this library.
     * Changed from synchronous to asynchronous connecting.
     * Added onConnectionSuccess event.
 
-                                       == A Brief Markdown ==
-Fetures:
+2.0.0:
+    * Complete reform of the library. A nicer implementation.
+    * Supports compilation for AS2 and AS3 using preprocessor directives.
+
+                                       == A Brief Description ==
+Features:
     * Uses asynchronous sockets.
     * Event-based system.
     * Allows, and eases, the ability to connect to Disney's Club Penguin with C#.
@@ -81,9 +82,8 @@ Fetures:
 
                                            == Contact ==
 Lewis (Static):
-    E-mail: static@clubpenguinphp.info
+    E-mail: staticabc@live.co.uk
        AIM: cpstaticabc
-     Skype: staticabc
-       IRC: Lewis (irc://i.r.cx)
+     Skype: staticabc (I don't really use it anymore)
 
 Abade abade, that's all folks!
