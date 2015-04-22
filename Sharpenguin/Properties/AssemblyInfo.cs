@@ -24,3 +24,6 @@ using System.Runtime.CompilerServices;
 
 //[assembly: AssemblyDelaySign(false)]
                                  //[assembly: AssemblyKeyFile("")]
+
+// Logger config
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Configuration/Logger.xml", Watch = true)]

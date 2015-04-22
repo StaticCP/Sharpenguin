@@ -7,6 +7,10 @@ namespace Sharpenguin.Configuration.Game {
     public class Items {
         private List<Item> items;
 
+        /// <summary>
+        /// Gets the <see cref="Sharpenguin.Configuration.Game.Item"/> with the specified i.
+        /// </summary>
+        /// <param name="i">The index.</param>
         public Item this[int i] {
             get {
                 IEnumerable<Item> result = items.Where(p => p.Id == i);
@@ -18,11 +22,19 @@ namespace Sharpenguin.Configuration.Game {
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.Configuration.Game.Items"/> class.
+        /// </summary>
+        /// <param name="file">File.</param>
         public Items(string file) {
             XLinq.XDocument document = XLinq.XDocument.Load(file);
             Load(document);
         }
 
+        /// <summary>
+        /// Load the items configuration from the specified XML document.
+        /// </summary>
+        /// <param name="document">The XML document.</param>
         private void Load(XLinq.XDocument document) {
             items = (
                 from e in document.Root.Elements("item") select new Item {
@@ -34,6 +46,10 @@ namespace Sharpenguin.Configuration.Game {
             ).ToList();
         }
 
+        /// <summary>
+        /// Gets all items matching the given predictate.
+        /// </summary>
+        /// <param name="predictate">Predictate of the search.</param>
         public IEnumerable<Item> Where(Func<Item, bool> predictate) {
             return items.Where(predictate);
         }

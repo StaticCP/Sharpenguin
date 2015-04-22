@@ -25,16 +25,54 @@ namespace Sharpenguin.Game {
         /// The room the player is currently in.
         /// </summary>
         private Room.Room room;
+        #if AS3
+        /// <summary>
+        /// The confirmation hash.
+        /// </summary>
+        private string confirmationHash;
+        /// <summary>
+        /// The raw login data sent by the server.
+        /// </summary>
+        private string logindataRaw;
+        /// <summary>
+        /// The user's SWID.
+        /// </summary>
+        private System.Guid swid;
+        /// <summary>
+        /// The login key for the friends API.
+        /// </summary>
+        private string friendsLoginKey;
+        #endif
 
+        /// <summary>
+        /// Gets the internal room id.
+        /// </summary>
+        /// <value>The internal room.</value>
         public override int InternalRoom {
             get { return room.Id; }
         }
 
+        /// <summary>
+        /// Gets or sets the current room.
+        /// </summary>
+        /// <value>The room.</value>
         public Room.Room Room {
             get { return room; }
             internal set { room = value; }
         }
 
+        /// <summary>
+        /// Gets the player's SWID.
+        /// </summary>
+        /// <value>The SWI.</value>
+        public System.Guid SWID {
+            get { return swid; }
+        }
+
+        /// <summary>
+        /// Gets the connection's player.
+        /// </summary>
+        /// <value>The player.</value>
         public Player.MyPlayer Player {
             get { 
                 if(player != null)
@@ -45,8 +83,33 @@ namespace Sharpenguin.Game {
             private set { player = value; }
         }
 
+        #if AS2
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.Game.GameConnection"/> class.
+        /// </summary>
+        /// <param name="id">Identifier.</param>
+        /// <param name="username">Username.</param>
+        /// <param name="loginkey">Loginkey.</param>
         public GameConnection(int id, string username, string loginkey) : base(username, loginkey) {
+        #elif AS3
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.Game.GameConnection"/> class.
+        /// </summary>
+        /// <param name="id">Identifier.</param>
+        /// <param name="swid">Swid.</param>
+        /// <param name="username">Username.</param>
+        /// <param name="loginkey">Loginkey.</param>
+        /// <param name="friendsLoginKey">Friends login key.</param>
+        /// <param name="confirmationHash">Confirmation hash.</param>
+        /// <param name="email">Email.</param>
+        /// <param name="logindataRaw">Logindata raw.</param>
+        public GameConnection(int id, System.Guid swid, string username, string loginkey, string friendsLoginKey, string confirmationHash, string email, string logindataRaw) : base(username, loginkey) {
+        #endif
             this.id = id;
+            this.swid = swid;
+            this.friendsLoginKey = friendsLoginKey;
+            this.confirmationHash = confirmationHash;
+            this.logindataRaw = logindataRaw;
             Packets.Receive.IGamePacketHandler<XmlPacket>[] xml = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XmlPacket>>();
             Packets.Receive.IGamePacketHandler<XtPacket>[] xt = HandlerLoader.GetHandlers<Packets.Receive.IGamePacketHandler<XtPacket>>();
             foreach(Packets.Receive.IGamePacketHandler<XmlPacket> handler in xml) XmlHandlers.Add(handler);
@@ -79,18 +142,36 @@ namespace Sharpenguin.Game {
             beat.Stop(); 
         }
 
+        /// <summary>
+        /// Represents a random key packet handler.
+        /// </summary>
         class RandomKeyHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
             public string Handles {
                 get { return "rndK"; }
             }
 
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xml.XmlPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 GameConnection game = connection as GameConnection;
                 game.rndk = packet.XmlData.ChildNodes[0].InnerText;
-                string hash = Security.Crypt.HashPassword(game.username, game.password, game.rndk);
-                game.Send(new Sharpenguin.Packets.Send.Xml.Login(game.Username, hash + game.password));
+                #if AS2
+                string hash = Security.Crypt.HashPassword(game.password, game.rndk);
+                game.Send(new Sharpenguin.Packets.Send.Xml.Login(game.logindataRaw, hash + game.password));
+                #elif AS3
+                string key = Security.Crypt.SwapMD5(game.password + game.rndk) + game.password;
+                game.Send(new Sharpenguin.Packets.Send.Xml.Login(game.logindataRaw, key + "#" + game.confirmationHash));
+                #endif
             }
         }
 

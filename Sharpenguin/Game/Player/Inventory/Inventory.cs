@@ -49,10 +49,20 @@ namespace Sharpenguin.Game.Player.Inventory {
         }
 
         class GetInventoryHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
             public string Handles {
                 get { return "gi"; }
             }
 
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
@@ -66,10 +76,10 @@ namespace Sharpenguin.Game.Player.Inventory {
                                 if(int.TryParse(s, out id)) {
                                     game.Player.Inventory.items.Add(Configuration.Configuration.Items[id]);
                                 } else {
-                                    // Will be logged
+                                    Configuration.Configuration.Logger.Error("Could not parse inventory item id as an integer. The given id was: " + s);
                                 }
                             } catch(Configuration.Game.NonExistentItemException ex) {
-                                // Will be logged.
+                                Configuration.Configuration.Logger.Info(ex.Message);
                             }
                         }
                     }
@@ -78,10 +88,20 @@ namespace Sharpenguin.Game.Player.Inventory {
         }
 
         class AddItemHandler : Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
+            /// <summary>
+            /// Gets the command that this packet handler handles.
+            /// </summary>
+            /// <value>The command that this packet handler handles.</value>
             public string Handles {
                 get { return "ai"; }
             }
 
+            /// <summary>
+            /// Handle the given packet.
+            /// </summary>
+            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="packet">The packet.</param>
+            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 GameConnection game = connection as GameConnection;
                 if(packet.Arguments.Length >= 2 && game != null) {

@@ -12,45 +12,21 @@ namespace Sharpenguin.Security {
     using System.Security.Cryptography;
 
     public static class Crypt {
-        private static string salt = "!£*(s)0edU-++,<.>@";
-        public static string HashPassword(string username, string password, string rndk) {
-            password = InitialHash(username, password);
-            // Get position of the middle of the string (rounds if the middle is not a whole number)
-            int halfWay = (int) System.Math.Round((decimal) (password.Length / 2));
-            // Get the first and second half of the string
-            string halfOne = Hash<SHA256CryptoServiceProvider>(password.Substring(0, halfWay));
-            string halfTwo = Hash<SHA256CryptoServiceProvider>(password.Substring(halfWay, halfWay));
-            // Hash the password with the random key in order of: second half, random key, first half
-            string hash = Hash<SHA256CryptoServiceProvider>(halfTwo + rndk + halfOne);
-            return hash;
-        }
-
-        private static string InitialHash(string username, string password) {
-            string hash = Hash<SHA256CryptoServiceProvider>(password);
-            string halfOne = Hash<SHA256CryptoServiceProvider>(hash.Substring(0, 32));
-            string halfTwo = Hash<SHA256CryptoServiceProvider>(hash.Substring(32, 32));
-            return Hash<SHA256CryptoServiceProvider>(halfOne + salt + username.ToLower() + halfTwo);
-        }
-
         /// <summary>
-        /// Hashes a string with a given hash algorithm (using generic parameters)
+        /// Hashes a password in MD5 and swaps the two halves.
         /// </summary>
-        /// <param name="text">The string to hash.</param>
-        public static string Hash<AlgorithmType>(string text) where AlgorithmType : HashAlgorithm, new() {
-            string hash = "";
-            AlgorithmType algorithm = new AlgorithmType();
-            byte[] hashedBytes = algorithm.ComputeHash(System.Text.Encoding.UTF8.GetBytes(text));
-            foreach(byte hashedByte in hashedBytes) hash += hashedByte.ToString("x2");
-            return hash;
+        /// <returns>The hashed and swapped password.</returns>
+        /// <param name="password">The password to hash.</param>
+        public static string SwapMD5(string password) {
+            string hash = Hash<MD5CryptoServiceProvider>(password);
+            return hash.Substring(16, 16) + hash.Substring(0, 16);
         }
-    }
 
-    /*
-    /// <summary>
-    /// Class of cryptographic functions.
-    /// </summary>
-    static class Crypt {
-        private const string salt = "Y(02.>'H}t\":E1"; //< Password salt.
+        #if AS2
+        /// <summary>
+        /// The hashing salt.
+        /// </summary>
+        private static string salt = "Y(02.>'H}t\":E1";
 
         /// <summary>
         /// Hashes password with the random key provided by the server.
@@ -65,32 +41,36 @@ namespace Sharpenguin.Security {
             key = SwapMD5(key, true);
             return key;
         }
+        #elif AS3
+        /// <summary>
+        /// The hashing salt.
+        /// </summary>
+        private static string salt = "a1ebe00441f5aecb185d0ec178ca2305Y(02.>'H}t\":E1_root";
 
         /// <summary>
-        /// Hashes the text in MD5 and swaps the two halves.
+        /// Hashes password with the random key provided by the server.
         /// </summary>
-        /// <returns>The hashed string.</returns>
-        /// <param name="plain">The plaintext string.</param>
-        /// <param name="blnMd5">If set to <c>true</c>, hash the plaintext into MD5.</param>
-        public static string SwapMD5(string plain, bool blnMd5) {
-            string hash = plain;
-            if(blnMd5) hash = Md5(plain);
-            hash = hash.Substring(16, 16) + hash.Substring(0, 16);
-            return hash;
+        /// <returns>The hashed password.</returns>
+        /// <param name="password">The plaintext password.</param>
+        /// <param name="rndk">The random key.</param>
+        public static string HashPassword(string password, string rndk) {
+            string hash = SwapMD5(password).ToUpper();
+            hash += rndk;
+            hash += salt;
+            return SwapMD5(hash);
         }
+        #endif
 
         /// <summary>
-        /// Hashes the specified plaintext in MD5.
+        /// Hashes a string with a given hash algorithm (using generic parameters)
         /// </summary>
-        /// <param name="plain">The plaintext.</param>
-        private static string Md5(string plain) {
-            MD5 algo = MD5.Create();
-            byte[] bytData = algo.ComputeHash(Utils.strToByte(plain));
+        /// <param name="text">The string to hash.</param>
+        public static string Hash<AlgorithmType>(string text) where AlgorithmType : HashAlgorithm, new() {
             string hash = "";
-            for(int i = 0; i < bytData.Length; i++) {
-                hash += bytData[i].ToString("x2");
-            }
+            AlgorithmType algorithm = new AlgorithmType();
+            byte[] hashedBytes = algorithm.ComputeHash(System.Text.Encoding.UTF8.GetBytes(text));
+            foreach(byte hashedByte in hashedBytes) hash += hashedByte.ToString("x2");
             return hash;
         }
-    }*/
+    }
 }

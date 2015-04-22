@@ -18,7 +18,7 @@
         <emoticon id="18" emote="joystick"/>
         <emoticon id="22" emote="sun"/>
         <emoticon id="24" emote="pizza"/>
-    <emoticons>
+    </emoticons>
 
     <safe>
         <message id="1" text="Hello"/>

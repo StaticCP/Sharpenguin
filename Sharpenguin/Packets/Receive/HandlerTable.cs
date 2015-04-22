@@ -10,6 +10,7 @@ namespace Sharpenguin.Packets.Receive {
         /// </summary>
         /// <param name="handler">The handler to add to the handler table.</param>
         public void Add(IPacketHandler<T> handler) {
+            if(handler == null) throw new System.ArgumentNullException("handler", "Argument cannot be null.");
             table.AddOrUpdate(
                 handler.Handles,
                 new System.Collections.Generic.List<IPacketHandler<T>>(new IPacketHandler<T>[] { handler }),
@@ -25,6 +26,7 @@ namespace Sharpenguin.Packets.Receive {
         /// </summary>
         /// <param name="handler">The handler to remove from the handler table.</param>
         public bool Remove(IPacketHandler<T> handler) {
+            if(handler == null) throw new System.ArgumentNullException("handler", "Argument cannot be null.");
             System.Collections.Generic.List<IPacketHandler<T>> handlers = null;
             if(table.TryGetValue(handler.Handles, out handlers))
                 lock(handlers) return handlers.Remove(handler);
@@ -37,6 +39,8 @@ namespace Sharpenguin.Packets.Receive {
         /// <param name="receiver">The connection that received the packet.</param>
         /// <param name="packet">The packet.</param>
         public bool Handle(PenguinConnection receiver, T packet) {
+            if(receiver == null) throw new System.ArgumentNullException("receiver", "Argument cannot be null.");
+            if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
             System.Collections.Generic.List<IPacketHandler<T>> list;
             IPacketHandler<T>[] handlers;
             if(table.TryGetValue(packet.Command, out list)) {

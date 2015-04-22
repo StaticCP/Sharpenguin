@@ -14,24 +14,21 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG; AS3</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <DefineConstants>AS3</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>lib\log4net.dll</HintPath>
     </Reference>
@@ -151,6 +148,9 @@
     <Compile Include="Game\Player\ThrowEventHandler.cs" />
     <Compile Include="Game\Player\Emotes.cs" />
     <Compile Include="Game\Player\Sit.cs" />
+    <Compile Include="Game\Player\Actions.cs" />
+    <Compile Include="Game\Player\Relations\Buddies\Buddies.cs" />
+    <Compile Include="Game\Player\Relations\Buddies\BuddyFindEventHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -187,5 +187,7 @@
     <Folder Include="Configuration\Game\" />
     <Folder Include="Game\Player\Appearance\" />
     <Folder Include="Game\Packets\Send\Xt\Room\" />
+    <Folder Include="Game\Player\Relations\" />
+    <Folder Include="Game\Player\Relations\Buddies\" />
   </ItemGroup>
 </Project>

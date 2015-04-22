@@ -1,0 +1,6 @@
+/home/lewis/Sharpenguin/Sharpenguin/obj/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/lewis/Sharpenguin/Sharpenguin/bin/Release/Sharpenguin.dll
+/home/lewis/Sharpenguin/Sharpenguin/obj/Release/Sharpenguin.dll
+/home/lewis/Sharpenguin/Sharpenguin/bin/Release/Newtonsoft.Json.dll
+/home/lewis/Sharpenguin/Sharpenguin/bin/Release/log4net.dll
+/home/lewis/Sharpenguin/Sharpenguin/bin/Release/NetClient.dll

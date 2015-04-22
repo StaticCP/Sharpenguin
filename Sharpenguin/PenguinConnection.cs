@@ -4,7 +4,6 @@
  * @url http://clubpenguinphp.info/
  * @license http://www.gnu.org/copyleft/lesser.html
  */
-#define DEBUG
 
 namespace Sharpenguin {
 
@@ -23,7 +22,11 @@ namespace Sharpenguin {
         /// <summary>
         /// The smart fox server API version.
         /// </summary>
+        #if AS2
         public const int APIVersion  = 152;
+        #elif AS3
+        public const int APIVersion  = 153;
+        #endif
         /// <summary>
         /// Whether this instance is authenticated.
         /// </summary>
@@ -227,7 +230,7 @@ namespace Sharpenguin {
                         if(OnReceive != null)
                             OnReceive(packet);
                     }catch(Packets.Receive.UnhandledPacketException) {
-                        // TODO
+                        Configuration.Configuration.Logger.Error("Could not handle packet: " + received + ".");
                     }
                 }
                 buffer = packets[packets.Length - 1];
@@ -242,7 +245,7 @@ namespace Sharpenguin {
             if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
             if(packet is Packets.Receive.Xt.XtPacket) {
                 XtHandlers.Handle(this, (Packets.Receive.Xt.XtPacket) packet);
-            } else if(packet is Packets.Receive.Xml.XmlPacket) {
+            }else if(packet is Packets.Receive.Xml.XmlPacket) {
                 XmlHandlers.Handle(this, (Packets.Receive.Xml.XmlPacket) packet);
             }
         }

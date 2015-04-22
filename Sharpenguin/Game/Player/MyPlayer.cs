@@ -17,24 +17,56 @@ namespace Sharpenguin.Game.Player {
         private int minutes         = 0; //< The minutes the player has spent playing the game.
         private Money.Wallet wallet = new Money.Wallet();
         private Inventory.Inventory inventory;
+        private Relations.Buddies.Buddies buddies;
         private GameConnection connection;
 
-        //! Gets the player's age.
+        /// <summary>
+        /// Gets the player's age.
+        /// </summary>
+        /// <value>The player's age.</value>
         public int Age {
             get { return age; }
         }
+
+        /// <summary>
+        /// Gets the player's wallet.
+        /// </summary>
+        /// <value>The player's wallet.</value>
         public Money.Wallet Wallet {
             get { return wallet; }
         }
-        //! Gets the amount membership days remaining for the player.
+
+        /// <summary>
+        /// Gets the player's buddies.
+        /// </summary>
+        /// <value>The player's buddies.</value>
+        public Relations.Buddies.Buddies Buddies {
+            get { return buddies; }
+        }
+
+        /// <summary>
+        /// Gets or sets the player's remaining membership days.
+        /// </summary>
+        /// <value>The player's remaining membership days.</value>
         public int MemberRemaining {
             get { return memberRemaining; }
             internal set { memberRemaining = value; }
         }
-        //! Gets the amount of minutes played by the player.
+
+        /// <summary>
+        /// Gets or sets the minutes played.
+        /// </summary>
+        /// <value>The minutes played.</value>
         public int MinutesPlayed {
             get { return minutes; }
             internal set { minutes = value; }
+        }
+        /// <summary>
+        /// Gets the room the player is currently in.
+        /// </summary>
+        /// <value>The room the player is currently in.</value>
+        public Room.Room Room {
+            get { return connection.Room; }
         }
 
         /// <summary>
@@ -62,6 +94,7 @@ namespace Sharpenguin.Game.Player {
             if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
             this.connection = connection;
             inventory = new Inventory.Inventory(this);
+            buddies = new Relations.Buddies.Buddies(this);
             LoadData(packet.Arguments[0]);
             int coins, age, minutes;
             if(int.TryParse(packet.Arguments[1], out coins) && int.TryParse(packet.Arguments[5], out age) && int.TryParse(packet.Arguments[7], out minutes)) {
@@ -94,8 +127,8 @@ namespace Sharpenguin.Game.Player {
         /// Make the player do the specified action.
         /// </summary>
         /// <param name="action">The identifier of the action to do.</param>
-        public void Do(int action) {
-            connection.Send(new Packets.Send.Xt.Player.Action(connection, action));
+        public void Do(Actions action) {
+            connection.Send(new Packets.Send.Xt.Player.Action(connection, (int) action));
             Action(this, action);
         }
 
@@ -107,13 +140,6 @@ namespace Sharpenguin.Game.Player {
         public void Throw(int x, int y) {
             connection.Send(new Packets.Send.Xt.Player.Snowball(connection, x, y));
             Snowball(this, x, y);
-        }
-
-        /// <summary>
-        /// Make the player wave.
-        /// </summary>
-        public void Wave() {
-            Do(25);
         }
 
         /// <summary>

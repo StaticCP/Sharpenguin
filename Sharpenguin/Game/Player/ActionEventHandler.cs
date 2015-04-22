@@ -1,6 +1,9 @@
 ﻿using System;
 
 namespace Sharpenguin.Game.Player {
-    public delegate void ActionEventHandler(Player player, int action);
+    /// <summary>
+    /// Action event handler.
+    /// </summary>
+    public delegate void ActionEventHandler(Player player, Actions action);
 }
 

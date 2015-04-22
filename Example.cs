@@ -1,108 +1,154 @@
-namespace SharpenguinExample {
-    using Threads = System.Threading;
+/*
+ * A follow bot example using Sharpenguin
+ *
+ * - Lewis Hazell
+ */
 
-    class Exmple {
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-        static void Main() {
-            // Creates a new ExamplePenguin class which, in this instance, is a wrapper for Sharpenguin.
-            ExamplePenguin myPenguin = new ExamplePenguin();
-            // Creates a new ManualResetEvent. This is used to pause the thread so that the program doesn't exit.
-            Threads.ManualResetEvent penguinDone = new Threads.ManualResetEvent(false);
-            // Asks for the user's username.
-            System.Console.Write("Enter your username: ");
-            string penguinUsername = System.Console.ReadLine();
-            // Asks for the user's password.
-            System.Console.Write("Enter your password: ");
-            string penguinPassword = System.Console.ReadLine();
-            // Asks for the server to join.
-            System.Console.Write("Enter the name of the server to join: ");
-            string joinServer = System.Console.ReadLine();
-            // Connects the penguin.
-            myPenguin.Connect(penguinUsername, penguinPassword, joinServer);
-            // Pauses the thread. [penguinDone.Set() would resume the thread, and so would exit the program.]
-            penguinDone.Reset();
-            penguinDone.WaitOne();
+namespace PenguinTest {
+    class MainClass {
+
+        public static void Main(string[] args) {
+            // Get the username and password
+            System.Console.Write("Input username: ");
+            string username = System.Console.ReadLine();
+            System.Console.Write("Input password: ");
+            string password = System.Console.ReadLine();
+            Penguin p = new Penguin(username, password); // Create our penguin
+            p.Initialise(); // Initialise the penguin
+            System.Console.WriteLine("Press any key to stop...");
+            System.Console.ReadKey();
         }
-
+            
     }
 
-    class ExamplePenguin {
-        // Sharpenguin connector.
-        private Sharpenguin.Penguin examplePenguin;
-        // Server name.
-        private string serverName;
+    class Penguin {
+        private string username; // Our username
+        private string password; // Our password
+        private Sharpenguin.Game.Player.MyPlayer me; // Our player
+        private Sharpenguin.Game.Player.Player following; // The player we're following
 
-        public ExamplePenguin() {
-            // Creates a new Penguin.
-            examplePenguin = new Sharpenguin.Penguin();
-            // Loads all of the handlers we will be using.
-            LoadHandlers();
+        public Penguin(string username, string password) {
+            this.username = username;
+            this.password = password;
         }
-        
-        public void Connect(string penguinUsername, string penguinPassword, string joinServer) {
-            // Checks if the specified server exists.
-            if(examplePenguin.Crumbs.Servers.ExistsByAttribute("name", joinServer)) {
-                // If so, continue.
-                serverName = joinServer;
-                examplePenguin.Login(penguinUsername, penguinPassword);
-            }else{
-                // Otherwise, display an error.
-                Sharpenguin.Out.Logger.WriteOutput("Server with the name \"" + joinServer + "\" does not exist!", Sharpenguin.Out.Logger.LogLevel.Error);
+
+        public void Initialise() {
+            Sharpenguin.Login.LoginConnection login = new Sharpenguin.Login.LoginConnection(username, password); // Create a new login connection
+            // Attatch the event handlers to the login connection
+            login.OnLogin += HandleLogin;
+            login.OnError += HandleError;
+            login.OnDisconnect += HandleDisconnect;
+            // Connect to the login server and authenticate with it.
+            login.Authenticate(Sharpenguin.Configuration.Configuration.LoginServers[1]);
+        }
+
+        public void HandleLogin(Sharpenguin.Game.GameConnection game) {
+            // Attatch our game events
+            game.OnJoin += HandleJoin;
+            game.Room.OnJoin += HandleJoinRoom;
+            game.OnDisconnect += HandleDisconnect;
+            game.Room.OnLeave += HandleLeaveRoom;
+            // Initiate the join to blizzard (ID 3100)..
+            game.Authenticate(Sharpenguin.Configuration.Configuration.GameServers[3100]);
+        }
+
+        public void HandleJoin(Sharpenguin.Game.GameConnection game) {
+            System.Console.WriteLine("Joined!"); // We joined the server, hurrah!
+            game.OnLoad += HandleLoad; // Attatch the OnLoad event
+        }
+
+        public void HandleLoad(Sharpenguin.Game.Player.MyPlayer me) {
+            // We've got the MyPlayer instance, hoorah!
+            this.me = me;
+            // Attatch the buddy find event
+            me.Buddies.OnFound += BuddyFindHandler;
+            // Go to the town..
+            me.Enter(100);
+        }
+
+        public void HandleMove(Sharpenguin.Game.Player.Player player, Sharpenguin.Game.Player.Position position) {
+            me.Position.Set(position.X, position.Y); // Follow the player..
+        }
+
+        public void HandleMessage(Sharpenguin.Game.Player.Player player, string message) {
+            if(message.ToLower() == "follow me") { // Did someone ask to be followed?
+                Follow(player); // Follow them!
+            }else if(player == following) { // Is the person we're following speaking?
+                me.Say(message); // Repeat them!
             }
         }
 
-        private void LoadHandlers() {
-            // Sets the login handler. This is called when we have successfully authenticated to the login server and have received our login key.
-            examplePenguin.onLogin = LoginHandler;
-            // Sets the join handler. This is called when we have successfully authenticated to the game server with our login key.
-            examplePenguin.onJoin = JoinHandler;
-            // Sets the error handler. This is called when we receive an error.
-            examplePenguin.onError = ErrorHandler;
-            // Sets the disconnect handler. This is called when we are disconnected from a server.
-            examplePenguin.onDisconnect = DisconnectHandler;
-            // Sets the connection failure handler. This is called if we are unable to connect to a server.
-            examplePenguin.onConnectionFailure = ConnectFailHandler;
-            // Gives the player a handler for when they join a room. In this case, the handler is "jr".
-            examplePenguin.Handler.Add("jr", JoinRoomHandler);
+        public void HandleEmote(Sharpenguin.Game.Player.Player player, Sharpenguin.Game.Player.Emotes emote) {
+            // Repeat their emotion
+            me.Say(emote);
         }
 
-        public void LoginHandler() {
-            // Output a message stating we have authenticated to the login server.
-            Sharpenguin.Out.Logger.WriteOutput("Player logged in!");
-            examplePenguin.Join(serverName);
-        }
-        
-        public void JoinHandler() {
-            // Output a message stating we have authenticated to the game server.
-            Sharpenguin.Out.Logger.WriteOutput("Player has joined the server \"" + serverName + "\"!");
-        }
-        
-        public void ErrorHandler(int errorId) {
-            // See if error exists.
-            if(examplePenguin.Crumbs.Errors.ExistsById(errorId)) {
-                // If the error exists, output the error message.
-                Sharpenguin.Out.Logger.WriteOutput("An error has occurred [" + errorId.ToString() + "]: " + examplePenguin.Crumbs.Errors.GetAttributeById(errorId, "message"), Sharpenguin.Out.Logger.LogLevel.Error);
+        public void HandleJoinRoom(Sharpenguin.Game.Player.Player player) {
+            // Someone joined the room..
+            // Did we join a new room?
+            if(player is Sharpenguin.Game.Player.MyPlayer) {
+                // If so, try to find the player we were following..
+                if(following != null) {
+                    try {
+                        IEnumerable<Sharpenguin.Game.Player.Player> players = me.Connection.Room.Players.Where(p => p.Id == following.Id );
+                        if(players.Count() != 0) Follow(players.First());
+                    }catch{
+                        System.Console.WriteLine("Could not find who we wish to follow.");
+                    }
+                }
+                // And listen to all of the players talking, we need to know if they say "follow me"!
+                foreach(Sharpenguin.Game.Player.Player inside in me.Connection.Room.Players)
+                    inside.OnSpeak += HandleMessage;
             }else{
-                // Otherwise, give the ID of the error.
-                Sharpenguin.Out.Logger.WriteOutput("An unknown error has occurred with ID of " + errorId.ToString() + ".", Sharpenguin.Out.Logger.LogLevel.Error);
+                // Someone else joined the room, we need to listen to them talking.
+                player.OnSpeak += HandleMessage;
+                // This shouldn't really happen (unless the player logs in again), but they could be the player we're following, we must follow them!
+                if(following != null && player.Id == following.Id)
+                    Follow(player);
             }
         }
-        
-        public void DisconnectHandler() {
-            // Output a message stating we have disconnected from the server.
-            Sharpenguin.Out.Logger.WriteOutput("Disconnected from server.");
-        }
-        
-        public void ConnectFailHandler(string attemptedHost, int serverPort) {
-            // Output a message stating we have failed to connect to a server.
-            Sharpenguin.Out.Logger.WriteOutput("Could not connect to server " + attemptedHost + ":" + serverPort.ToString() + ".", Sharpenguin.Out.Logger.LogLevel.Error);
-        }
-        
-        private void JoinRoomHandler(Sharpenguin.Data.PenguinPacket receivedPacket) {
-            // Output a message when a room is joined.
-            Sharpenguin.Out.Logger.WriteOutput("Joined room " + receivedPacket.Xt.Arguments[0] + " [" + examplePenguin.Crumbs.Rooms.GetAttributeById(int.Parse(receivedPacket.Xt.Arguments[0]), "name") + "].");
+
+        public void HandleLeaveRoom(Sharpenguin.Game.Player.Player player) {
+            // Someone left the room, was it the player we're following? If so, we must find them!
+            if(player == following)
+                me.Buddies.Find(following.Id);
         }
 
+        // Begins following the given player..
+        private void Follow(Sharpenguin.Game.Player.Player player) {
+            if(following != null) {
+                // Detatch event handlers from the previous player.
+                following.Position.OnMove -= HandleMove;
+                following.OnEmoticon -= HandleEmote;
+            }
+            // Attatch event handlers to the new player.
+            player.Position.OnMove += HandleMove;
+            player.OnEmoticon += HandleEmote;
+            // Go to the player.
+            me.Position.Set(player.Position.X, player.Position.Y);
+            // Set the player we're now following.
+            following = player;
+        }
+
+        public void HandleError(Sharpenguin.PenguinConnection connection, int error) {
+            // We got an error! Output the message.
+            System.Console.WriteLine(Sharpenguin.Configuration.Configuration.Errors[error].Message);
+        }
+
+        public void HandleDisconnect(Sharpenguin.PenguinConnection connection) {
+            // We disconnected, handy to know.
+            System.Console.WriteLine("Disconnected!");
+        }
+
+        public void BuddyFindHandler(Sharpenguin.Game.Player.MyPlayer me, int id, int room) {
+            // If it's who we're trying to follow and they're not offline, go to them!
+            if(id == following.Id && room != -1)
+                me.Enter(room);
+        }
     }
-
 }
+

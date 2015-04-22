@@ -108,16 +108,28 @@ namespace Sharpenguin.Game.Player {
             get { return position; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.Game.Player.Player"/> class.
+        /// </summary>
         protected Player() {
             position = new Position(this);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.Game.Player.Player"/> class.
+        /// </summary>
+        /// <param name="data">The player's data.</param>
         public Player(string data) {
             position = new Position(this);
             LoadData(data);
         }
 
+        /// <summary>
+        /// Loads the player's data from a string provided by the server.
+        /// </summary>
+        /// <param name="data">Player data string.</param>
         protected void LoadData(string data) {
+            if(data == null) throw new System.ArgumentNullException("data", "Argument cannot be null.");
             string[] arr = data.Split("|".ToCharArray());
             id = int.Parse(arr[0]);
             username = arr[1];
@@ -127,7 +139,12 @@ namespace Sharpenguin.Game.Player {
             LoadPosition(arr);
         }
 
+        /// <summary>
+        /// Loads the player's clothing items.
+        /// </summary>
+        /// <param name="arr">Player data array.</param>
         private void LoadItems(string[] arr) {
+            if(arr == null) throw new System.ArgumentNullException("arr", "Argument cannot be null.");
             int colour = int.Parse(arr[3]);
             int head = int.Parse(arr[4]);
             int face = int.Parse(arr[5]);
@@ -140,24 +157,50 @@ namespace Sharpenguin.Game.Player {
             items = new Appearance.Clothing(this, colour, head, face, neck, body, hand, feet, flag, background);
         }
 
+        /// <summary>
+        /// Loads the player's position.
+        /// </summary>
+        /// <param name="arr">Player data array.</param>
         private void LoadPosition(string[] arr) {
+            if(arr == null) throw new System.ArgumentNullException("arr", "Argument cannot be null.");
             position.X = int.Parse(arr[12]);
             position.Y = int.Parse(arr[13]);
             position.frame = int.Parse(arr[14]);
         }
 
+        /// <summary>
+        /// Raises the OnSpeak event (for child classes).
+        /// </summary>
+        /// <param name="player">The player who spoke.</param>
+        /// <param name="message">The message they sent.</param>
         protected void Spoke(Player player, string message) {
             if(player.OnSpeak != null) player.OnSpeak(player, message);
         }
 
+        /// <summary>
+        /// Raises the OnEmoticon event (for child classes).
+        /// </summary>
+        /// <param name="player">The player who spoke.</param>
+        /// <param name="emote">The emoticon they sent.</param>
         protected void Emotion(Player player, Emotes emote) {
             if(player.OnEmoticon != null) player.OnEmoticon(player, emote);
         }
 
-        protected void Action(Player player, int action) {
+        /// <summary>
+        /// Raises the OnAction event (for child classes).
+        /// </summary>
+        /// <param name="player">The player who did the action.</param>
+        /// <param name="action">The action done by the player.</param>
+        protected void Action(Player player, Actions action) {
             if(player.OnAction != null) player.OnAction(player, action);
         }
 
+        /// <summary>
+        /// Raises the OnThrow event (for child classes).
+        /// </summary>
+        /// <param name="player">The player who threw the snowball.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
         protected void Snowball(Player player, int x, int y) {
             if(player.OnThrow != null) player.OnThrow(player, x, y);
         }
@@ -231,7 +274,7 @@ namespace Sharpenguin.Game.Player {
                             }
                         }
                     }catch(System.InvalidCastException) {
-                        // Will be logged.
+                        Configuration.Configuration.Logger.Error("No emoticon with ID: " + packet.Arguments[1] + ".");
                     }
                 }
             }
@@ -265,7 +308,7 @@ namespace Sharpenguin.Game.Player {
                     if(int.TryParse(packet.Arguments[0], out id) && int.TryParse(packet.Arguments[1], out action)) {
                         IEnumerable<Player> players = game.Room.Players.Where(p => p.Id == id); // Get every player with that id (there should only really be one..)
                         foreach(Player player in players) {
-                            player.Action(player, action);
+                            player.Action(player, (Actions) action);
                         }
                     }
                 }
