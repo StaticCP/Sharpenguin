@@ -1,0 +1,36 @@
+<errors>
+    <error id="4" message="You have been disconnected"/>
+    <error id="5" message="You have been kicked"/>
+    <error id="100" message="User does not exist"/>
+    <error id="101" message="Incorrect password"/>
+    <error id="130" message="Password required"/>
+    <error id="131" message="Password too short"/>
+    <error id="132" message="Password too long"/>
+    <error id="140" message="Username required"/>
+    <error id="141" message="Username too short"/>
+    <error id="142" message="Username too long"/>
+    <error id="150" message="Login Flood try again in an hour"/>
+    <error id="200" message="Player in room"/>
+    <error id="210" message="Room is full"/>
+    <error id="211" message="Game is full"/>
+    <error id="212" message="Room capacity full"/>
+    <error id="400" message="Item already in inventory"/>
+    <error id="401" message="Not enough coins"/>
+    <error id="402" message="Item does not exist"/>
+    <error id="441" message="Name not allowed"/>
+    <error id="440" message="Member puffle limit reached"/>
+    <error id="442" message="Non-member puffle limit reached"/>
+    <error id="601" message="Temporarily banned"/>
+    <error id="602" message="Banned for an hour"/>
+    <error id="603" message="Permanently banned"/>
+    <error id="610" message="You have been banned"/>
+    <error id="800" message="Game cheat (banned?)"/>
+    <error id="900" message="Account not activated"/>
+    <error id="901" message="Buddy limit reached"/>
+    <error id="911" message="Out of play time"/>
+    <error id="913" message="Grounded"/>
+    <error id="914" message="Play time over"/>
+    <error id="990" message="System reboot"/>
+    <error id="999" message="Not a member"/>
+    <error id="10006" message="Furniture limit reached"/>
+</errors>
