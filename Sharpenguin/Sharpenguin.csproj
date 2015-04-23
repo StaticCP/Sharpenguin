@@ -25,7 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DefineConstants>AS2</DefineConstants>
+    <DefineConstants>AS3</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -40,8 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PenguinExceptions.cs" />
-    <Compile Include="Utils.cs" />
     <Compile Include="Security\Crypt.cs" />
     <Compile Include="PenguinConnection.cs" />
     <Compile Include="Login\LoginConnection.cs" />

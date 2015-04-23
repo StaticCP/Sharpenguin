@@ -1,9 +1,0 @@
-/home/lewis/PenguinTest/PenguinTest/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/lewis/PenguinTest/PenguinTest/bin/Debug/PenguinTest.exe.mdb
-/home/lewis/PenguinTest/PenguinTest/bin/Debug/PenguinTest.exe
-/home/lewis/PenguinTest/PenguinTest/obj/x86/Debug/PenguinTest.exe
-/home/lewis/PenguinTest/PenguinTest/obj/x86/Debug/PenguinTest.exe.mdb
-/home/lewis/PenguinTest/PenguinTest/bin/Debug/log4net.dll
-/home/lewis/PenguinTest/PenguinTest/bin/Debug/NetClient.dll
-/home/lewis/PenguinTest/PenguinTest/bin/Debug/Newtonsoft.Json.dll
-/home/lewis/PenguinTest/PenguinTest/bin/Debug/Sharpenguin.dll
