@@ -17,7 +17,7 @@ namespace Sharpenguin.Game.Player.Relations.Buddies {
         /// <summary>
         /// The ID of the player currently being found.
         /// </summary>
-        private int finding; // Annoyingly, Club Penguin doesn't return it..
+        private int finding = 0; // Annoyingly, Club Penguin doesn't return it..
 
 
         /// <summary>
@@ -53,13 +53,20 @@ namespace Sharpenguin.Game.Player.Relations.Buddies {
             /// <param name="packet">The packet.</param>
             /// <param name="connection">Connection.</param>
             public void Handle(Sharpenguin.PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
+                if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
+                if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
                 Sharpenguin.Game.GameConnection game = connection as Sharpenguin.Game.GameConnection;
-                int id = game.Player.Buddies.finding;
-                int room;
-                game.Player.Buddies.finding = 0;
-                if(game != null && game.Player != null && packet.Arguments.Length >= 1 && int.TryParse(packet.Arguments[0], out room))
-                    game.Player.Buddies.OnFound(game.Player, id, room);
+                if(game != null) {
+                    int id = game.Player.Buddies.finding;
+                    if(id != 0) {
+                        int room;
+                        game.Player.Buddies.finding = 0;
+                        if(game != null && game.Player != null && packet.Arguments.Length >= 1 && int.TryParse(packet.Arguments[0], out room))
+                            game.Player.Buddies.OnFound(game.Player, id, room);
+                    }
+                }
             }
+
         }
 
     }

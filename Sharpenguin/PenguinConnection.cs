@@ -230,7 +230,10 @@ namespace Sharpenguin {
                         if(OnReceive != null)
                             OnReceive(packet);
                     }catch(Packets.Receive.UnhandledPacketException) {
+                        // This only really matters in a debugging situation.
+                        #if DEBUG
                         Configuration.Configuration.Logger.Error("Could not handle packet: " + received + ".");
+                        #endif
                     }
                 }
                 buffer = packets[packets.Length - 1];
