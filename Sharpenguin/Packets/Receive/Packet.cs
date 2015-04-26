@@ -1,4 +1,7 @@
 namespace Sharpenguin.Packets.Receive {
+    /// <summary>
+    /// Represents a received packet.
+    /// </summary>
     public abstract class Packet {
         /// <summary>
         /// The packet's data.
@@ -40,7 +43,7 @@ namespace Sharpenguin.Packets.Receive {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HPPS.API.Packets.Receive.Packet"/> class.
+        /// Initializes a new instance of the <see cref="Sharpenguin.Packets.Receive.Packet"/> class.
         /// </summary>
         /// <param name='packet'>
         /// The packet data.

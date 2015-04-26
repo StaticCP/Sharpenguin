@@ -1,20 +1,22 @@
 ﻿<Properties StartupItem="Sharpenguin/Sharpenguin.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sharpenguin/PenguinConnection.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sharpenguin/Game/Player/MyPlayer.cs">
     <Files>
       <File FileName="Sharpenguin/Properties/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Game/GameConnection.cs" Line="1" Column="1" />
       <File FileName="Sharpenguin/Game/Room/Room.cs" Line="1" Column="1" />
       <File FileName="Sharpenguin/Configuration/Game/Item.cs" Line="1" Column="1" />
       <File FileName="Sharpenguin/Game/Player/Relations/Buddies/Buddies.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/Game/Player/MyPlayer.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Game/Player/MyPlayer.cs" Line="40" Column="40" />
       <File FileName="Sharpenguin/Game/Player/Relations/Buddies/BuddyFindEventHandler.cs" Line="1" Column="1" />
       <File FileName="Sharpenguin/Game/Player/ThrowEventHandler.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Login/LoginConnection.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Game/GameConnection.cs" Line="1" Column="1" />
       <File FileName="Sharpenguin/Security/Crypt.cs" Line="1" Column="1" />
       <File FileName="Sharpenguin/HandlerLoader.cs" Line="1" Column="1" />
       <File FileName="Sharpenguin/InvalidCredentialsException.cs" Line="1" Column="1" />
       <File FileName="Sharpenguin/NotConnectedException.cs" Line="1" Column="1" />
-      <File FileName="Sharpenguin/PenguinConnection.cs" Line="23" Column="23" />
+      <File FileName="Sharpenguin/PenguinConnection.cs" Line="1" Column="1" />
+      <File FileName="Sharpenguin/Game/Player/Player.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

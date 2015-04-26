@@ -1,17 +1,28 @@
-/**
- * @file PenguinBase
- * @author Static
- * @url http://clubpenguinphp.info/
- * @license http://www.gnu.org/copyleft/lesser.html
- */
-
 namespace Sharpenguin {
 
+    /// <summary>
+    /// Connection success event handler.
+    /// </summary>
     public delegate void ConnectionSuccessEventHandler(string host, int port);
+    /// <summary>
+    /// Connection fail event handler.
+    /// </summary>
     public delegate void ConnectionFailEventHandler(string host, int port);
+    /// <summary>
+    /// Receive event handler.
+    /// </summary>
     public delegate void ReceiveEventHandler(Packets.Receive.Packet receivedPacket);
+    /// <summary>
+    /// Disconnect event handler.
+    /// </summary>
     public delegate void DisconnectEventHandler(PenguinConnection connection);
+    /// <summary>
+    /// Error event handler.
+    /// </summary>
     public delegate void ErrorEventHandler(PenguinConnection connection, int id);
+    /// <summary>
+    /// Incorrect API handler.
+    /// </summary>
     public delegate void IncorrectAPIHandler(PenguinConnection connection);
 
     /**
@@ -232,7 +243,7 @@ namespace Sharpenguin {
                     }catch(Packets.Receive.UnhandledPacketException) {
                         // This only really matters in a debugging situation.
                         #if DEBUG
-                        Configuration.Configuration.Logger.Error("Could not handle packet: " + received + ".");
+                        Configuration.Configuration.Logger.Debug("Could not handle packet: " + received + ".");
                         #endif
                     }
                 }
@@ -340,9 +351,8 @@ namespace Sharpenguin {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="sender">The sender of the packet.</param>
+            /// <param name="connection">The connection the packet is for.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
@@ -370,9 +380,8 @@ namespace Sharpenguin {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection the packet is for.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Packets.Receive.Xml.XmlPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");

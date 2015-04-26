@@ -1,4 +1,7 @@
 namespace Sharpenguin.Packets.Receive {
+    /// <summary>
+    /// Represents a packet handler.
+    /// </summary>
     public interface IPacketHandler<T> where T : Packet {
         /// <summary>
         /// Gets the command that this packet handler handles.
@@ -13,10 +16,10 @@ namespace Sharpenguin.Packets.Receive {
         /// <summary>
         /// Handle the given packet.
         /// </summary>
-        /// <param name='receiver'>
+        /// <param name="receiver">
         /// The connection that received the packet.
         /// </param>
-        /// <param name='packet'>
+        /// <param name="packet">
         /// The packet.
         /// </param>
         void Handle(PenguinConnection receiver, T packet);

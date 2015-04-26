@@ -1,16 +1,9 @@
-/**
- * @file MyPlayer
- * @author Static
- * @url http://clubpenguinphp.info/
- * @license http://www.gnu.org/copyleft/lesser.html
- */
-
 namespace Sharpenguin.Game.Player {
     using GCollections = System.Collections.Generic;
 
-    /**
-     * An extension class of player for your own player.
-     */
+    /// <summary>
+    /// Represents your own player.
+    /// </summary>
     public class MyPlayer : Player {
         private int age             = 0; //< The age of the player.
         private int memberRemaining = 0; //< How many membership days the player has remaining.
@@ -88,7 +81,8 @@ namespace Sharpenguin.Game.Player {
         /// <summary>
         /// Initializes a new instance of the <see cref="Sharpenguin.Game.Player.MyPlayer"/> class.
         /// </summary>
-        /// <param name="connection">They player's parent connection.</param>
+        /// <param name="connection">Connection.</param>
+        /// <param name="packet">Packet.</param>
         public MyPlayer(GameConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
             if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
             if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");

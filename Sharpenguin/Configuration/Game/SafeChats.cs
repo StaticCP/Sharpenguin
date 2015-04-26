@@ -4,6 +4,9 @@ using System.Linq;
 using System;
 
 namespace Sharpenguin.Configuration.Game {
+    /// <summary>
+    /// Represents a list of safe chat messages.
+    /// </summary>
     public class SafeChats {
         /// <summary>
         /// The a list of safe chat messages.
@@ -53,6 +56,14 @@ namespace Sharpenguin.Configuration.Game {
         /// <param name="predictate">The search predictate.</param>
         public IEnumerable<Message> Where(Func<Message, bool> predictate) {
             return messages.Where(predictate);
+        }
+
+        /// <summary>
+        /// Gets a random message.
+        /// </summary>
+        public Message Random() {
+            Random rnd = new Random();
+            return messages[rnd.Next(messages.Count)];
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 namespace Sharpenguin {
+    /// <summary>
+    /// Provides a utility to load all handlers of a given type.
+    /// </summary>
     public static class HandlerLoader {
         /// <summary>
         /// Gets the handlers of the type T.

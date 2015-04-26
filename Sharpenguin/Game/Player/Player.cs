@@ -220,9 +220,8 @@ namespace Sharpenguin.Game.Player {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection the packet is for.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
@@ -255,9 +254,8 @@ namespace Sharpenguin.Game.Player {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection the packet is for.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
@@ -295,9 +293,8 @@ namespace Sharpenguin.Game.Player {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection the packet is for.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
@@ -330,9 +327,8 @@ namespace Sharpenguin.Game.Player {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection the packet is for.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");

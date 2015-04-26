@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 
 namespace Sharpenguin.Game.Room {
+    /// <summary>
+    /// Represents the room the player is currently in.
+    /// </summary>
     public class Room {
         /// <summary>
         /// The list of players in the room.
@@ -108,9 +111,8 @@ namespace Sharpenguin.Game.Room {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="sender">The sender of the packet.</param>
+            /// <param name="connection">The sender of the packet.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");

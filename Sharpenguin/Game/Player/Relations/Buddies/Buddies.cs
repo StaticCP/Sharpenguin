@@ -3,6 +3,9 @@
 namespace Sharpenguin.Game.Player.Relations.Buddies {
     // This still all needs to be implemented, merely here for buddy find for now.
 
+    /// <summary>
+    /// Represents the player's buddy list.
+    /// </summary>
     public class Buddies {
         /// <summary>
         /// The parent connection.
@@ -21,7 +24,7 @@ namespace Sharpenguin.Game.Player.Relations.Buddies {
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Sharpenguin.Buddies"/> class.
+        /// Initializes a new instance of the <see cref="Sharpenguin.Game.Player.Relations.Buddies.Buddies"/> class.
         /// </summary>
         public Buddies(MyPlayer me) {
             this.me = me;
@@ -49,9 +52,8 @@ namespace Sharpenguin.Game.Player.Relations.Buddies {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection that received the packet.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(Sharpenguin.PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");

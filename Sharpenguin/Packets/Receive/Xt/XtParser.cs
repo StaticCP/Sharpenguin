@@ -1,5 +1,3 @@
-/// <author>Lewis</author>
-
 using Regex = System.Text.RegularExpressions;
 
 namespace Sharpenguin.Packets.Receive.Xt {
@@ -16,16 +14,34 @@ namespace Sharpenguin.Packets.Receive.Xt {
         private string command; //< Packet's command, which is used to determine the handler.
         private string[] arguments; //< Packet's arguments.
 
+        /// <summary>
+        /// Gets the room the packet was sent from.
+        /// </summary>
+        /// <value>The room the packet was sent from.</value>
         public int Room {
             get { return room; }
         }
+
+        /// <summary>
+        /// Gets the packet's command.
+        /// </summary>
+        /// <value>The packet's command.</value>
         public string Command {
             get { return command; }
         }
+
+        /// <summary>
+        /// Gets the packet's arguments.
+        /// </summary>
+        /// <value>The packet's arguments.</value>
         public string[] Arguments {
             get { return arguments; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.Packets.Receive.Xt.XtParser"/> class.
+        /// </summary>
+        /// <param name="data">Raw packet data.</param>
         public XtParser(string data) {
             LoadXt(data);
         }
@@ -60,7 +76,7 @@ namespace Sharpenguin.Packets.Receive.Xt {
         /// <summary>
         /// Gets the command from the xt string.
         /// </summary>
-        /// <param name="strData">The xt string to get the command from.</param>
+        /// <param name="data">The xt string to get the command from.</param>
         private string GetCommand(string[] data) {
             if(data.Length >= 3) {
                 return data[2];

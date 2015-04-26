@@ -18,6 +18,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <DocumentationFile>bin\Debug\Sharpenguin.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -26,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <DefineConstants>AS3</DefineConstants>
+    <DocumentationFile>bin\Release\Sharpenguin.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -35,7 +37,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="NetClient">
-      <HintPath>..\..\NetClient\NetClient\bin\Debug\NetClient.dll</HintPath>
+      <HintPath>..\..\NetClient\NetClient\bin\Release\NetClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -104,8 +106,6 @@
     <Compile Include="Configuration\Game\Items.cs" />
     <Compile Include="Configuration\Game\ItemType.cs" />
     <Compile Include="Game\Player\Inventory\Inventory.cs" />
-    <Compile Include="Configuration\IItem.cs" />
-    <Compile Include="Configuration\ISection.cs" />
     <Compile Include="Configuration\Game\NonExistentItemException.cs" />
     <Compile Include="Game\Player\Money\NotEnoughCoinsException.cs" />
     <Compile Include="ApiOKHandler.cs" />

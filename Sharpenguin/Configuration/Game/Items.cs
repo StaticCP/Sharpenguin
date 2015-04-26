@@ -4,7 +4,13 @@ using System.Linq;
 using XLinq = System.Xml.Linq;
 
 namespace Sharpenguin.Configuration.Game {
+    /// <summary>
+    /// Represents a list of items.
+    /// </summary>
     public class Items {
+        /// <summary>
+        /// The list of items.
+        /// </summary>
         private List<Item> items;
 
         /// <summary>
@@ -52,6 +58,14 @@ namespace Sharpenguin.Configuration.Game {
         /// <param name="predictate">Predictate of the search.</param>
         public IEnumerable<Item> Where(Func<Item, bool> predictate) {
             return items.Where(predictate);
+        }
+
+        /// <summary>
+        /// Gets a random item.
+        /// </summary>
+        public Item Random() {
+            Random rnd = new Random();
+            return items[rnd.Next(items.Count)];
         }
     }
 }

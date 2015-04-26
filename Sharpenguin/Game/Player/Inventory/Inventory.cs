@@ -18,9 +18,9 @@ namespace Sharpenguin.Game.Player.Inventory {
         private MyPlayer player;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Sharpenguin.Game.Inventory.Inventory"/> class.
+        /// Initializes a new instance of the <see cref="Sharpenguin.Game.Player.Inventory.Inventory"/> class.
         /// </summary>
-        /// <param name="connection">The connection this inventory belongs to.</param>
+        /// <param name="player">The parent player.</param>
         public Inventory(MyPlayer player) {
             if(player == null) throw new System.ArgumentNullException("player", "Argument cannot be null.");
             this.player = player;
@@ -60,9 +60,8 @@ namespace Sharpenguin.Game.Player.Inventory {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection that received the packet.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
@@ -99,9 +98,8 @@ namespace Sharpenguin.Game.Player.Inventory {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection that received the packet.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 GameConnection game = connection as GameConnection;
                 if(packet.Arguments.Length >= 2 && game != null) {

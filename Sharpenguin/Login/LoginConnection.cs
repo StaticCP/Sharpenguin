@@ -1,8 +1,14 @@
 ﻿using System;
 
 namespace Sharpenguin.Login {
+    /// <summary>
+    /// Represents a connection to the login server.
+    /// </summary>
     public class LoginConnection : PenguinConnection {
-        public event LoginEventHandler OnLogin; //< Event for handling login success.
+        /// <summary>
+        /// Occurs when a login is successfully completed.
+        /// </summary>
+        public event LoginEventHandler OnLogin;
 
         /// <summary>
         /// Gets or sets the internal room id.
@@ -24,6 +30,9 @@ namespace Sharpenguin.Login {
             foreach(Packets.Receive.ILoginPacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> handler in xt) XtHandlers.Add(handler);
         }
 
+        /// <summary>
+        /// Represents a handler for a random key packet.
+        /// </summary>
         public class RandomKeyHandler : Packets.Receive.ILoginPacketHandler<Sharpenguin.Packets.Receive.Xml.XmlPacket> {
             /// <summary>
             /// Gets the command that this packet handler handles.
@@ -36,9 +45,8 @@ namespace Sharpenguin.Login {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection the packet is for.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xml.XmlPacket packet) {
                 LoginConnection login = connection as LoginConnection;
                 login.rndk = packet.XmlData.ChildNodes[0].InnerText;
@@ -62,9 +70,8 @@ namespace Sharpenguin.Login {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="connection">The connection that received the packet.</param>
+            /// <param name="connection">The connection the packet is for.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 LoginConnection login = connection as LoginConnection;
                 if(login != null && packet.Arguments.Length >= 3) {

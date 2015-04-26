@@ -5,6 +5,9 @@ namespace Sharpenguin.Game.Player {
     /// Enumeration representing player actions.
     /// </summary>
     public enum Actions {
+        /// <summary>
+        /// Wave.
+        /// </summary>
         Wave = 25
     }
 }

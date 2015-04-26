@@ -1,6 +1,9 @@
 using XML = System.Xml;
 
 namespace Sharpenguin.Packets.Receive.Xml {
+    /// <summary>
+    /// Represents a received XML packet.
+    /// </summary>
     public sealed class XmlPacket : Packet {
         /// <summary>
         /// The xml data.

@@ -1,4 +1,7 @@
 ﻿namespace Sharpenguin.Game.Packets.Send.Xt.Player.Appearance {
+    /// <summary>
+    /// Represents an update neck packet.
+    /// </summary>
     public class UpdateNeck : UpdateArt {
         /// <summary>
         /// Initializes a new instance of the

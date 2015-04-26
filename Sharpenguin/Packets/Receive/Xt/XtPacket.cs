@@ -1,4 +1,7 @@
 ﻿namespace Sharpenguin.Packets.Receive.Xt {
+    /// <summary>
+    /// Represents a received xt packet.
+    /// </summary>
     public sealed class XtPacket : Packet {
         /// <summary>
         /// The Xt parser.
@@ -26,9 +29,9 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HPPS.API.Packets.Receive.Xt.XtPacket"/> class.
+        /// Initializes a new instance of the <see cref="Sharpenguin.Packets.Receive.Xt.XtPacket"/> class.
         /// </summary>
-        /// <param name='data'>
+        /// <param name="data">
         /// The packet's data.
         /// </param>
         public XtPacket(string data) : base(data) {

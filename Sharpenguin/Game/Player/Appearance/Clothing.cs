@@ -47,15 +47,45 @@ namespace Sharpenguin.Game.Player.Appearance {
         /// </summary>
         private Player player;
 
+        /// <summary>
+        /// Occurs when the clothing is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdate;
+        /// <summary>
+        /// Occurs when the colour is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateColour;
+        /// <summary>
+        /// Occurs when the head item is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateHead;
+        /// <summary>
+        /// Occurs when the face item is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateFace;
+        /// <summary>
+        /// Occurs when the neck item is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateNeck;
+        /// <summary>
+        /// Occurs when the body item is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateBody;
+        /// <summary>
+        /// Occurs when the hand item is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateHand;
+        /// <summary>
+        /// Occurs when the feet item is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateFeet;
+        /// <summary>
+        /// Occurs when the flag (pin) is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateFlag;
+        /// <summary>
+        /// Occurs when the background (photo) is updated.
+        /// </summary>
         public event ClothingUpdateEventHandler OnUpdateBackground;
 
         /// <summary>
@@ -256,7 +286,7 @@ namespace Sharpenguin.Game.Player.Appearance {
 
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+UpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.UpdateHandler"/> class.
             /// </summary>
             /// <param name="type">The type characted.</param>
             public UpdateHandler(char type) {
@@ -266,9 +296,8 @@ namespace Sharpenguin.Game.Player.Appearance {
             /// <summary>
             /// Handle the given packet.
             /// </summary>
-            /// <param name="receiver">The connection that received the packet.</param>
+            /// <param name="connection">The connection that received the packet.</param>
             /// <param name="packet">The packet.</param>
-            /// <param name="connection">Connection.</param>
             public void Handle(PenguinConnection connection, Sharpenguin.Packets.Receive.Xt.XtPacket packet) {
                 if(connection == null) throw new System.ArgumentNullException("connection", "Argument cannot be null.");
                 if(packet == null) throw new System.ArgumentNullException("packet", "Argument cannot be null.");
@@ -298,7 +327,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class ColourUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+ColourUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.ColourUpdateHandler"/> class.
             /// </summary>
             public ColourUpdateHandler() : base('c') { }
 
@@ -319,7 +348,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class HeadUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+HeadUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.HeadUpdateHandler"/> class.
             /// </summary>
             public HeadUpdateHandler() : base('h') { }
 
@@ -340,7 +369,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class FaceUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+FaceUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.FaceUpdateHandler"/> class.
             /// </summary>
             public FaceUpdateHandler() : base('f') { }
 
@@ -361,7 +390,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class NeckUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+NeckUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.NeckUpdateHandler"/> class.
             /// </summary>
             public NeckUpdateHandler() : base('n') { }
 
@@ -382,7 +411,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class BodyUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+BodyUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.BodyUpdateHandler"/> class.
             /// </summary>
             public BodyUpdateHandler() : base('b') { }
 
@@ -403,7 +432,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class HandUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+HandUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.HandUpdateHandler"/> class.
             /// </summary>
             public HandUpdateHandler() : base('a') { }
 
@@ -424,7 +453,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class FeetUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+FeetUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.FeetUpdateHandler"/> class.
             /// </summary>
             public FeetUpdateHandler() : base('e') { }
 
@@ -445,7 +474,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class FlagUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+FlagUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.FlagUpdateHandler"/> class.
             /// </summary>
             public FlagUpdateHandler() : base('l') { }
 
@@ -466,7 +495,7 @@ namespace Sharpenguin.Game.Player.Appearance {
         class BackgroundUpdateHandler : UpdateHandler, Packets.Receive.IGamePacketHandler<Sharpenguin.Packets.Receive.Xt.XtPacket> {
             /// <summary>
             /// Initializes a new instance of the
-            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing+BackgroundUpdateHandler"/> class.
+            /// <see cref="Sharpenguin.Game.Player.Appearance.Clothing.BackgroundUpdateHandler"/> class.
             /// </summary>
             public BackgroundUpdateHandler() : base('p') { }
 

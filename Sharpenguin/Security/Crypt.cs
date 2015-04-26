@@ -1,16 +1,9 @@
-/**
- * @file Crypt
- * @author Static
- * @url http://clubpenguinphp.info/
- * @license http://www.gnu.org/copyleft/lesser.html
- */
-
-/**
- * Sharpenguin security, such as password hashing.
- */
 namespace Sharpenguin.Security {
     using System.Security.Cryptography;
 
+    /// <summary>
+    /// Provides the cryptographic functions for password hashing.
+    /// </summary>
     public static class Crypt {
         /// <summary>
         /// Hashes a password in MD5 and swaps the two halves.

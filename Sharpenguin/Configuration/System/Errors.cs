@@ -1,11 +1,22 @@
 ﻿using System.Collections.Generic;
 using XLinq = System.Xml.Linq;
 using System.Linq;
+using System;
 
 namespace Sharpenguin.Configuration.System {
+    /// <summary>
+    /// Represents the error list.
+    /// </summary>
     public class Errors {
+        /// <summary>
+        /// The error list.
+        /// </summary>
         private List<Error> errors;
 
+        /// <summary>
+        /// Gets the <see cref="Sharpenguin.Configuration.System.Errors"/> with the specified identifier.
+        /// </summary>
+        /// <param name="i">The identifier.</param>
         public Error this[int i] {
             get {
                 IEnumerable<Error> result = errors.Where(p => p.Id == i);
@@ -17,11 +28,19 @@ namespace Sharpenguin.Configuration.System {
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sharpenguin.Configuration.System.Errors"/> class.
+        /// </summary>
+        /// <param name="file">Configuration file.</param>
         public Errors(string file) {
             XLinq.XDocument document = XLinq.XDocument.Load(file);
             Load(document);
         }
 
+        /// <summary>
+        /// Load the specified XML document.
+        /// </summary>
+        /// <param name="document">XML Document.</param>
         private void Load(XLinq.XDocument document) {
             errors = (
                 from e in document.Root.Elements("error") select new Error {
@@ -29,6 +48,14 @@ namespace Sharpenguin.Configuration.System {
                     Message = (string) e.Attribute("message")
                 }
             ).ToList();
+        }
+
+        /// <summary>
+        /// Gets the error matching the given predictate
+        /// </summary>
+        /// <param name="predictate">Search predictate.</param>
+        public IEnumerable<Error> Where(Func<Error, bool> predictate) {
+            return errors.Where(predictate);
         }
     }
 }

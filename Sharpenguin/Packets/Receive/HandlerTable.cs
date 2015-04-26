@@ -1,4 +1,7 @@
 namespace Sharpenguin.Packets.Receive {
+    /// <summary>
+    /// Represents a packet handler table.
+    /// </summary>
     public class HandlerTable<T> where T : Packet {
         /// <summary>
         /// A dictionary of packet handlers, indexed by command.
