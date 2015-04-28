@@ -54,11 +54,11 @@ namespace Sharpenguin.Configuration.System {
         }
 
         /// <summary>
-        /// Gets the servers matching the specified predictate.
+        /// Gets the servers matching the specified predicate.
         /// </summary>
-        /// <param name="predictate">Search predictate.</param>
-        public IEnumerable<GameServer> Where(Func<GameServer, bool> predictate) {
-            return servers.Where(predictate);
+        /// <param name="predicate">Search predicate.</param>
+        public IEnumerable<GameServer> Where(Func<GameServer, bool> predicate) {
+            return servers.Where(predicate);
         }
 
         /// <summary>

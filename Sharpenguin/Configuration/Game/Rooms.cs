@@ -52,11 +52,11 @@ namespace Sharpenguin.Configuration.Game {
         }
 
         /// <summary>
-        /// Gets rooms matching the specified predictate.
+        /// Gets rooms matching the specified predicate.
         /// </summary>
-        /// <param name="predictate">Search predictate.</param>
-        public IEnumerable<Room> Where(Func<Room, bool> predictate) {
-            return rooms.Where(predictate);
+        /// <param name="predicate">Search predicate.</param>
+        public IEnumerable<Room> Where(Func<Room, bool> predicate) {
+            return rooms.Where(predicate);
         }
 
         /// <summary>

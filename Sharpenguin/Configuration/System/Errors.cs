@@ -51,11 +51,11 @@ namespace Sharpenguin.Configuration.System {
         }
 
         /// <summary>
-        /// Gets the error matching the given predictate
+        /// Gets the error matching the given predicate
         /// </summary>
-        /// <param name="predictate">Search predictate.</param>
-        public IEnumerable<Error> Where(Func<Error, bool> predictate) {
-            return errors.Where(predictate);
+        /// <param name="predicate">Search predicate.</param>
+        public IEnumerable<Error> Where(Func<Error, bool> predicate) {
+            return errors.Where(predicate);
         }
     }
 }

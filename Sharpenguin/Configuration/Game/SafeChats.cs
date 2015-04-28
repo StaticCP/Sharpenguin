@@ -51,11 +51,11 @@ namespace Sharpenguin.Configuration.Game {
         }
 
         /// <summary>
-        /// Searches for all messages matching the given predictate.
+        /// Searches for all messages matching the given predicate.
         /// </summary>
-        /// <param name="predictate">The search predictate.</param>
-        public IEnumerable<Message> Where(Func<Message, bool> predictate) {
-            return messages.Where(predictate);
+        /// <param name="predicate">The search predicate.</param>
+        public IEnumerable<Message> Where(Func<Message, bool> predicate) {
+            return messages.Where(predicate);
         }
 
         /// <summary>

@@ -52,11 +52,11 @@ namespace Sharpenguin.Configuration.Game {
         }
 
         /// <summary>
-        /// Gets the joke matching the specified predictate.
+        /// Gets the joke matching the specified predicate.
         /// </summary>
-        /// <param name="predictate">The search predictate.</param>
-        public IEnumerable<Joke> Where(Func<Joke, bool> predictate) {
-            return jokes.Where(predictate);
+        /// <param name="predicate">The search predicate.</param>
+        public IEnumerable<Joke> Where(Func<Joke, bool> predicate) {
+            return jokes.Where(predicate);
         }
 
         /// <summary>

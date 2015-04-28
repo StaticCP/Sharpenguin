@@ -118,20 +118,20 @@ namespace Sharpenguin.Game.Player.Inventory {
         /// <summary>
         /// Search for an item by any of it's properties.
         /// </summary>
-        /// <param name="predictate">Search predictate.</param>
-        public IEnumerable<Configuration.Game.Item> Where(System.Func<Configuration.Game.Item, bool> predictate) {
-            if(predictate == null) throw new System.ArgumentNullException("predictate", "Argument cannot be null.");
+        /// <param name="predictae">Search predicate.</param>
+        public IEnumerable<Configuration.Game.Item> Where(System.Func<Configuration.Game.Item, bool> predicate) {
+            if(predicate == null) throw new System.ArgumentNullException("predicate", "Argument cannot be null.");
             lock(_lock)
-                return items.Where<Configuration.Game.Item>(predictate);
+                return items.Where<Configuration.Game.Item>(predicate);
         }
 
         /// <summary>
         /// Gets whether an item with the specified properties exists.
         /// </summary>
-        /// <param name="predictate">Search predictate.</param>
-        public bool Exists(System.Func<Configuration.Game.Item, bool> predictate) {
-            if(predictate == null) throw new System.ArgumentNullException("predictate", "Argument cannot be null.");
-            return Where(predictate).Count() != 0;
+        /// <param name="predicate">Search predicate.</param>
+        public bool Exists(System.Func<Configuration.Game.Item, bool> predicate) {
+            if(predicate == null) throw new System.ArgumentNullException("predicate", "Argument cannot be null.");
+            return Where(predicate).Count() != 0;
         }
     }
 }
